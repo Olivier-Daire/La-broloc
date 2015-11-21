@@ -5,7 +5,7 @@
 Version >= 3.3  
 ###SDL2  
 ```shell
-sudo appt-get install libsdl2-dev
+sudo apt-get install libsdl2-dev
 ```
 ###Glew  
 ```shell
