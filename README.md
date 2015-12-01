@@ -1,4 +1,4 @@
-# openGL-Project
+# La broloc
 
 ##Requirements
 ###OpenGL
@@ -15,19 +15,19 @@ sudo appt-get install glew
 ##Installation
 ###1 - Clone the project
 ```shell
-git clone git@github.com:Olivier-Daire/openGL-Project.git
+git clone git@github.com:Olivier-Daire/La-broloc.git
 ```
 
 ###2 - Build
 ```shell
-mkdir Project-build
-cd Project-build
-cmake ../Projet
+mkdir La-broloc-build
+cd La-broloc-build
+cmake ../La-broloc
 make
 ```
 
 ###3 - Execute  
-Still inside `Project-build`
+Still inside `La-broloc-build`
 ```shell
 ./src/main
 ```
