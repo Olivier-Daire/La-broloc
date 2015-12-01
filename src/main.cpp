@@ -4,8 +4,8 @@
 #include <glimac/FilePath.hpp>
 #include <glimac/Image.hpp>
 #include <glimac/Program.hpp>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
+#include <assimp/Importer.hpp> // C++ importer interface
+#include <assimp/scene.h> // Output data structure
 
 using namespace glimac;
 
@@ -25,9 +25,8 @@ int main(int argc, char** argv) {
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
     Assimp::Importer importer;
-    //const aiScene *scene = importer.ReadFile(filename,aiProcessPreset_TargetRealtime_Fast);//aiProcessPreset_TargetRealtime_Fast has the configs you'll need
- 
-    //aiMesh *mesh = scene->mMeshes[0]; //assuming you only want the first mesh
+    const aiScene *scene = importer.ReadFile("/home/olivier/Documents/IMAC/OpenGL/La-broloc/assets/fichiers3DS/Audi_tt.3ds", 1);//aiProcessPreset_TargetRealtime_Fast has the configs you'll need
+
 
 
     // std::unique_ptr<Image> image = loadImage("");
@@ -62,7 +61,7 @@ int main(int argc, char** argv) {
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
-
+         
         // Update the display
         windowManager.swapBuffers(windowManager.Window);
     }

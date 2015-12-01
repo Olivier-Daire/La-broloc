@@ -9,7 +9,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 find_package(SDL2 REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
-find_package(assimp REQUIRED)
+
+SET(ASSIMP_INCLUDE_DIR "/third-party/include/assimp")
+SET(ASSIMP_LIBRARY "/usr/lib/libassimp.so")
 
 include_directories(${SDL2_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} ${ASSIMP_INCLUDE_DIR} glimac/include third-party/include)
 
