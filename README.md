@@ -29,5 +29,5 @@ make
 ###3 - Execute  
 Still inside `La-broloc-build`
 ```shell
-./src/main
+./app/La-broloc
 ```
