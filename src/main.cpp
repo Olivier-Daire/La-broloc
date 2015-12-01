@@ -4,6 +4,8 @@
 #include <glimac/FilePath.hpp>
 #include <glimac/Image.hpp>
 #include <glimac/Program.hpp>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
 
 using namespace glimac;
 
@@ -21,6 +23,11 @@ int main(int argc, char** argv) {
 
     std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
+
+    Assimp::Importer importer;
+    //const aiScene *scene = importer.ReadFile(filename,aiProcessPreset_TargetRealtime_Fast);//aiProcessPreset_TargetRealtime_Fast has the configs you'll need
+ 
+    //aiMesh *mesh = scene->mMeshes[0]; //assuming you only want the first mesh
 
 
     // std::unique_ptr<Image> image = loadImage("");
