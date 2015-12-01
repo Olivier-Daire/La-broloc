@@ -24,8 +24,8 @@ int main(int argc, char** argv) {
     std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
-    Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFile("/home/olivier/Documents/IMAC/OpenGL/La-broloc/assets/fichiers3DS/Audi_tt.3ds", 1);//aiProcessPreset_TargetRealtime_Fast has the configs you'll need
+    // Assimp::Importer importer;
+    // const aiScene *scene = importer.ReadFile("/home/olivier/Documents/IMAC/OpenGL/La-broloc/assets/fichiers3DS/Audi_tt.3ds", 1);//aiProcessPreset_TargetRealtime_Fast has the configs you'll need
 
 
 
@@ -61,6 +61,7 @@ int main(int argc, char** argv) {
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
+         glClear(GL_COLOR_BUFFER_BIT);
          
         // Update the display
         windowManager.swapBuffers(windowManager.Window);
