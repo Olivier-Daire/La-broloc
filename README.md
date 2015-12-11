@@ -20,6 +20,8 @@ git clone git@github.com:Olivier-Daire/La-broloc.git
 
 ###2 - Build
 ```shell
+cd La-broloc
+mkdir build
 cd build
 cmake ../
 make
