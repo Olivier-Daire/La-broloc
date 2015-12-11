@@ -20,14 +20,13 @@ git clone git@github.com:Olivier-Daire/La-broloc.git
 
 ###2 - Build
 ```shell
-mkdir La-broloc-build
-cd La-broloc-build
-cmake ../La-broloc
+cd build
+cmake ../
 make
 ```
 
 ###3 - Execute  
-Still inside `La-broloc-build`
+Still inside the `build` folder
 ```shell
 ./app/La-broloc
 ```
