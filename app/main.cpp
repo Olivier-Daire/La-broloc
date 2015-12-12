@@ -1,17 +1,17 @@
 #include <glimac/SDLWindowManager.hpp>
 #include <GL/glew.h>
 #include <iostream>
-#include <glimac/FilePath.hpp>
-#include <glimac/Image.hpp>
-#include <glimac/Program.hpp>
-#include <assimp/Importer.hpp> // C++ importer interface
-#include <assimp/scene.h> // Output data structure
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include "shader.hpp"
+#include "model.hpp"
 
 using namespace glimac;
 
 int main(int argc, char** argv) {
+    GLuint screenWidth = 800, screenHeight = 800;
     // Initialize SDL and open a window
-    SDLWindowManager windowManager(800, 800, "Test");
+    SDLWindowManager windowManager(screenWidth, screenHeight, "Test");
 
     // Initialize glew for OpenGL3+ support
     glewExperimental = GL_TRUE; 
@@ -21,30 +21,18 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
+    glViewport(0, 0, screenWidth, screenHeight);
+    glEnable(GL_DEPTH_TEST);
+
     std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
-    // Assimp::Importer importer;
-    // const aiScene *scene = importer.ReadFile("/home/olivier/Documents/IMAC/OpenGL/La-broloc/assets/fichiers3DS/Audi_tt.3ds", 1);//aiProcessPreset_TargetRealtime_Fast has the configs you'll need
-
-
-
-    // std::unique_ptr<Image> image = loadImage("");
-    // if (image == NULL)
-    // {
-    //     std::cerr << "Erreur lors du chargement de l'image" << std::endl;
-    // }
-
-    // FilePath applicationPath(argv[0]);
-    // Program program = loadProgram(applicationPath.dirPath() + "shaders/tex2D.vs.glsl",
-    //                               applicationPath.dirPath() + "shaders/tex2D.fs.glsl");
-    // program.use();
+    Shader shader("../assets/shaders/default.vs.glsl", "../assets/shaders/default.fs.glsl");
+    Model model("../assets/models/nanosuit/nanosuit.obj");
 
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
-
-     // VAO and VBO
 
 
     // Application loop:
@@ -61,8 +49,28 @@ int main(int argc, char** argv) {
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
-         glClear(GL_COLOR_BUFFER_BIT);
-         
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        shader.Use();
+
+        // Transformation matrices
+        glm::mat4 projection = glm::perspective(45.0f, (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
+        
+        glm::mat4 view = glm::mat4(1.0);
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+
+        // Draw the loaded model
+        glm::mat4 matModel;
+        // Translate model to the center of the scene
+        matModel = glm::translate(matModel, glm::vec3(0.0f, -1.75f, 0.0f));
+        // FIXME scale won't work correctly
+        matModel = glm::scale(matModel, glm::vec3(0.2f, 0.2f, 0.2f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
+
+        model.Draw(shader);
+
         // Update the display
         windowManager.swapBuffers(windowManager.Window);
     }

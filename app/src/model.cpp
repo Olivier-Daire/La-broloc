@@ -112,8 +112,7 @@ GLint Model::TextureFromFile(const char* path, string directory)
     GLuint textureID;
 
     glGenTextures(1, &textureID);
-    // FIXME try to avoid using an namespace (see image.hpp)
-    unique_ptr<test::Image> image = test::loadImage(filename.c_str());
+    unique_ptr<glimac::Image> image = glimac::loadImage(filename.c_str());
     // Assign texture to ID
     glBindTexture(GL_TEXTURE_2D, textureID);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA, GL_FLOAT, image->getPixels());

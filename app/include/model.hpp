@@ -6,7 +6,7 @@
 #include <assimp/postprocess.h>
 #include "mesh.hpp"
 #include "texture.hpp"
-#include "image.hpp"
+#include <glimac/Image.hpp>
 
 class Model 
 {
