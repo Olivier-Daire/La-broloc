@@ -5,6 +5,7 @@
 #include <assimp/scene.h>
 #include "shader.hpp"
 #include "model.hpp"
+#include "camera.hpp"
 
 using namespace glimac;
 
@@ -30,6 +31,7 @@ int main(int argc, char** argv) {
     Shader shader("../assets/shaders/default.vs.glsl", "../assets/shaders/default.fs.glsl");
     Model model("../assets/models/nanosuit/nanosuit.obj");
 
+    Camera camera;
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
@@ -44,6 +46,27 @@ int main(int argc, char** argv) {
             if(e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
             }
+            if (e.type == SDL_KEYDOWN)
+            {
+                switch( e.key.keysym.sym )
+                {
+                    case SDLK_z:
+                        camera.moveFront(1);
+                    break;
+
+                    case SDLK_s:
+                        camera.moveFront(-1);
+                    break;
+
+                    case SDLK_q:
+                        camera.moveLeft(1);
+                    break;
+
+                    case SDLK_d:
+                        camera.moveLeft(-1);
+                    break;
+                }
+            }
         }
 
         /*********************************
@@ -57,7 +80,7 @@ int main(int argc, char** argv) {
         // Transformation matrices
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
         
-        glm::mat4 view = glm::mat4(1.0);
+        glm::mat4 view = camera.getViewMatrix();
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
