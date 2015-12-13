@@ -9,9 +9,9 @@
 using namespace glimac;
 
 int main(int argc, char** argv) {
-    GLuint screenWidth = 800, screenHeight = 800;
+    GLuint screenWidth = 800, screenHeight = 600;
     // Initialize SDL and open a window
-    SDLWindowManager windowManager(screenWidth, screenHeight, "Test");
+    SDLWindowManager windowManager(screenWidth, screenHeight, "La Broloc");
 
     // Initialize glew for OpenGL3+ support
     glewExperimental = GL_TRUE; 

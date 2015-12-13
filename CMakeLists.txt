@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(ImacGL)
+project(La-Broloc)
 
 add_definitions(-std=c++11 -Wall -O2 -lassimp)
 
