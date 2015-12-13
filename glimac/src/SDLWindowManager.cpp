@@ -44,7 +44,6 @@ glm::ivec2 SDLWindowManager::getMousePosition() const {
     return mousePos;
 }
 
-// FIXME Change calls with the window parameter
 void SDLWindowManager::swapBuffers(SDL_Window* window) {
     SDL_GL_SwapWindow(window);
 }

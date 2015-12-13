@@ -11,6 +11,7 @@ using namespace glimac;
 
 int main(int argc, char** argv) {
     GLuint screenWidth = 800, screenHeight = 600;
+    float cameraSpeed = 0.05f;
     // Initialize SDL and open a window
     SDLWindowManager windowManager(screenWidth, screenHeight, "La Broloc");
 
@@ -42,31 +43,30 @@ int main(int argc, char** argv) {
     while(!done) {
         // Event loop:
         SDL_Event e;
+        
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
             }
-            if (e.type == SDL_KEYDOWN)
-            {
-                switch( e.key.keysym.sym )
-                {
-                    case SDLK_z:
-                        camera.moveFront(1);
-                    break;
-
-                    case SDLK_s:
-                        camera.moveFront(-1);
-                    break;
-
-                    case SDLK_q:
-                        camera.moveLeft(1);
-                    break;
-
-                    case SDLK_d:
-                        camera.moveLeft(-1);
-                    break;
-                }
-            }
+        }
+        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_ESCAPE))){
+            done = true;
+        }
+        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_UP)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_z)))
+        {
+            camera.moveFront(cameraSpeed);
+        }
+        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_DOWN)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_s)))
+        {
+            camera.moveFront(-cameraSpeed);
+        }
+        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_LEFT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_q)))
+        {
+            camera.moveLeft(cameraSpeed);
+        }
+        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_RIGHT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_d)))
+        {
+            camera.moveLeft(-cameraSpeed);
         }
 
         /*********************************
