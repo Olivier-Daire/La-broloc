@@ -12,6 +12,8 @@ using namespace glimac;
 int main(int argc, char** argv) {
     GLuint screenWidth = 800, screenHeight = 600;
     float cameraSpeed = 0.05f;
+    float lastMouseX = screenWidth/2, lastMouseY = screenHeight/2;
+
     // Initialize SDL and open a window
     SDLWindowManager windowManager(screenWidth, screenHeight, "La Broloc");
 
@@ -67,6 +69,11 @@ int main(int argc, char** argv) {
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_RIGHT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_d)))
         {
             camera.moveLeft(-cameraSpeed);
+        }
+        if (windowManager.isMouseButtonPressed(SDL_BUTTON_LEFT))
+        {
+            glm::ivec2 mousePosition = windowManager.getMousePosition();
+            camera.mouseManager(mousePosition, lastMouseX, lastMouseY);
         }
 
         /*********************************
