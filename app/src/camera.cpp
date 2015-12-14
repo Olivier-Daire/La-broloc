@@ -5,8 +5,7 @@ Camera::Camera(){
 	m_fPhi = M_PI;
 	m_fTheta = 0;
 	mouseSensitivity = 0.002f;
-	firstMouse = true;
-	cameraSpeed = 1.0f;
+	cameraSpeed = 1.2f;
 
 	computeDirectionVectors();
 }
@@ -19,10 +18,14 @@ void Camera::computeDirectionVectors(){
 
 void Camera::moveLeft(float t){
 	position += t*m_LeftVector;
+	// Prevent the player from flying
+	position.y = 0.0f;
 }
 
 void Camera::moveFront(float t){
 	position += t*m_FrontVector;
+	// Prevent the player from flying
+	position.y = 0.0f;
 }
 
 void Camera::rotateLeft(float degrees){
@@ -37,19 +40,9 @@ glm::mat4 Camera::getViewMatrix() const{
 	return glm::lookAt(position, position + m_FrontVector, m_UpVector);
 }
 
-void Camera::mouseManager(glm::ivec2 mousePosition, float& lastMouseX, float& lastMouseY){
-	if(firstMouse)
-    {
-        lastMouseX = mousePosition.x;
-        lastMouseY = mousePosition.y;
-        firstMouse = false;
-    }
-
-    float xoffset = mousePosition.x - lastMouseX;
-    float yoffset = mousePosition.y - lastMouseY;
-
-    lastMouseX = mousePosition.x;
-    lastMouseY = mousePosition.y;
+void Camera::mouseManager(glm::ivec2 mousePosition, float screenWidth, float screenHeight){
+    float xoffset = mousePosition.x - screenWidth;
+    float yoffset = mousePosition.y - screenHeight;
 
     xoffset *= mouseSensitivity;
     yoffset *= mouseSensitivity;
@@ -65,6 +58,6 @@ void Camera::mouseManager(glm::ivec2 mousePosition, float& lastMouseX, float& la
       m_fTheta = glm::radians(-89.0f);
     }
 
-    computeDirectionVectors();
+	computeDirectionVectors();
 
 }

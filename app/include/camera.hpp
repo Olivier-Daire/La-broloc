@@ -25,5 +25,5 @@ class Camera
 		void rotateUp(float degrees);
 		glm::mat4 getViewMatrix() const;
 		void computeDirectionVectors();
-		void mouseManager(glm::ivec2 mousePosition, float& lastMouseX, float& lastMouseY);
+		void mouseManager(glm::ivec2 mousePosition, float screenWidth, float screenHeight);
 };

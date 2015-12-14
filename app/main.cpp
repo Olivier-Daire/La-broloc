@@ -11,7 +11,6 @@ using namespace glimac;
 
 int main(int argc, char** argv) {
     GLuint screenWidth = 800, screenHeight = 600;
-    float lastMouseX = screenWidth/2, lastMouseY = screenHeight/2;
 
     // Initialize SDL and open a window
     SDLWindowManager windowManager(screenWidth, screenHeight, "La Broloc");
@@ -55,7 +54,7 @@ int main(int argc, char** argv) {
         GLfloat currentFrame = windowManager.getTime();;
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        
+
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
@@ -80,12 +79,11 @@ int main(int argc, char** argv) {
         {
             camera.moveLeft(-camera.cameraSpeed * deltaTime);
         }
-        if (windowManager.isMouseButtonPressed(SDL_BUTTON_LEFT))
-        {
-            glm::ivec2 mousePosition = windowManager.getMousePosition();
-            camera.mouseManager(mousePosition, lastMouseX, lastMouseY);
-        }
 
+        glm::ivec2 mousePosition = windowManager.getMousePosition();
+        camera.mouseManager(mousePosition, screenWidth/2.0, screenHeight/2.0);
+        // Put the cursor back to the center of the scene
+        SDL_WarpMouseInWindow(windowManager.Window, screenWidth/2.0, screenHeight/2.0);
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
@@ -109,7 +107,6 @@ int main(int argc, char** argv) {
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
 
         // Set the lighting uniforms
-        // TODO update the camera positions
         glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.position.x, camera.position.y, camera.position.z);
         // Point light 1
         glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].position"), pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);     

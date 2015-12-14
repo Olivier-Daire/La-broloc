@@ -19,6 +19,13 @@ SDLWindowManager::SDLWindowManager(uint32_t width, uint32_t height, const char* 
     }
     SDL_GLContext glcontext = SDL_GL_CreateContext(Window);
 
+    // Center the mouse
+    SDL_WarpMouseInWindow(Window, width/2, height/2);
+    // Hide cursor
+    SDL_ShowCursor(0);
+    // Keep the mouse inside the window
+    SDL_SetWindowGrab(Window, SDL_TRUE);
+
 }
 
 SDLWindowManager::~SDLWindowManager() {
