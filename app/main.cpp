@@ -5,11 +5,15 @@
 #include <assimp/scene.h>
 #include "shader.hpp"
 #include "model.hpp"
+#include "camera.hpp"
 
 using namespace glimac;
 
 int main(int argc, char** argv) {
     GLuint screenWidth = 800, screenHeight = 600;
+    float cameraSpeed = 0.05f;
+    float lastMouseX = screenWidth/2, lastMouseY = screenHeight/2;
+
     // Initialize SDL and open a window
     SDLWindowManager windowManager(screenWidth, screenHeight, "La Broloc");
 
@@ -36,6 +40,7 @@ int main(int argc, char** argv) {
         glm::vec3(-0.7f, 0.9f, -4.0f)
     };
 
+    Camera camera;
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
@@ -46,10 +51,35 @@ int main(int argc, char** argv) {
     while(!done) {
         // Event loop:
         SDL_Event e;
+        
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
             }
+        }
+        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_ESCAPE))){
+            done = true;
+        }
+        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_UP)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_z)))
+        {
+            camera.moveFront(cameraSpeed);
+        }
+        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_DOWN)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_s)))
+        {
+            camera.moveFront(-cameraSpeed);
+        }
+        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_LEFT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_q)))
+        {
+            camera.moveLeft(cameraSpeed);
+        }
+        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_RIGHT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_d)))
+        {
+            camera.moveLeft(-cameraSpeed);
+        }
+        if (windowManager.isMouseButtonPressed(SDL_BUTTON_LEFT))
+        {
+            glm::ivec2 mousePosition = windowManager.getMousePosition();
+            camera.mouseManager(mousePosition, lastMouseX, lastMouseY);
         }
 
         /*********************************
@@ -63,7 +93,7 @@ int main(int argc, char** argv) {
         // Transformation matrices
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
         
-        glm::mat4 view = glm::mat4(1.0);
+        glm::mat4 view = camera.getViewMatrix();
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
