@@ -11,7 +11,6 @@ using namespace glimac;
 
 int main(int argc, char** argv) {
     GLuint screenWidth = 800, screenHeight = 600;
-    float cameraSpeed = 0.05f;
     float lastMouseX = screenWidth/2, lastMouseY = screenHeight/2;
 
     // Initialize SDL and open a window
@@ -62,19 +61,19 @@ int main(int argc, char** argv) {
         }
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_UP)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_z)))
         {
-            camera.moveFront(cameraSpeed);
+            camera.moveFront(camera.cameraSpeed);
         }
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_DOWN)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_s)))
         {
-            camera.moveFront(-cameraSpeed);
+            camera.moveFront(-camera.cameraSpeed);
         }
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_LEFT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_q)))
         {
-            camera.moveLeft(cameraSpeed);
+            camera.moveLeft(camera.cameraSpeed);
         }
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_RIGHT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_d)))
         {
-            camera.moveLeft(-cameraSpeed);
+            camera.moveLeft(-camera.cameraSpeed);
         }
         if (windowManager.isMouseButtonPressed(SDL_BUTTON_LEFT))
         {

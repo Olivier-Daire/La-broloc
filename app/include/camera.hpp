@@ -11,6 +11,7 @@ class Camera
 		float m_fTheta;
 		float mouseSensitivity;
 		bool firstMouse;
+		float cameraSpeed;
 
 
 		glm::vec3 m_FrontVector;
