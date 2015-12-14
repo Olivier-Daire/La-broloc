@@ -6,7 +6,7 @@ Camera::Camera(){
 	m_fTheta = 0;
 	mouseSensitivity = 0.002f;
 	firstMouse = true;
-	cameraSpeed = 0.05f;
+	cameraSpeed = 1.0f;
 
 	computeDirectionVectors();
 }

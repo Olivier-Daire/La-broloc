@@ -46,10 +46,15 @@ int main(int argc, char** argv) {
 
 
     // Application loop:
+    float deltaTime = 0.0f;   // Time between current frame and last frame
+    float lastFrame = 0.0f;  // Last frame
     bool done = false;
     while(!done) {
         // Event loop:
         SDL_Event e;
+        GLfloat currentFrame = windowManager.getTime();;
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
         
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {
@@ -61,19 +66,19 @@ int main(int argc, char** argv) {
         }
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_UP)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_z)))
         {
-            camera.moveFront(camera.cameraSpeed);
+            camera.moveFront(camera.cameraSpeed * deltaTime);
         }
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_DOWN)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_s)))
         {
-            camera.moveFront(-camera.cameraSpeed);
+            camera.moveFront(-camera.cameraSpeed * deltaTime);
         }
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_LEFT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_q)))
         {
-            camera.moveLeft(camera.cameraSpeed);
+            camera.moveLeft(camera.cameraSpeed * deltaTime);
         }
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_RIGHT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_d)))
         {
-            camera.moveLeft(-camera.cameraSpeed);
+            camera.moveLeft(-camera.cameraSpeed * deltaTime);
         }
         if (windowManager.isMouseButtonPressed(SDL_BUTTON_LEFT))
         {
@@ -105,7 +110,7 @@ int main(int argc, char** argv) {
 
         // Set the lighting uniforms
         // TODO update the camera positions
-        glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), 1.0f, 1.0f, 1.0f);
+        glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.position.x, camera.position.y, camera.position.z);
         // Point light 1
         glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].position"), pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);     
         glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].ambient"), 0.05f, 0.05f, 0.05f);       
