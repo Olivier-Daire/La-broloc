@@ -27,8 +27,14 @@ int main(int argc, char** argv) {
     std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
-    Shader shader("../assets/shaders/default.vs.glsl", "../assets/shaders/default.fs.glsl");
+    Shader shader("../assets/shaders/pointlight.vs.glsl", "../assets/shaders/pointlight.fs.glsl");
+    
     Model model("../assets/models/nanosuit/nanosuit.obj");
+    
+    glm::vec3 pointLightPositions[] = {
+        glm::vec3(0.5f, 0.7f, -4.0f),
+        glm::vec3(-0.7f, 0.9f, -4.0f)
+    };
 
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
@@ -67,6 +73,26 @@ int main(int argc, char** argv) {
         matModel = glm::translate(matModel, glm::vec3(0.0f, -1.75f, -5.0f));
         matModel = glm::scale(matModel, glm::vec3(0.2f, 0.2f, 0.2f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
+
+        // Set the lighting uniforms
+        // TODO update the camera positions
+        glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), 1.0f, 1.0f, 1.0f);
+        // Point light 1
+        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].position"), pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);     
+        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].ambient"), 0.05f, 0.05f, 0.05f);       
+        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].diffuse"), 1.0f, 1.0f, 1.0f); 
+        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].specular"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].linear"), 0.009);
+        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].quadratic"), 0.0032);      
+        // Point light 2
+        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].position"), pointLightPositions[1].x, pointLightPositions[1].y, pointLightPositions[1].z);     
+        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].ambient"), 0.05f, 0.05f, 0.05f);       
+        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].diffuse"), 1.0f, 1.0f, 1.0f); 
+        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].specular"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[1].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[1].linear"), 0.009);
+        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[1].quadratic"), 0.0032); 
 
         model.Draw(shader);
 

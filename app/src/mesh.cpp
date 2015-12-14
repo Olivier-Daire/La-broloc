@@ -58,6 +58,7 @@ void Mesh::Draw(Shader shader){
 
         // Uniform variable that will be passed to the shader
         glUniform1f(glGetUniformLocation(shader.Program, ("material." + name + number).c_str()), i);
+        glUniform1f(glGetUniformLocation(shader.Program, "material.shininess"), 16.0f);
         glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
     }
     glActiveTexture(GL_TEXTURE0);
