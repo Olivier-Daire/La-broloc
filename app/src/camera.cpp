@@ -38,3 +38,29 @@ void Camera::rotateUp(float degrees){
 glm::mat4 Camera::getViewMatrix() const{
 	return glm::lookAt(position, position + m_FrontVector, m_UpVector);
 }
+
+
+float Camera::getSpeed(){
+	return cameraSpeed;
+}
+
+float Camera::getTheta(){
+	return m_fTheta;
+}
+
+void Camera::setTheta(float value){
+	m_fTheta = value;
+}
+
+float Camera::getPhi(){
+	return m_fPhi;
+}
+
+void Camera::setPhi(float value){
+	m_fPhi = value;
+}
+
+glm::vec3 Camera::getPosition(){
+	return position;
+}
+

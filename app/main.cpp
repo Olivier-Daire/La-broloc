@@ -70,7 +70,7 @@ int main(int argc, char** argv) {
         // Put the cursor back to the center of the scene
         SDL_WarpMouseInWindow(windowManager.Window, screenWidth/2.0, screenHeight/2.0);
 
-        
+
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
@@ -94,7 +94,7 @@ int main(int argc, char** argv) {
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
 
         // Set the lighting uniforms
-        glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.position.x, camera.position.y, camera.position.z);
+        glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
         // Point light 1
         glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].position"), pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);     
         glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].ambient"), 0.05f, 0.05f, 0.05f);       

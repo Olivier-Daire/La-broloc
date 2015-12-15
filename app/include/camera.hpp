@@ -6,16 +6,6 @@
 class Camera
 {
 	public:
-		glm::vec3 position;
-		float m_fPhi;
-		float m_fTheta;
-		float cameraSpeed;
-
-
-		glm::vec3 m_FrontVector;
-		glm::vec3 m_LeftVector;
-		glm::vec3 m_UpVector;
-
 		Camera();
 		void moveLeft(float t);
 		void moveFront(float t);
@@ -24,6 +14,24 @@ class Camera
 		glm::mat4 getViewMatrix() const;
 		void computeDirectionVectors();
 
+		// Getter & setter
+		float getSpeed();
+		float getTheta();
+		void setTheta(float value);
+		float getPhi();
+		void setPhi(float value);
+		glm::vec3 getPosition();
+
+
 	private: 
 		const float defaultYPosition = 0.0f;
+
+		glm::vec3 position;
+		float cameraSpeed;
+		float m_fPhi;
+		float m_fTheta;
+
+		glm::vec3 m_FrontVector;
+		glm::vec3 m_LeftVector;
+		glm::vec3 m_UpVector;
 };
