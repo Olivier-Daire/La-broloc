@@ -23,4 +23,7 @@ class Camera
 		void rotateUp(float degrees);
 		glm::mat4 getViewMatrix() const;
 		void computeDirectionVectors();
+
+	private: 
+		const float defaultYPosition = 0.0f;
 };

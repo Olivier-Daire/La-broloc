@@ -1,7 +1,7 @@
 #include "camera.hpp"
 
 Camera::Camera(){
-	position = glm::vec3(0, 0, 0);
+	position = glm::vec3(0, defaultYPosition, 0);
 	m_fPhi = M_PI;
 	m_fTheta = 0;
 	cameraSpeed = 1.2f;
@@ -18,13 +18,13 @@ void Camera::computeDirectionVectors(){
 void Camera::moveLeft(float t){
 	position += t*m_LeftVector;
 	// Prevent the player from flying
-	position.y = 0.0f;
+	position.y = defaultYPosition;
 }
 
 void Camera::moveFront(float t){
 	position += t*m_FrontVector;
 	// Prevent the player from flying
-	position.y = 0.0f;
+	position.y = defaultYPosition;
 }
 
 void Camera::rotateLeft(float degrees){
