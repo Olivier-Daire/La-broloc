@@ -6,6 +6,7 @@
 #include "shader.hpp"
 #include "model.hpp"
 #include "camera.hpp"
+#include "command.hpp"
 
 using namespace glimac;
 
@@ -63,27 +64,13 @@ int main(int argc, char** argv) {
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_ESCAPE))){
             done = true;
         }
-        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_UP)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_z)))
-        {
-            camera.moveFront(camera.cameraSpeed * deltaTime);
-        }
-        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_DOWN)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_s)))
-        {
-            camera.moveFront(-camera.cameraSpeed * deltaTime);
-        }
-        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_LEFT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_q)))
-        {
-            camera.moveLeft(camera.cameraSpeed * deltaTime);
-        }
-        if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_RIGHT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_d)))
-        {
-            camera.moveLeft(-camera.cameraSpeed * deltaTime);
-        }
 
-        glm::ivec2 mousePosition = windowManager.getMousePosition();
-        camera.mouseManager(mousePosition, screenWidth/2.0, screenHeight/2.0);
+        Command::commandHandler(windowManager, camera, deltaTime);
+        Command::mouseManager(camera, windowManager.getMousePosition(), screenWidth/2.0, screenHeight/2.0);
         // Put the cursor back to the center of the scene
         SDL_WarpMouseInWindow(windowManager.Window, screenWidth/2.0, screenHeight/2.0);
+
+        
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/

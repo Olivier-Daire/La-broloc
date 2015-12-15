@@ -9,8 +9,6 @@ class Camera
 		glm::vec3 position;
 		float m_fPhi;
 		float m_fTheta;
-		float mouseSensitivity;
-		bool firstMouse;
 		float cameraSpeed;
 
 
@@ -25,5 +23,4 @@ class Camera
 		void rotateUp(float degrees);
 		glm::mat4 getViewMatrix() const;
 		void computeDirectionVectors();
-		void mouseManager(glm::ivec2 mousePosition, float screenWidth, float screenHeight);
 };
