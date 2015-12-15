@@ -81,12 +81,38 @@ int main(int argc, char** argv) {
     float deltaTime = 0.0f;   // Time between current frame and last frame
     float lastFrame = 0.0f;  // Last frame
     bool done = false;
+
+
+    cout << "x: " << model.box.x << endl;
+    cout << "y: " << model.box.y << endl;
+    cout << "z: " << model.box.z << endl;
+    cout << "w: " << model.box.w << endl;
+    cout << "h: " << model.box.h << endl;
+    cout << "d: " << model.box.d << endl;
+    cout << "caméra: x : " << camera.getPosition().x << " y : " << camera.getPosition().y << " z: " <<  camera.getPosition().z << endl;
+
     while(!done) {
+
+        //AABB cameraBox((camera.getPosition().x-(screenWidth/2.0)),(camera.getPosition().y-(screenHeight/2.0)),camera.getPosition().z,screenWidth,screenHeight,0.0f);
+        AABB cameraBox((camera.getPosition().x),(camera.getPosition().y),camera.getPosition().z,screenWidth,screenHeight,0.0f);
         // Event loop:
         SDL_Event e;
         GLfloat currentFrame = windowManager.getTime();;
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
+
+    //         cout << "x: " << model.box.x << endl;
+    // cout << "y: " << model.box.y << endl;
+    // cout << "z: " << model.box.z << endl;
+    // cout << "w: " << model.box.w << endl;
+    // cout << "h: " << model.box.h << endl;
+    // cout << "d: " << model.box.d << endl;
+    // cout << "caméra: " << camera.getPosition().x << "y :" << camera.getPosition().y << "z: " <<  camera.getPosition().z << endl;
+
+         cout << "caméra: " << camera.getPosition().x << "y :" << camera.getPosition().y << "z: " <<  camera.getPosition().z << endl;
+        if(model.box.collision(cameraBox))
+         cout << "COLLISIOOOONS " << endl;
+        else cout << "PAS COLLISION" << endl;
 
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {

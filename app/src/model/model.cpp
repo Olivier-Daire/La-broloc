@@ -52,6 +52,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     vector<GLuint> indices;
     vector<Texture> textures;
 
+    glm::vec3 min = glm::vec3(FLT_MAX,FLT_MAX,FLT_MAX);
+    glm::vec3 max = glm::vec3(FLT_MIN,FLT_MIN,FLT_MIN);
+
     for(GLuint i = 0; i < mesh->mNumVertices; i++)
     {
 
@@ -85,7 +88,21 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		}
 
         vertices.push_back(vertex);
+
+        // Bounding box min and max
+        min = glm::min(min,vertex.Position);
+        max = glm::max(max,vertex.Position);
     }
+
+    // Calcul the bounding box of the model
+    box.x = min.x;
+    box.y = min.y;
+    box.z = min.z;
+    box.w = max.x - min.x;
+    box.h = max.y - min.y;
+    box.d = max.z - min.z;
+
+
     // Loop through mesh's faces and process indices
     for(GLuint i = 0; i < mesh->mNumFaces; i++)
 	{
@@ -164,4 +181,27 @@ vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type,
         }
     }
     return textures;
+}
+
+glm::mat4 Model::translate(glm::mat4 mat,float x,float y,float z) {
+    if(box.firstT) {
+        box.x += x;
+        box.y += y;
+        box.z += z;
+    }
+    box.firstT = false;
+    return glm::translate(mat, glm::vec3(x,y,z));
+}
+
+glm::mat4 Model::scale(glm::mat4 mat,float x,float y,float z) {
+    if(box.firstS) {
+        box.x += (box.w - (box.w*x))/2.0;
+        box.y += (box.h - (box.h*y))/2.0;
+        box.z += (box.d - (box.d*z))/2.0;
+        box.w *= x;
+        box.h *= y;
+        box.d *= z;
+    }
+    box.firstS = false;
+    return glm::scale(mat, glm::vec3(x,y,z));
 }
