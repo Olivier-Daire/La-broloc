@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+	<models>
+		<model>../assets/models/nanosuit/nanosuit.obj</model>
+		<model>../assets/models/chair/chair.blend</model>
+	</models>
+
+	<dialogues>
+		<dialogue>Bonjour</dialogue>
+		<dialogue>Test</dialogue>
+	</dialogues>
+</scene>

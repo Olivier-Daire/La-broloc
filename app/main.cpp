@@ -7,6 +7,7 @@
 #include "model.hpp"
 #include "camera.hpp"
 #include "command.hpp"
+#include "scene.hpp"
 
 using namespace glimac;
 
@@ -32,6 +33,11 @@ int main(int argc, char** argv) {
 
     Shader shader("../assets/shaders/pointlight.vs.glsl", "../assets/shaders/pointlight.fs.glsl");
     
+
+    Scene scene1;
+    scene1.loadSceneFromFile("../assets/scenes/scene1.xml");
+    cout << scene1.getModelPath(2) << endl;
+
     Model model("../assets/models/nanosuit/nanosuit.obj");
     
     glm::vec3 pointLightPositions[] = {
