@@ -17,7 +17,7 @@ vector<string> Dialogue::getAnswers(){
 }
 
 string Dialogue::getAnswer(int number){
-	return _answers.at(number-1);
+	return _answers.at(number);
 }
 
 void Dialogue::addAnswer(string answer){
