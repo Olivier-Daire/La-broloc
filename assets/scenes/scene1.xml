@@ -6,7 +6,21 @@
 	</models>
 
 	<dialogues>
-		<dialogue>Bonjour</dialogue>
-		<dialogue>Test</dialogue>
+		<dialogue>
+			<message>Bonjour, Rémi que s'est il passé ?</message>
+			<answers>
+				<answer>Rien.</answer>
+				<answer>Je ne me souviens plus.</answer>
+				<answer>Euuuuh mais qui êtes vous ? </answer>
+			</answers>
+		</dialogue>
+		<dialogue>
+			<message>Blabla</message>
+			<answers>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+			</answers>
+		</dialogue>
 	</dialogues>
 </scene>

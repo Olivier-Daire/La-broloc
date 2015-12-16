@@ -37,6 +37,8 @@ int main(int argc, char** argv) {
     Scene scene1;
     scene1.loadSceneFromFile("../assets/scenes/scene1.xml");
     cout << scene1.getModelPath(2) << endl;
+    cout << scene1.getDialogues(1).getMessage() << endl;
+    cout << scene1.getDialogues(1).getAnswer(2) << endl;
 
     Model model("../assets/models/nanosuit/nanosuit.obj");
     
