@@ -7,6 +7,7 @@
 #include "model.hpp"
 #include "camera.hpp"
 #include "command.hpp"
+#include "scene.hpp"
 
 using namespace glimac;
 
@@ -32,12 +33,16 @@ int main(int argc, char** argv) {
 
     Shader shader("../assets/shaders/pointlight.vs.glsl", "../assets/shaders/pointlight.fs.glsl");
     
+
+    Scene scene1;
+    scene1.loadSceneFromFile("../assets/scenes/scene1.xml");
+
+    // FIXME Test remove this afterwards
+    cout << scene1.getModelPath(1) << endl;
+    cout << scene1.getDialogue(0).getMessage() << endl;
+    cout << scene1.getDialogue(0).getAnswer(1) << endl;
+
     Model model("../assets/models/nanosuit/nanosuit.obj");
-    
-    glm::vec3 pointLightPositions[] = {
-        glm::vec3(0.5f, 0.7f, -4.0f),
-        glm::vec3(-0.7f, 0.9f, -4.0f)
-    };
 
     Camera camera;
     /*********************************
@@ -95,22 +100,21 @@ int main(int argc, char** argv) {
 
         // Set the lighting uniforms
         glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
-        // Point light 1
-        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].position"), pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);     
-        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].ambient"), 0.05f, 0.05f, 0.05f);       
-        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].diffuse"), 1.0f, 1.0f, 1.0f); 
-        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].specular"), 1.0f, 1.0f, 1.0f);
-        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].constant"), 1.0f);
-        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].linear"), 0.009);
-        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].quadratic"), 0.0032);      
-        // Point light 2
-        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].position"), pointLightPositions[1].x, pointLightPositions[1].y, pointLightPositions[1].z);     
-        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].ambient"), 0.05f, 0.05f, 0.05f);       
-        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].diffuse"), 1.0f, 1.0f, 1.0f); 
-        glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].specular"), 1.0f, 1.0f, 1.0f);
-        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[1].constant"), 1.0f);
-        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[1].linear"), 0.009);
-        glUniform1f(glGetUniformLocation(shader.Program, "pointLights[1].quadratic"), 0.0032); 
+
+        // Lights
+        for (int i = 0; i < scene1.getLightNumber(); ++i)
+        {
+            string pointLight = "pointLights[" + to_string(i) + "]";
+            Light light = scene1.getLight(i);
+
+            glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".position").c_str()), light.getPosition().x, light.getPosition().y, light.getPosition().z);
+            glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".ambient").c_str()), light.getAmbient().x, light.getAmbient().y, light.getAmbient().z);
+            glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".diffuse").c_str()), light.getDiffuse().x, light.getDiffuse().y, light.getDiffuse().z);
+            glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".specular").c_str()), light.getSpecular().x, light.getSpecular().y, light.getSpecular().z);
+            glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".constant").c_str()), light.getConstant());
+            glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".linear").c_str()), light.getLinear());
+            glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".quadratic").c_str()), light.getQuadratic());
+        }
 
         model.Draw(shader);
 

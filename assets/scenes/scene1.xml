@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+	<models>
+		<model>../assets/models/nanosuit/nanosuit.obj</model>
+		<model>../assets/models/chair/chair.blend</model>
+	</models>
+
+	<dialogues>
+		<dialogue>
+			<message>Bonjour, Rémi que s'est il passé ?</message>
+			<answers>
+				<answer>Rien.</answer>
+				<answer>Je ne me souviens plus.</answer>
+				<answer>Euuuuh mais qui êtes vous ? </answer>
+			</answers>
+		</dialogue>
+		<dialogue>
+			<message>Blabla</message>
+			<answers>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+			</answers>
+		</dialogue>
+	</dialogues>
+	<lights>
+		<light>
+			<position x="0.5f" y="0.7f" z="-4.0f"></position>
+			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
+			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
+			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
+			<constant value="1.0f"></constant>
+			<linear value="0.009"></linear>
+			<quadratic value="0.0032"></quadratic>
+		</light>
+		<light>
+			<position x="-0.7f" y="0.9f" z="-4.0f"></position>
+			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
+			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
+			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
+			<constant value="1.0f"></constant>
+			<linear value="0.009"></linear>
+			<quadratic value="0.0032"></quadratic>
+		</light>
+	</lights>
+</scene>
