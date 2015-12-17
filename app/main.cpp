@@ -8,6 +8,7 @@
 #include "camera.hpp"
 #include "command.hpp"
 #include "scene.hpp"
+#include "text.hpp"
 
 using namespace glimac;
 
@@ -16,6 +17,8 @@ int main(int argc, char** argv) {
 
     // Initialize SDL and open a window
     SDLWindowManager windowManager(screenWidth, screenHeight, "La Broloc");
+
+    Text text;
 
     // Initialize glew for OpenGL3+ support
     glewExperimental = GL_TRUE; 
@@ -32,7 +35,7 @@ int main(int argc, char** argv) {
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
     Shader shader("../assets/shaders/pointlight.vs.glsl", "../assets/shaders/pointlight.fs.glsl");
-    
+    Shader shaderText("../assets/shaders/text.vs.glsl", "../assets/shaders/text.fs.glsl");
 
     Scene scene1;
     scene1.loadSceneFromFile("../assets/scenes/scene1.xml");
@@ -45,6 +48,10 @@ int main(int argc, char** argv) {
     Model model("../assets/models/nanosuit/nanosuit.obj");
 
     Camera camera;
+
+    text.LoadText(shaderText,screenWidth, screenHeight);
+
+
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
@@ -117,6 +124,10 @@ int main(int argc, char** argv) {
         }
 
         model.Draw(shader);
+
+        // Draw texts
+        text.RenderText(shaderText, "This is sample text", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+        text.RenderText(shaderText, "(C) LearnOpenGL.com", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
 
         // Update the display
         windowManager.swapBuffers(windowManager.Window);
