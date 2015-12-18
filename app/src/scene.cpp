@@ -13,6 +13,9 @@ void Scene::loadSceneFromFile(const char* filename){
 	loadDialogues(doc);
 	loadLights(doc);
 
+	// TODO retrieve room data from XML
+	loadRoom("../assets/textures/kitchen_wall.jpg", "../assets/textures/kitchen_roof.png", "../assets/textures/kitchen_roof.png");
+
 }
 
 void Scene::loadModelsPaths(XMLDocument& doc){
@@ -96,4 +99,153 @@ Light Scene::getLight(int number){
 
 int Scene::getLightNumber(){
 	return _lights.size();
+}
+
+void Scene::loadRoom(const glimac::FilePath& wallTexturePath, const glimac::FilePath& floorTexturePath, const glimac::FilePath& roofTexturePath){
+ 	std::unique_ptr<glimac::Image> wallTexture = loadImage(wallTexturePath);
+    std::unique_ptr<glimac::Image> floorTexture = loadImage(floorTexturePath);
+    std::unique_ptr<glimac::Image> roofTexture = loadImage(roofTexturePath);
+
+    if (wallTexture == NULL || floorTexture ==  NULL || roofTexture ==  NULL)
+    {
+        std::cerr << "Erreur lors du chargement de l'image" << std::endl;
+    }
+
+    // Create an array of texture and bind each texture
+    
+    glGenTextures(3, _texturesArray);
+
+    glBindTexture(GL_TEXTURE_2D, _texturesArray[0]);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, wallTexture->getWidth(), wallTexture->getHeight(), 0, GL_RGBA, GL_FLOAT, wallTexture->getPixels());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D,0);
+
+    glBindTexture(GL_TEXTURE_2D, _texturesArray[1]);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, floorTexture->getWidth(), floorTexture->getHeight(), 0, GL_RGBA, GL_FLOAT, floorTexture->getPixels());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D,0);
+
+    glBindTexture(GL_TEXTURE_2D, _texturesArray[2]);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, roofTexture->getWidth(), roofTexture->getHeight(), 0, GL_RGBA, GL_FLOAT, roofTexture->getPixels());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D,0);
+
+    GLuint vbo;
+    glGenBuffers (1, &vbo);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+    // Quad (wall) coordonates
+    // TODO hardcoded, pass it as a parameter to the function ?
+    Vertex2D vertices[] = {
+        Vertex2D(glm::vec2(0, 0),  glm::vec3(1, 0, 0)), // Sommet 0
+        Vertex2D(glm::vec2(10, 0), glm::vec3(0, 0, 1)), // Sommet 1
+        Vertex2D(glm::vec2(10, 10), glm::vec3(0, 1, 0)), // Sommet 2
+        Vertex2D(glm::vec2(0, 10),  glm::vec3(1, 1, 1)) // Sommet 3
+    };
+
+    glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex2D), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    GLuint ibo;
+    glGenBuffers(1, &ibo);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    uint32_t indices[] = {
+        0, 1, 2, 0, 2, 3
+    };
+
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+    glGenVertexArrays(1, &_vao);
+
+    glBindVertexArray(_vao);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+
+    const GLuint VERTEX_ATTR_POSITION = 0;
+    const GLuint VERTEX_ATTR_COLOR = 1;
+    glEnableVertexAttribArray(VERTEX_ATTR_POSITION);
+    glEnableVertexAttribArray(VERTEX_ATTR_COLOR);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glVertexAttribPointer(VERTEX_ATTR_POSITION, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2D), (const GLvoid*) offsetof(Vertex2D, position));
+    glVertexAttribPointer(VERTEX_ATTR_COLOR, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex2D), (const GLvoid*) offsetof(Vertex2D, texture));
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+}
+
+void Scene::drawRoom(Shader shader){
+	glBindTexture(GL_TEXTURE_2D, _texturesArray[0]);
+
+    glm::mat4 matModelWall;
+    glm::mat4 initialMatModelWall = matModelWall; // Initial state subsitute of push and pop
+   
+    glUniform1i(glGetUniformLocation(shader.Program, "uTexture"), 0);
+    glDepthMask(GL_FALSE);
+    glBindVertexArray(_vao);
+    
+    // Front Wall
+    matModelWall = glm::translate(matModelWall, glm::vec3(-2.5f, -3.0f, -10.0f));
+    glm::mat4 frontMatModelWall = matModelWall;
+    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+   
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, _texturesArray[1]);
+    // Ground
+    matModelWall = glm::rotate(matModelWall, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    matModelWall = glm::scale(matModelWall, glm::vec3(1.0f, 2.0f, 1.0f));
+    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+   
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, _texturesArray[2]);
+    // Roof
+    matModelWall = glm::translate(matModelWall, glm::vec3(0.0f, 0.0f, -10.0f));
+    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+   
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    
+    // TODO try to bind only once : draw all the walls then debind
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, _texturesArray[0]);
+    // Left Wall
+    matModelWall = glm::rotate(frontMatModelWall, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+    matModelWall = glm::scale(matModelWall, glm::vec3(2.0f, 1.0f, 1.0f));
+    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+    // Right Wall
+    matModelWall = glm::translate(frontMatModelWall, glm::vec3(10.0f, 0.0f, 0.0f));
+    matModelWall = glm::rotate(matModelWall, glm::radians(90.0f), glm::vec3(-0.0f, -1.0f, 0.0f));
+    matModelWall = glm::scale(matModelWall, glm::vec3(2.0f, 1.0f, 1.0f));
+    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+
+    // Back Wall
+    matModelWall = glm::translate(initialMatModelWall, glm::vec3(-2.5f, -3.0f, 10.0f));
+    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    
+    glBindVertexArray(0);
+    glDepthMask(GL_TRUE);
+
+    glBindTexture(GL_TEXTURE_2D,0);
+}
+
+void Scene::deleteRoom(){
+	glDeleteTextures(3, _texturesArray);
 }
