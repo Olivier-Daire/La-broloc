@@ -12,10 +12,7 @@ void Scene::loadSceneFromFile(const char* filename){
 	loadModelsPaths(doc);
 	loadDialogues(doc);
 	loadLights(doc);
-
-	// TODO retrieve room data from XML
-	loadRoom("../assets/textures/kitchen_wall.jpg", "../assets/textures/kitchen_roof.png", "../assets/textures/kitchen_roof.png");
-
+	loadRoom(doc);
 }
 
 void Scene::loadModelsPaths(XMLDocument& doc){
@@ -101,10 +98,13 @@ int Scene::getLightNumber(){
 	return _lights.size();
 }
 
-void Scene::loadRoom(const glimac::FilePath& wallTexturePath, const glimac::FilePath& floorTexturePath, const glimac::FilePath& roofTexturePath){
- 	std::unique_ptr<glimac::Image> wallTexture = loadImage(wallTexturePath);
-    std::unique_ptr<glimac::Image> floorTexture = loadImage(floorTexturePath);
-    std::unique_ptr<glimac::Image> roofTexture = loadImage(roofTexturePath);
+void Scene::loadRoom(XMLDocument& doc){
+
+	XMLElement *room = doc.FirstChildElement("scene")->FirstChildElement("room");
+
+ 	std::unique_ptr<glimac::Image> wallTexture = glimac::loadImage(room->FirstChildElement("walls")->GetText());
+    std::unique_ptr<glimac::Image> floorTexture = glimac::loadImage(room->FirstChildElement("floor")->GetText());
+    std::unique_ptr<glimac::Image> roofTexture = glimac::loadImage(room->FirstChildElement("roof")->GetText());
 
     if (wallTexture == NULL || floorTexture ==  NULL || roofTexture ==  NULL)
     {

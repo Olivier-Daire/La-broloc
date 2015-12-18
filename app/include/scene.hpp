@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include <tinyxml2/tinyxml2.h>
-#include <glimac/FilePath.hpp>
 #include <glimac/Image.hpp>
 #include "model.hpp"
 #include "dialogue.hpp"
@@ -27,7 +26,7 @@ class Scene
 		void loadDialogues(XMLDocument& doc);
 		void loadLights(XMLDocument& doc);
 
-		void loadRoom(const glimac::FilePath& wallTexture, const glimac::FilePath& floorTexture, const glimac::FilePath& roofTexture); // Need to return array of textures and VAO
+		void loadRoom(XMLDocument& doc);
 		void drawRoom(Shader shader);
 		void deleteRoom();
 	

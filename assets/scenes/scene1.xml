@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scene>
+	<room>
+		<walls>../assets/textures/kitchen_wall.jpg</walls>
+		<floor>../assets/textures/kitchen_roof.png</floor>
+		<roof>../assets/textures/kitchen_roof.png</roof>
+	</room>
 	<models>
 		<model>../assets/models/nanosuit/nanosuit.obj</model>
 		<model>../assets/models/chair/chair.blend</model>
