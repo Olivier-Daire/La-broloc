@@ -41,15 +41,24 @@ int main(int argc, char** argv) {
     scene1.loadSceneFromFile("../assets/scenes/scene1.xml");
 
     // FIXME Test remove this afterwards
-    cout << scene1.getModelPath(1) << endl;
-    cout << scene1.getDialogue(0).getMessage() << endl;
-    cout << scene1.getDialogue(0).getAnswer(1) << endl;
+    // cout << scene1.getModelPath(1) << endl;
+    // cout << scene1.getDialogue(0).getMessage() << endl;
+    // cout << scene1.getDialogue(0).getAnswer(1) << endl;
 
     Model model("../assets/models/nanosuit/nanosuit.obj");
 
     Camera camera;
 
+    bool answer = 0;
+    bool isAnswer = 0;
+    int cptDialogue = 0;
+    int nbAnswer = 2;
+
+    std::string dialogue;
+    std::string answers[nbAnswer];
+
     text.LoadText(shaderText,screenWidth, screenHeight);
+    dialogue = scene1.getDialogue(0).getMessage();
 
 
     /*********************************
@@ -71,6 +80,14 @@ int main(int argc, char** argv) {
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
+            }
+            if( e.type == SDL_KEYDOWN ) {
+                switch( e.key.keysym.sym )
+                {
+                    case SDLK_SPACE:
+                        text.nextText(isAnswer, answer, cptDialogue, scene1, dialogue, answers);
+                    break;
+                }
             }
         }
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_ESCAPE))){
@@ -124,10 +141,16 @@ int main(int argc, char** argv) {
         }
 
         model.Draw(shader);
-
+       
         // Draw texts
-        text.RenderText(shaderText, "This is sample text", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-        text.RenderText(shaderText, "(C) LearnOpenGL.com", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
+        if(dialogue != "") {
+            if(!isAnswer)
+                text.RenderText(shaderText, dialogue, 25.0f, 100.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.4f));
+            else {
+                text.RenderText(shaderText, answers[0], 100.0f, 100.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.4f));
+                text.RenderText(shaderText, answers[1], 300.0f, 100.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.4f));
+            }
+        }
 
         // Update the display
         windowManager.swapBuffers(windowManager.Window);

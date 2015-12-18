@@ -8,6 +8,7 @@
 #include <map>
 #include <string>
 #include <ft2build.h>
+#include "scene.hpp"
 #include FT_FREETYPE_H
 
 class Text {
@@ -17,7 +18,8 @@ class Text {
 		Text();
 		void LoadText(Shader &shader,GLuint width,GLuint height);
 		void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
-	
+		void nextText(bool &isAnswer, bool &answer,int &cptDialogue, Scene scene1, std::string &dialogue, std::string answers[]);
+ 
 	private:
 
 		/// Holds all state information relevant to a character as loaded using FreeType
@@ -28,6 +30,7 @@ class Text {
 		    GLuint Advance;    // Horizontal offset to advance to next glyph
 		};
 
+		std::string dialogue;
 		std::map<GLchar, Character> Characters;
 		GLuint VAO, VBO;
 

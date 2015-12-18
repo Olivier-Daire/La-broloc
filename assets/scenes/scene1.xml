@@ -22,6 +22,22 @@
 				<answer>Blabla</answer>
 			</answers>
 		</dialogue>
+		<dialogue>
+			<message>Patate miam</message>
+			<answers>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+			</answers>
+		</dialogue>
+		<dialogue>
+			<message>Sushi sushi sushi</message>
+			<answers>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+			</answers>
+		</dialogue>
 	</dialogues>
 	<lights>
 		<light>

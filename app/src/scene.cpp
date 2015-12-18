@@ -82,6 +82,14 @@ Dialogue Scene::getDialogue(int number){
 	return _dialogues.at(number);
 }
 
+int Scene::getDialogueNumber() {
+	return _dialogues.size();
+}
+
+int Scene::getAnswerNumber(int i) {
+	return _dialogues[i].getAnswers().size();
+}
+
 Light Scene::getLight(int number){
 	return _lights.at(number);
 }

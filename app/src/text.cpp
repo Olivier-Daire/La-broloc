@@ -9,7 +9,7 @@ void Text::LoadText(Shader &shader,GLuint width,GLuint height) {
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
+
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(width), 0.0f, static_cast<GLfloat>(height));
     shader.Use();
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -131,4 +131,26 @@ void Text::RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GL
     }
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Text::nextText(bool &isAnswer, bool &answer, int &cptDialogue, Scene scene1, std::string &dialogue, std::string answers[]) 
+{
+    isAnswer = 0;
+    if(cptDialogue < scene1.getDialogueNumber()) {
+        if(cptDialogue == 0) answer = 1;
+        if(answer == 0) {
+            if(scene1.getAnswerNumber(cptDialogue) > 0) {
+                answer = 1; 
+                dialogue = scene1.getDialogue(cptDialogue).getMessage();
+            }
+            else cptDialogue++;
+        }
+        else {
+            answers[0] = scene1.getDialogue(cptDialogue).getAnswer(0);
+            answers[1] = scene1.getDialogue(cptDialogue).getAnswer(1);
+            answer = 0;
+            cptDialogue++;
+            isAnswer = 1;
+        }
+    } else dialogue = "";
 }
