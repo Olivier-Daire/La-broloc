@@ -18,8 +18,6 @@ int main(int argc, char** argv) {
     // Initialize SDL and open a window
     SDLWindowManager windowManager(screenWidth, screenHeight, "La Broloc");
 
-    Text text;
-
     // Initialize glew for OpenGL3+ support
     glewExperimental = GL_TRUE; 
     GLenum glewInitError = glewInit();
@@ -49,11 +47,11 @@ int main(int argc, char** argv) {
 
     Camera camera;
 
-    bool answer = 0;
-    bool isAnswer = 0;
-    int cptDialogue = 0;
-    int nbAnswer = 2;
+    // Text variables
+    Text text;
 
+    bool answer = 0, isAnswer = 0, isDialogue = 1;
+    int cptDialogue = 0, nbAnswer = 2, chooseAnswer = 0;
     std::string dialogue;
     std::string answers[nbAnswer];
 
@@ -85,7 +83,15 @@ int main(int argc, char** argv) {
                 switch( e.key.keysym.sym )
                 {
                     case SDLK_SPACE:
-                        text.nextText(isAnswer, answer, cptDialogue, scene1, dialogue, answers);
+                        text.nextText(isDialogue, isAnswer, answer, cptDialogue, scene1, dialogue, answers);
+                    break;
+                    case SDLK_RIGHT:
+                        chooseAnswer++;
+                        if(chooseAnswer == nbAnswer) chooseAnswer = 0;
+                    break;
+                    case SDLK_LEFT:
+                        chooseAnswer--;
+                        if(chooseAnswer == nbAnswer) chooseAnswer = 0;
                     break;
                 }
             }
@@ -94,7 +100,7 @@ int main(int argc, char** argv) {
             done = true;
         }
 
-        Command::commandHandler(windowManager, camera, deltaTime);
+        if(!isDialogue) Command::commandHandler(windowManager, camera, deltaTime);
         Command::mouseManager(camera, windowManager.getMousePosition(), screenWidth/2.0, screenHeight/2.0);
         // Put the cursor back to the center of the scene
         SDL_WarpMouseInWindow(windowManager.Window, screenWidth/2.0, screenHeight/2.0);
@@ -141,16 +147,8 @@ int main(int argc, char** argv) {
         }
 
         model.Draw(shader);
-       
-        // Draw texts
-        if(dialogue != "") {
-            if(!isAnswer)
-                text.RenderText(shaderText, dialogue, 25.0f, 100.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.4f));
-            else {
-                text.RenderText(shaderText, answers[0], 100.0f, 100.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.4f));
-                text.RenderText(shaderText, answers[1], 300.0f, 100.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.4f));
-            }
-        }
+
+        text.Draw(shaderText,isDialogue,isAnswer, chooseAnswer, dialogue,answers);
 
         // Update the display
         windowManager.swapBuffers(windowManager.Window);

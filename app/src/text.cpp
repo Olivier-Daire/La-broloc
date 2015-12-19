@@ -133,7 +133,7 @@ void Text::RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GL
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Text::nextText(bool &isAnswer, bool &answer, int &cptDialogue, Scene scene1, std::string &dialogue, std::string answers[]) 
+void Text::nextText(bool &isDialogue, bool &isAnswer, bool &answer, int &cptDialogue, Scene scene1, std::string &dialogue, std::string answers[]) 
 {
     isAnswer = 0;
     if(cptDialogue < scene1.getDialogueNumber()) {
@@ -152,5 +152,28 @@ void Text::nextText(bool &isAnswer, bool &answer, int &cptDialogue, Scene scene1
             cptDialogue++;
             isAnswer = 1;
         }
-    } else dialogue = "";
+    } else isDialogue = 0;
+}
+
+void Text::Draw(Shader shaderText,bool isDialogue, bool isAnswer,int chooseAnswer,std::string dialogue,std::string answers[]) {
+    glm::vec3 answerColor1;
+    glm::vec3 answerColor2;
+
+    // Draw texts
+    if(isDialogue == 1) {
+        if(!isAnswer)
+            RenderText(shaderText, dialogue, 25.0f, 100.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.4f));
+        else {
+            if(chooseAnswer == 0)  {
+                answerColor1 = glm::vec3(0.5, 0.8f, 0.6f);
+                answerColor2 = glm::vec3(0.5, 0.8f, 0.4f);
+            }
+            else {
+                answerColor1 = glm::vec3(0.5, 0.8f, 0.4f);
+                answerColor2 = glm::vec3(0.5, 0.8f, 0.6f);
+            }
+            RenderText(shaderText, answers[0], 100.0f, 100.0f, 0.5f, answerColor1);
+            RenderText(shaderText, answers[1], 300.0f, 100.0f, 0.5f, answerColor2);
+        }
+    }
 }
