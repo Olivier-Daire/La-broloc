@@ -12,6 +12,36 @@
 
 using namespace glimac;
 
+void glEnable2D()
+{
+    int vPort[4];
+
+   glGetIntegerv(GL_VIEWPORT, vPort);
+
+   glMatrixMode(GL_PROJECTION);
+   glDisable(GL_DEPTH_TEST);
+glDisable(GL_CULL_FACE);
+glDisable(GL_TEXTURE_2D);
+glDisable(GL_LIGHTING);
+   glPushMatrix();
+   glLoadIdentity();
+
+   glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+   glLoadIdentity();
+}
+
+void glDisable2D()
+{
+    glEnable(GL_DEPTH_TEST);
+   glMatrixMode(GL_PROJECTION);
+   glPopMatrix();   
+   glMatrixMode(GL_MODELVIEW);
+   glPopMatrix();   
+}
+
+
 int main(int argc, char** argv) {
     GLuint screenWidth = 800, screenHeight = 600;
 
@@ -34,7 +64,7 @@ int main(int argc, char** argv) {
 
     Shader shader("../assets/shaders/pointlight.vs.glsl", "../assets/shaders/pointlight.fs.glsl");
     Shader shaderText("../assets/shaders/text.vs.glsl", "../assets/shaders/text.fs.glsl");
-
+    Shader shaderColor2D("../assets/shaders/color2D.vs.glsl", "../assets/shaders/color2D.fs.glsl");
     Scene scene1;
     scene1.loadSceneFromFile("../assets/scenes/scene1.xml");
 
@@ -57,7 +87,6 @@ int main(int argc, char** argv) {
 
     text.LoadText(shaderText,screenWidth, screenHeight);
     dialogue = scene1.getDialogue(0).getMessage();
-
 
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
@@ -91,7 +120,7 @@ int main(int argc, char** argv) {
                     break;
                     case SDLK_LEFT:
                         chooseAnswer--;
-                        if(chooseAnswer == nbAnswer) chooseAnswer = 0;
+                        if(chooseAnswer == 0) chooseAnswer = nbAnswer;
                     break;
                 }
             }
@@ -109,6 +138,7 @@ int main(int argc, char** argv) {
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
+
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

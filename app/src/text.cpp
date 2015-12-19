@@ -129,6 +129,7 @@ void Text::RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GL
         // Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
         x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
     }
+
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
 }
@@ -165,12 +166,12 @@ void Text::Draw(Shader shaderText,bool isDialogue, bool isAnswer,int chooseAnswe
             RenderText(shaderText, dialogue, 25.0f, 100.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.4f));
         else {
             if(chooseAnswer == 0)  {
-                answerColor1 = glm::vec3(0.5, 0.8f, 0.6f);
-                answerColor2 = glm::vec3(0.5, 0.8f, 0.4f);
+                answerColor1 = glm::vec3(0.0f, 0.4f, 0.0f);
+                answerColor2 = glm::vec3(0.5f, 0.8f, 0.4f);
             }
             else {
-                answerColor1 = glm::vec3(0.5, 0.8f, 0.4f);
-                answerColor2 = glm::vec3(0.5, 0.8f, 0.6f);
+                answerColor1 = glm::vec3(0.5f, 0.8f, 0.6f);
+                answerColor2 = glm::vec3(0.0f, 0.4f, 0.0f);
             }
             RenderText(shaderText, answers[0], 100.0f, 100.0f, 0.5f, answerColor1);
             RenderText(shaderText, answers[1], 300.0f, 100.0f, 0.5f, answerColor2);
