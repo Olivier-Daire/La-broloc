@@ -8,8 +8,39 @@
 #include "camera.hpp"
 #include "command.hpp"
 #include "scene.hpp"
+#include "text.hpp"
 
 using namespace glimac;
+
+void glEnable2D()
+{
+    int vPort[4];
+
+   glGetIntegerv(GL_VIEWPORT, vPort);
+
+   glMatrixMode(GL_PROJECTION);
+   glDisable(GL_DEPTH_TEST);
+glDisable(GL_CULL_FACE);
+glDisable(GL_TEXTURE_2D);
+glDisable(GL_LIGHTING);
+   glPushMatrix();
+   glLoadIdentity();
+
+   glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+   glLoadIdentity();
+}
+
+void glDisable2D()
+{
+    glEnable(GL_DEPTH_TEST);
+   glMatrixMode(GL_PROJECTION);
+   glPopMatrix();   
+   glMatrixMode(GL_MODELVIEW);
+   glPopMatrix();   
+}
+
 
 int main(int argc, char** argv) {
     GLuint screenWidth = 800, screenHeight = 600;
@@ -32,19 +63,31 @@ int main(int argc, char** argv) {
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
     Shader shader("../assets/shaders/pointlight.vs.glsl", "../assets/shaders/pointlight.fs.glsl");
-    
-
+    Shader shaderText("../assets/shaders/text.vs.glsl", "../assets/shaders/text.fs.glsl");
+    Shader shaderColor2D("../assets/shaders/color2D.vs.glsl", "../assets/shaders/color2D.fs.glsl");
     Scene scene1;
     scene1.loadSceneFromFile("../assets/scenes/scene1.xml");
 
     // FIXME Test remove this afterwards
-    cout << scene1.getModelPath(1) << endl;
-    cout << scene1.getDialogue(0).getMessage() << endl;
-    cout << scene1.getDialogue(0).getAnswer(1) << endl;
+    // cout << scene1.getModelPath(1) << endl;
+    // cout << scene1.getDialogue(0).getMessage() << endl;
+    // cout << scene1.getDialogue(0).getAnswer(1) << endl;
 
     Model model("../assets/models/nanosuit/nanosuit.obj");
 
     Camera camera;
+
+    // Text variables
+    Text text;
+
+    bool answer = 0, isAnswer = 0, isDialogue = 1;
+    int cptDialogue = 0, nbAnswer = 2, chooseAnswer = 0;
+    std::string dialogue;
+    std::string answers[nbAnswer];
+
+    text.LoadText(shaderText,screenWidth, screenHeight);
+    dialogue = scene1.getDialogue(0).getMessage();
+
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
@@ -65,12 +108,28 @@ int main(int argc, char** argv) {
             if(e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
             }
+            if( e.type == SDL_KEYDOWN ) {
+                switch( e.key.keysym.sym )
+                {
+                    case SDLK_SPACE:
+                        text.nextText(isDialogue, isAnswer, answer, cptDialogue, scene1, dialogue, answers);
+                    break;
+                    case SDLK_RIGHT:
+                        chooseAnswer++;
+                        if(chooseAnswer == nbAnswer) chooseAnswer = 0;
+                    break;
+                    case SDLK_LEFT:
+                        chooseAnswer--;
+                        if(chooseAnswer == 0) chooseAnswer = nbAnswer;
+                    break;
+                }
+            }
         }
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_ESCAPE))){
             done = true;
         }
 
-        Command::commandHandler(windowManager, camera, deltaTime);
+        if(!isDialogue) Command::commandHandler(windowManager, camera, deltaTime);
         Command::mouseManager(camera, windowManager.getMousePosition(), screenWidth/2.0, screenHeight/2.0);
         // Put the cursor back to the center of the scene
         SDL_WarpMouseInWindow(windowManager.Window, screenWidth/2.0, screenHeight/2.0);
@@ -79,6 +138,7 @@ int main(int argc, char** argv) {
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
+
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -117,6 +177,8 @@ int main(int argc, char** argv) {
         }
 
         model.Draw(shader);
+
+        text.Draw(shaderText,isDialogue,isAnswer, chooseAnswer, dialogue,answers);
 
         // Update the display
         windowManager.swapBuffers(windowManager.Window);

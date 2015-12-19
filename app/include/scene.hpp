@@ -15,6 +15,8 @@ class Scene
 		void loadSceneFromFile(const char* filename);
 		string getModelPath(int number);
 		Dialogue getDialogue(int number);
+		int getDialogueNumber();
+		int getAnswerNumber(int i);
 		Light getLight(int number);
 		int getLightNumber();
 
