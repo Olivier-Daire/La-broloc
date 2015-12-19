@@ -12,35 +12,6 @@
 
 using namespace glimac;
 
-void glEnable2D()
-{
-    int vPort[4];
-
-   glGetIntegerv(GL_VIEWPORT, vPort);
-
-   glMatrixMode(GL_PROJECTION);
-   glDisable(GL_DEPTH_TEST);
-glDisable(GL_CULL_FACE);
-glDisable(GL_TEXTURE_2D);
-glDisable(GL_LIGHTING);
-   glPushMatrix();
-   glLoadIdentity();
-
-   glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
-   glMatrixMode(GL_MODELVIEW);
-   glPushMatrix();
-   glLoadIdentity();
-}
-
-void glDisable2D()
-{
-    glEnable(GL_DEPTH_TEST);
-   glMatrixMode(GL_PROJECTION);
-   glPopMatrix();   
-   glMatrixMode(GL_MODELVIEW);
-   glPopMatrix();   
-}
-
 
 int main(int argc, char** argv) {
     GLuint screenWidth = 800, screenHeight = 600;
