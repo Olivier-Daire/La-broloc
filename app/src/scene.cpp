@@ -180,6 +180,8 @@ void Scene::loadRoom(XMLDocument& doc){
 }
 
 void Scene::drawRoom(Shader shader){
+    glDisable(GL_BLEND); // Disable blend to avoid conflicts with text being rendered on screen
+
 	glBindTexture(GL_TEXTURE_2D, _texturesArray[0]);
 
     glm::mat4 matModelWall;
@@ -237,6 +239,9 @@ void Scene::drawRoom(Shader shader){
     
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindVertexArray(0);
+    
+    // Re enable blend to draw the text on screen
+    glEnable(GL_BLEND);
 }
 
 void Scene::deleteRoom(){
