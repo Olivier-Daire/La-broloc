@@ -36,6 +36,8 @@ int main(int argc, char** argv) {
     Shader shader("../assets/shaders/pointlight.vs.glsl", "../assets/shaders/pointlight.fs.glsl");
     Shader shaderText("../assets/shaders/text.vs.glsl", "../assets/shaders/text.fs.glsl");
     Shader shaderColor2D("../assets/shaders/color2D.vs.glsl", "../assets/shaders/color2D.fs.glsl");
+    Shader wallShader("../assets/shaders/tex2D.vs.glsl", "../assets/shaders/tex2D.fs.glsl");
+    
     Scene scene1;
     scene1.loadSceneFromFile("../assets/scenes/scene1.xml");
 
@@ -62,6 +64,10 @@ int main(int argc, char** argv) {
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
+
+     /********* WALL **********/
+
+    /********* WALL **********/
 
 
     // Application loop:
@@ -113,22 +119,31 @@ int main(int argc, char** argv) {
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shader.Use();
-
         // Transformation matrices
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
-        
         glm::mat4 view = camera.getViewMatrix();
+        
+        //***** ROOM *****//
+        wallShader.Use();
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+        scene1.drawRoom(wallShader);
+
+        //***** MODEL *****//
+        shader.Use();
+        
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
-        // Draw the loaded model
         glm::mat4 matModel;
         // Translate model to the center of the scene
         matModel = glm::translate(matModel, glm::vec3(0.0f, -1.75f, -5.0f));
         matModel = glm::scale(matModel, glm::vec3(0.2f, 0.2f, 0.2f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
+        model.Draw(shader);
 
+
+        //***** LIGHT *****//
         // Set the lighting uniforms
         glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
 
@@ -150,10 +165,11 @@ int main(int argc, char** argv) {
         model.Draw(shader);
 
         text.Draw(shaderText,isDialogue,isAnswer, chooseAnswer, dialogue,answers);
-
         // Update the display
         windowManager.swapBuffers(windowManager.Window);
     }
+
+    scene1.deleteRoom();
 
     return EXIT_SUCCESS;
 }
