@@ -196,28 +196,6 @@ void Scene::drawRoom(Shader shader){
    
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glBindTexture(GL_TEXTURE_2D, _texturesArray[1]);
-    // Ground
-    matModelWall = glm::rotate(matModelWall, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    matModelWall = glm::scale(matModelWall, glm::vec3(1.0f, 2.0f, 1.0f));
-    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
-   
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glBindTexture(GL_TEXTURE_2D, _texturesArray[2]);
-    // Roof
-    matModelWall = glm::translate(matModelWall, glm::vec3(0.0f, 0.0f, -10.0f));
-    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
-   
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    
-    // TODO try to bind only once : draw all the walls then debind
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glBindTexture(GL_TEXTURE_2D, _texturesArray[0]);
     // Left Wall
     matModelWall = glm::rotate(frontMatModelWall, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
     matModelWall = glm::scale(matModelWall, glm::vec3(2.0f, 1.0f, 1.0f));
@@ -233,17 +211,34 @@ void Scene::drawRoom(Shader shader){
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-
-    // Back Wall
+     // Back Wall
     matModelWall = glm::translate(initialMatModelWall, glm::vec3(-2.5f, -3.0f, 10.0f));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+    // Floor
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, _texturesArray[1]);
+
+    matModelWall = glm::rotate(frontMatModelWall, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    matModelWall = glm::scale(matModelWall, glm::vec3(1.0f, 2.0f, 1.0f));
+    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+   
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+    // Roof
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, _texturesArray[2]);
+
+    matModelWall = glm::translate(matModelWall, glm::vec3(0.0f, 0.0f, -10.0f));
+    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+   
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     
+    glBindTexture(GL_TEXTURE_2D, 0);
     glBindVertexArray(0);
     glDepthMask(GL_TRUE);
-
-    glBindTexture(GL_TEXTURE_2D,0);
 }
 
 void Scene::deleteRoom(){
