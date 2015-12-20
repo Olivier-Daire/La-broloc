@@ -1,4 +1,4 @@
-#include "light.hpp"
+#include "tools/light.hpp"
 
 Light::Light(){
 

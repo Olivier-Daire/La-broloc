@@ -3,10 +3,10 @@
 #include <string>
 #include <tinyxml2/tinyxml2.h>
 #include <glimac/Image.hpp>
-#include "model.hpp"
+#include "model/model.hpp"
 #include "dialogue.hpp"
-#include "light.hpp"
-#include "vertex2D.hpp"
+#include "tools/light.hpp"
+#include "geometry/vertex2D.hpp"
 
 using namespace tinyxml2;
 

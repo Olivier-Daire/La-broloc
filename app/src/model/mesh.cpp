@@ -1,4 +1,4 @@
-#include "mesh.hpp"
+#include "model/mesh.hpp"
 
 Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> textures)
 {

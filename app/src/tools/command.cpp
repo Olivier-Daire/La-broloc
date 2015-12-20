@@ -1,4 +1,4 @@
-#include "command.hpp"
+#include "tools/command.hpp"
 
 const float Command::mouseSensitivity = 0.002f;
 

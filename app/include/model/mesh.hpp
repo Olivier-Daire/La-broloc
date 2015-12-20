@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 #include "texture.hpp"
-#include "vertex.hpp"
+#include "geometry/vertex.hpp"
 #include "shader.hpp"
 
 using namespace std;

@@ -4,11 +4,11 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include "shader.hpp"
-#include "model.hpp"
-#include "camera.hpp"
-#include "command.hpp"
+#include "model/model.hpp"
+#include "tools/camera.hpp"
+#include "tools/command.hpp"
 #include "scene.hpp"
-#include "text.hpp"
+#include "tools/text.hpp"
 
 using namespace glimac;
 

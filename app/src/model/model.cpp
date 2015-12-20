@@ -1,4 +1,4 @@
-#include "model.hpp"
+#include "model/model.hpp"
 
 using namespace std;
 
