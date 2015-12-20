@@ -35,16 +35,10 @@ int main(int argc, char** argv) {
 
     Shader shader("../assets/shaders/pointlight.vs.glsl", "../assets/shaders/pointlight.fs.glsl");
     Shader shaderText("../assets/shaders/text.vs.glsl", "../assets/shaders/text.fs.glsl");
-    Shader shaderColor2D("../assets/shaders/color2D.vs.glsl", "../assets/shaders/color2D.fs.glsl");
     Shader wallShader("../assets/shaders/tex2D.vs.glsl", "../assets/shaders/tex2D.fs.glsl");
     
     Scene scene1;
     scene1.loadSceneFromFile("../assets/scenes/scene1.xml");
-
-    // FIXME Test remove this afterwards
-    // cout << scene1.getModelPath(1) << endl;
-    // cout << scene1.getDialogue(0).getMessage() << endl;
-    // cout << scene1.getDialogue(0).getAnswer(1) << endl;
 
     Model model("../assets/models/nanosuit/nanosuit.obj");
 
@@ -58,17 +52,12 @@ int main(int argc, char** argv) {
     std::string dialogue;
     std::string answers[nbAnswer];
 
-    text.LoadText(shaderText,screenWidth, screenHeight);
+    text.LoadText(shaderText, screenWidth, screenHeight);
     dialogue = scene1.getDialogue(0).getMessage();
 
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
-
-     /********* WALL **********/
-
-    /********* WALL **********/
-
 
     // Application loop:
     float deltaTime = 0.0f;   // Time between current frame and last frame
@@ -162,9 +151,8 @@ int main(int argc, char** argv) {
             glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".quadratic").c_str()), light.getQuadratic());
         }
 
-        model.Draw(shader);
+        text.Draw(shaderText,isDialogue, isAnswer, chooseAnswer, dialogue, answers);
 
-        text.Draw(shaderText,isDialogue,isAnswer, chooseAnswer, dialogue,answers);
         // Update the display
         windowManager.swapBuffers(windowManager.Window);
     }
