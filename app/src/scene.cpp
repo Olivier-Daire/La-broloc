@@ -186,7 +186,6 @@ void Scene::drawRoom(Shader shader){
     glm::mat4 initialMatModelWall = matModelWall; // Initial state subsitute of push and pop
    
     glUniform1i(glGetUniformLocation(shader.Program, "uTexture"), 0);
-    glDepthMask(GL_FALSE);
     glBindVertexArray(_vao);
     
     // Front Wall
@@ -238,7 +237,6 @@ void Scene::drawRoom(Shader shader){
     
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindVertexArray(0);
-    glDepthMask(GL_TRUE);
 }
 
 void Scene::deleteRoom(){

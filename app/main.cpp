@@ -52,6 +52,7 @@ int main(int argc, char** argv) {
     std::string dialogue;
     std::string answers[nbAnswer];
 
+    // TODO Load text inside scene
     text.LoadText(shaderText, screenWidth, screenHeight);
     dialogue = scene1.getDialogue(0).getMessage();
 
