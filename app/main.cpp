@@ -86,8 +86,8 @@ int main(int argc, char** argv) {
                         if(chooseAnswer == nbAnswer) chooseAnswer = 0;
                     break;
                     case SDLK_LEFT:
-                        chooseAnswer--;
                         if(chooseAnswer == 0) chooseAnswer = nbAnswer;
+                        chooseAnswer--;
                     break;
                 }
             }
@@ -156,6 +156,7 @@ int main(int argc, char** argv) {
 
         // Update the display
         windowManager.swapBuffers(windowManager.Window);
+
     }
 
     scene1.deleteRoom();
