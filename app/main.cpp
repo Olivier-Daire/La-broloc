@@ -40,7 +40,14 @@ int main(int argc, char** argv) {
     Scene scene1;
     scene1.loadSceneFromFile("../assets/scenes/scene1.xml");
 
-    Model model("../assets/models/nanosuit/nanosuit.obj");
+    // Load all the XML models using their path
+    Model models[scene1.getModelNumber()];
+    for (int i = 0; i < scene1.getModelNumber(); ++i)
+    {
+        models[i] = Model(scene1.getModel(i).Path);
+    }
+
+    // FIXME list working models, remove it afterwards
     //Model kitchen("../assets/models/bedroom/bedside_table/Skin A/Table de nuit_Final.obj");
     //Model kitchen("../assets/models/kitchen/bread/Bread.obj");
     //Model kitchen("../assets/models/bathroom/washbasin/[.obj]/Lavabo.obj");
@@ -137,17 +144,18 @@ int main(int argc, char** argv) {
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
-        glm::mat4 matModel;
-        // Translate model to the center of the scene
-        matModel = glm::translate(matModel, glm::vec3(0.0f, -1.75f, -5.0f));
-        matModel = glm::scale(matModel, glm::vec3(0.2f, 0.2f, 0.2f));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
-        model.Draw(shader);
+        
 
-        // matModel = glm::translate(matModel, glm::vec3(0.0f, -1.75f, -5.0f));
-        // matModel = glm::scale(matModel, glm::vec3(0.2f, 0.2f, 0.2f));
-        // glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
-        // kitchen.Draw(shader);
+        for (int i = 0; i < scene1.getModelNumber(); ++i)
+        {
+            glm::mat4 matModel;
+            // Translate model following the parameters set in the XML
+            matModel = glm::translate(matModel, scene1.getModel(i).Translate);
+            // Scale model following the parameters set in the XML
+            matModel = glm::scale(matModel, scene1.getModel(i).Scale);
+            glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
+            models[i].Draw(shader);
+        }
 
         //***** LIGHT *****//
         // Set the lighting uniforms

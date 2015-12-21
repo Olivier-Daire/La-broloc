@@ -11,6 +11,7 @@
 class Model 
 {
     public:
+        Model();
         Model(string path);
         void Draw(Shader shader);   
     private:

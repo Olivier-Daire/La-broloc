@@ -2,6 +2,9 @@
 
 using namespace std;
 
+Model::Model(){
+}
+
 Model::Model(string path){
     this->loadModel(path);
 }
@@ -33,7 +36,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
     // Process all the node's meshes
     for(GLuint i = 0; i < node->mNumMeshes; i++)
     {
-        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]]; 
+        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
         this->meshes.push_back(this->processMesh(mesh, scene));			
     }
     // Then do the same for each children
@@ -51,6 +54,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
     for(GLuint i = 0; i < mesh->mNumVertices; i++)
     {
+
         Vertex vertex;
         // Placeholder vec3 to transfer Assimp's data
         glm::vec3 vector;
@@ -65,8 +69,8 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		vector.x = mesh->mNormals[i].x;
 		vector.y = mesh->mNormals[i].y;
 		vector.z = mesh->mNormals[i].z;
-		vertex.Normal = vector; 
-
+		vertex.Normal = vector;
+        
 		// Process vertex texture coordinates
 		// Does the mesh contain texture coordinates ?
 		if(mesh->mTextureCoords[0])

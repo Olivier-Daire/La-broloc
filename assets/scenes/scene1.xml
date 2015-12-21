@@ -6,10 +6,17 @@
 		<roof>../assets/textures/kitchen_roof.png</roof>
 	</room>
 	<models>
-		<model>../assets/models/nanosuit/nanosuit.obj</model>
-		<model>../assets/models/chair/chair.blend</model>
+ 		<model>
+			<path>../assets/models/kitchen/bread/Bread.obj</path>
+			<translate x="0.0f" y="-1.75f" z="-5.0f"></translate>
+			<scale x="0.2f" y="0.2f" z="0.2f"></scale>
+		</model>e
+		<model>
+			<path>../assets/models/kitchen/Toaster/Toaster.obj</path>
+			<translate x="0.5f" y="0.7f" z="-4.0f"></translate>
+			<scale x="0.01f" y="0.01f" z="0.01f"></scale>
+		</model>
 	</models>
-
 	<dialogues>
 		<dialogue>
 			<message>Bonjour, Rémi que s'est il passé ?</message>

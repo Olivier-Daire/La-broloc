@@ -7,6 +7,7 @@
 #include "dialogue.hpp"
 #include "tools/light.hpp"
 #include "geometry/vertex2D.hpp"
+#include "modelInfos.hpp"
 
 using namespace tinyxml2;
 
@@ -15,14 +16,15 @@ class Scene
 	public:
 		Scene();
 		void loadSceneFromFile(const char* filename);
-		string getModelPath(int number);
+		ModelInfos getModel(int number);
+		int getModelNumber();
 		Dialogue getDialogue(int number);
 		int getDialogueNumber();
 		int getAnswerNumber(int i);
 		Light getLight(int number);
 		int getLightNumber();
 
-		void loadModelsPaths(XMLDocument& doc);
+		void loadModels(XMLDocument& doc);
 		void loadDialogues(XMLDocument& doc);
 		void loadLights(XMLDocument& doc);
 
@@ -32,7 +34,7 @@ class Scene
 	
 	private:
 		// List of all the models of the scene
-		vector<string> _models;
+		vector<ModelInfos> _models;
 		// List of all the dialogues of the scene
 		vector<Dialogue> _dialogues;
 		vector<Light> _lights;

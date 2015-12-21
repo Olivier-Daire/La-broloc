@@ -9,18 +9,35 @@ void Scene::loadSceneFromFile(const char* filename){
 	XMLDocument doc;
 	doc.LoadFile(filename);
 
-	loadModelsPaths(doc);
+    // Check for errors in the XML
+    if (doc.ErrorID() != 0)
+    {
+        doc.PrintError();
+    }
+
+	loadModels(doc);
 	loadDialogues(doc);
 	loadLights(doc);
 	loadRoom(doc);
 }
 
-void Scene::loadModelsPaths(XMLDocument& doc){
+void Scene::loadModels(XMLDocument& doc){
 	// Load all models paths
+    // FIXME fucking seg fault
 	XMLElement *models = doc.FirstChildElement("scene")->FirstChildElement("models");
-	for (XMLElement* model = models->FirstChildElement(); model != NULL; model = model->NextSiblingElement())
+    
+	for (const XMLElement* model = models->FirstChildElement(); model != NULL; model = model->NextSiblingElement())
 	{
-	    _models.push_back(model->GetText());
+        string path = model->FirstChildElement("path")->GetText();
+        
+        glm::vec3 translate =  glm::vec3(model->FirstChildElement("translate")->FindAttribute("x")->FloatValue(),
+                                         model->FirstChildElement("translate")->FindAttribute("y")->FloatValue(),
+                                         model->FirstChildElement("translate")->FindAttribute("z")->FloatValue());
+
+        glm::vec3 scale =  glm::vec3(model->FirstChildElement("scale")->FindAttribute("x")->FloatValue(),
+                                     model->FirstChildElement("scale")->FindAttribute("y")->FloatValue(),
+                                     model->FirstChildElement("scale")->FindAttribute("z")->FloatValue());
+	    _models.push_back(ModelInfos(path, translate, scale));
 	}
 }
 
@@ -73,9 +90,12 @@ void Scene::loadLights(XMLDocument& doc){
 	}
 }
 
+ModelInfos Scene::getModel(int number){
+    return _models.at(number);
+}
 
-string Scene::getModelPath(int number){
-	return _models.at(number);
+int Scene::getModelNumber(){
+    return _models.size();
 }
 
 Dialogue Scene::getDialogue(int number){
