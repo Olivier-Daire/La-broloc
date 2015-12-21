@@ -49,13 +49,11 @@ int main(int argc, char** argv) {
 
     // FIXME list working models, remove it afterwards
     //Model kitchen("../assets/models/bedroom/bedside_table/Skin A/Table de nuit_Final.obj");
-    //Model kitchen("../assets/models/kitchen/bread/Bread.obj");
     //Model kitchen("../assets/models/bathroom/washbasin/[.obj]/Lavabo.obj");
     //Model kitchen("../assets/models/living_room/Table/Table.obj");
     //Model kitchen("../assets/models/bedroom/heater/[.obj]/Radiateur.obj");
     //Model kitchen("../assets/models/living_room/modern-closet/[.obj]/Modern Closet.obj");
     //Model kitchen("../assets/models/living_room/modern-sideboard/[.obj]/Buffet Moderne.obj");
-    //Model kitchen("../assets/models/kitchen/Toaster/Toaster.obj");
     //Model kitchen("../assets/models/bedroom/lit/lit.obj");
     //Model kitchen("../assets/models/bathroom/heater/radiateur.obj");
     //Model kitchen("../assets/models/bathroom/soap/com_bath2_soap.obj");
