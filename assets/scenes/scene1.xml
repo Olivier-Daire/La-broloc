@@ -8,13 +8,38 @@
 	<models>
  		<model>
 			<path>../assets/models/kitchen/bread/Bread.obj</path>
-			<translate x="0.0f" y="-1.75f" z="-5.0f"></translate>
+			<translate x="0.0f" y="-1.0f" z="-3.0f"></translate>
 			<scale x="0.2f" y="0.2f" z="0.2f"></scale>
 		</model>e
 		<model>
 			<path>../assets/models/kitchen/Toaster/Toaster.obj</path>
-			<translate x="0.5f" y="0.7f" z="-4.0f"></translate>
+			<translate x="-2.0f" y="-1.0f" z="-3.0f"></translate>
 			<scale x="0.01f" y="0.01f" z="0.01f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/kitchen/frigo/frigo.obj</path>
+			<translate x="-8.5f" y="-3.0f" z="-12.0f"></translate>
+			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/kitchen/cucina/cucina.obj</path>
+			<translate x="0.0f" y="-3.0f" z="-8.2f"></translate>
+			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/kitchen/doppio/doppio.obj</path>
+			<translate x="-4.3f" y="-3.0f" z="-4.0f"></translate>
+			<scale x="0.025f" y="0.03f" z="0.03f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/kitchen/lavello_doppio/lavello_doppio.obj</path>
+			<translate x="3.72f" y="-0.65f" z="-9.0f"></translate>
+			<scale x="0.8f" y="0.8f" z="0.8f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/kitchen/isola_cucina/isola_cucina.obj</path>
+			<translate x="1.5f" y="0.22f" z="2.0f"></translate>
+			<scale x="0.5f" y="0.5f" z="0.5f"></scale>
 		</model>
 	</models>
 	<dialogues>
