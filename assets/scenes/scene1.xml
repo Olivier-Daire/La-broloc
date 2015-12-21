@@ -41,6 +41,26 @@
 			<translate x="1.5f" y="0.22f" z="2.0f"></translate>
 			<scale x="0.5f" y="0.5f" z="0.5f"></scale>
 		</model>
+		<model>
+			<path>../assets/models/kitchen/beer/beer.obj</path>
+			<translate x="0.5f" y="-0.65f" z="-8.7f"></translate>
+			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/kitchen/poele/poele.obj</path>
+			<translate x="-1.8f" y="-0.68f" z="-8.8f"></translate>
+			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/kitchen/kitchenTools/kitchenTools.obj</path>
+			<translate x="6.5f" y="-2.0f" z="-7.7f"></translate>
+			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/kitchen/knifeStandSwap/knifeStandSwap.obj</path>
+			<translate x="0.25f" y="0.58f" z="-10.0f"></translate>
+			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
+		</model>
 	</models>
 	<dialogues>
 		<dialogue>
