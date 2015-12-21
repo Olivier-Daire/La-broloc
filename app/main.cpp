@@ -83,12 +83,12 @@ int main(int argc, char** argv) {
     bool done = false;
 
 
-    cout << "x: " << model.box.x << endl;
-    cout << "y: " << model.box.y << endl;
-    cout << "z: " << model.box.z << endl;
-    cout << "w: " << model.box.w << endl;
-    cout << "h: " << model.box.h << endl;
-    cout << "d: " << model.box.d << endl;
+    cout << "x: " << models[0].box.x << endl;
+    cout << "y: " << models[0].box.y << endl;
+    cout << "z: " << models[0].box.z << endl;
+    cout << "w: " << models[0].box.w << endl;
+    cout << "h: " << models[0].box.h << endl;
+    cout << "d: " << models[0].box.d << endl;
     cout << "caméra: x : " << camera.getPosition().x << " y : " << camera.getPosition().y << " z: " <<  camera.getPosition().z << endl;
 
     while(!done) {
@@ -101,16 +101,16 @@ int main(int argc, char** argv) {
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-    //         cout << "x: " << model.box.x << endl;
-    // cout << "y: " << model.box.y << endl;
-    // cout << "z: " << model.box.z << endl;
-    // cout << "w: " << model.box.w << endl;
-    // cout << "h: " << model.box.h << endl;
-    // cout << "d: " << model.box.d << endl;
+    //         cout << "x: " << models[0].box.x << endl;
+    // cout << "y: " << models[0].box.y << endl;
+    // cout << "z: " << models[0].box.z << endl;
+    // cout << "w: " << models[0].box.w << endl;
+    // cout << "h: " << models[0].box.h << endl;
+    // cout << "d: " << models[0].box.d << endl;
     // cout << "caméra: " << camera.getPosition().x << "y :" << camera.getPosition().y << "z: " <<  camera.getPosition().z << endl;
 
          cout << "caméra: " << camera.getPosition().x << "y :" << camera.getPosition().y << "z: " <<  camera.getPosition().z << endl;
-        if(model.box.collision(cameraBox))
+        if(models[0].box.collision(cameraBox))
          cout << "COLLISIOOOONS " << endl;
         else cout << "PAS COLLISION" << endl;
 
