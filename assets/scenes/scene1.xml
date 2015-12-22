@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scene>
 	<room>
+		<!-- Take care of proportion to keep the camera in the room -->
+		<width>10</width>
+		<height>8</height>
+		<depth>12</depth>
 		<walls>../assets/textures/kitchen_wall.jpg</walls>
 		<floor>../assets/textures/kitchen_roof.png</floor>
 		<roof>../assets/textures/kitchen_roof.png</roof>
@@ -8,72 +12,72 @@
 	<models>
  		<model>
 			<path>../assets/models/kitchen/bread/Bread.obj</path>
-			<translate x="0.0f" y="-1.0f" z="-3.0f"></translate>
+			<translate x="-4.0f" y="-1.0f" z="-3.0f"></translate>
 			<scale x="0.2f" y="0.2f" z="0.2f"></scale>
 		</model>e
 		<model>
 			<path>../assets/models/kitchen/Toaster/Toaster.obj</path>
-			<translate x="-2.0f" y="-1.0f" z="-3.0f"></translate>
+			<translate x="-6.0f" y="-1.0f" z="-3.0f"></translate>
 			<scale x="0.01f" y="0.01f" z="0.01f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/frigo/frigo.obj</path>
-			<translate x="-8.5f" y="-3.0f" z="-12.0f"></translate>
+			<translate x="-12.5f" y="-3.0f" z="-12.0f"></translate>
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/cucina/cucina.obj</path>
-			<translate x="0.0f" y="-3.0f" z="-8.2f"></translate>
+			<translate x="-4.0f" y="-3.0f" z="-8.2f"></translate>
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/doppio/doppio.obj</path>
-			<translate x="-4.3f" y="-3.0f" z="-4.0f"></translate>
+			<translate x="-8.3f" y="-3.0f" z="-4.0f"></translate>
 			<scale x="0.025f" y="0.03f" z="0.03f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/lavello_doppio/lavello_doppio.obj</path>
-			<translate x="3.72f" y="-0.65f" z="-9.0f"></translate>
+			<translate x="-0.28f" y="-0.65f" z="-9.0f"></translate>
 			<scale x="0.8f" y="0.8f" z="0.8f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/isola_cucina/isola_cucina.obj</path>
-			<translate x="1.5f" y="0.22f" z="2.0f"></translate>
+			<translate x="-2.5f" y="0.22f" z="2.0f"></translate>
 			<scale x="0.5f" y="0.5f" z="0.5f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/beer/beer.obj</path>
-			<translate x="0.5f" y="-0.65f" z="-8.7f"></translate>
+			<translate x="-3.5f" y="-0.65f" z="-8.7f"></translate>
 			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/poele/poele.obj</path>
-			<translate x="-1.8f" y="-0.68f" z="-8.8f"></translate>
+			<translate x="-5.8f" y="-0.68f" z="-8.8f"></translate>
 			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/kitchenTools/kitchenTools.obj</path>
-			<translate x="6.5f" y="-2.0f" z="-7.7f"></translate>
+			<translate x="2.5f" y="-2.0f" z="-7.7f"></translate>
 			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/knifeStandSwap/knifeStandSwap.obj</path>
-			<translate x="0.25f" y="0.58f" z="-10.0f"></translate>
+			<translate x="-4.0f" y="0.58f" z="-10.0f"></translate>
 			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/coffee-mug/coffee-mug.obj</path>
-			<translate x="-0.5f" y="-.9f" z="-2.2f"></translate>
+			<translate x="-4.5f" y="-.9f" z="-2.2f"></translate>
 			<scale x="0.25f" y="0.25f" z="0.25f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/bar-stool/bar-stool.obj</path>
-			<translate x="-0.5f" y="-2.0f" z="-4.5f"></translate>
+			<translate x="-4.5f" y="-2.0f" z="-4.5f"></translate>
 			<scale x="1.2f" y="1.2f" z="1.2f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/bar-stool/bar-stool.obj</path>
-			<translate x="-0.5f" y="-2.0f" z="-0.8f"></translate>
+			<translate x="-4.5f" y="-2.0f" z="-0.8f"></translate>
 			<scale x="1.2f" y="1.2f" z="1.2f"></scale>
 			<!-- Axe de rotation puis angle de rotation -->
 			<rotate x="0.0f" y="1.0f" z="0.0f">180</rotate>

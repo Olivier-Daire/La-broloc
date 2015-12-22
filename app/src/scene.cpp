@@ -148,6 +148,11 @@ void Scene::loadRoom(XMLDocument& doc){
         std::cerr << "Erreur lors du chargement de l'image" << std::endl;
     }
 
+
+    _width = atof(room->FirstChildElement("width")->GetText());
+    _height = atof(room->FirstChildElement("height")->GetText());
+    _depth = atof(room->FirstChildElement("depth")->GetText());
+
     // Create an array of texture and bind each texture
     
     glGenTextures(3, _texturesArray);
@@ -179,9 +184,9 @@ void Scene::loadRoom(XMLDocument& doc){
     // TODO hardcoded, pass it as a parameter to the function ?
     Vertex2D vertices[] = {
         Vertex2D(glm::vec2(0, 0),  glm::vec2(1, 0)), // Sommet 0
-        Vertex2D(glm::vec2(10, 0), glm::vec2(0, 0)), // Sommet 1
-        Vertex2D(glm::vec2(10, 10), glm::vec2(0, 1)), // Sommet 2
-        Vertex2D(glm::vec2(0, 10),  glm::vec2(1, 1)) // Sommet 3
+        Vertex2D(glm::vec2(_width, 0), glm::vec2(0, 0)), // Sommet 1
+        Vertex2D(glm::vec2(_width, _height), glm::vec2(0, 1)), // Sommet 2
+        Vertex2D(glm::vec2(0, _height),  glm::vec2(1, 1)) // Sommet 3
     };
 
     glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex2D), vertices, GL_STATIC_DRAW);
@@ -228,7 +233,7 @@ void Scene::drawRoom(Shader shader){
     glBindVertexArray(_vao);
     
     // Front Wall
-    matModelWall = glm::translate(matModelWall, glm::vec3(-2.5f, -3.0f, -10.0f));
+    matModelWall = glm::translate(matModelWall, glm::vec3(-6.5f, -3.0f, -_width));
     glm::mat4 frontMatModelWall = matModelWall;
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
    
@@ -236,21 +241,19 @@ void Scene::drawRoom(Shader shader){
 
     // Left Wall
     matModelWall = glm::rotate(frontMatModelWall, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-    matModelWall = glm::scale(matModelWall, glm::vec3(2.0f, 1.0f, 1.0f));
+    matModelWall = glm::scale(matModelWall, glm::vec3(_depth/_width, 1.0f, 1.0f));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     // Right Wall
-    matModelWall = glm::translate(frontMatModelWall, glm::vec3(10.0f, 0.0f, 0.0f));
-    matModelWall = glm::rotate(matModelWall, glm::radians(90.0f), glm::vec3(-0.0f, -1.0f, 0.0f));
-    matModelWall = glm::scale(matModelWall, glm::vec3(2.0f, 1.0f, 1.0f));
+    matModelWall = glm::translate(matModelWall, glm::vec3(0.0f, 0.0f, -_width));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
      // Back Wall
-    matModelWall = glm::translate(initialMatModelWall, glm::vec3(-2.5f, -3.0f, 10.0f));
+    matModelWall = glm::translate(initialMatModelWall, glm::vec3(-6.5f, -3.0f, -_width+_depth));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -260,7 +263,7 @@ void Scene::drawRoom(Shader shader){
     glBindTexture(GL_TEXTURE_2D, _texturesArray[1]);
 
     matModelWall = glm::rotate(frontMatModelWall, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    matModelWall = glm::scale(matModelWall, glm::vec3(1.0f, 2.0f, 1.0f));
+    matModelWall = glm::scale(matModelWall, glm::vec3(1.0f, _depth/_height, 1.0f));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
    
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -269,7 +272,7 @@ void Scene::drawRoom(Shader shader){
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindTexture(GL_TEXTURE_2D, _texturesArray[2]);
 
-    matModelWall = glm::translate(matModelWall, glm::vec3(0.0f, 0.0f, -10.0f));
+    matModelWall = glm::translate(matModelWall, glm::vec3(0.0f, 0.0f, -_height));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
    
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

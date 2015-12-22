@@ -43,4 +43,8 @@ class Scene
     	GLuint _vao;
     	GLuint _vbo;
 
+    	float _width;
+    	float _height;
+    	float _depth;
+
 };
