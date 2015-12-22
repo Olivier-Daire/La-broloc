@@ -23,7 +23,6 @@ void Scene::loadSceneFromFile(const char* filename){
 
 void Scene::loadModels(XMLDocument& doc){
 	// Load all models paths
-    // FIXME fucking seg fault
 	XMLElement *models = doc.FirstChildElement("scene")->FirstChildElement("models");
     
 	for (const XMLElement* model = models->FirstChildElement(); model != NULL; model = model->NextSiblingElement())
@@ -153,18 +152,18 @@ void Scene::loadRoom(XMLDocument& doc){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D,0);
 
-    GLuint vbo;
-    glGenBuffers (1, &vbo);
+    //GLuint vbo;
+    glGenBuffers (1, &_vbo);
 
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 
     // Quad (wall) coordonates
     // TODO hardcoded, pass it as a parameter to the function ?
     Vertex2D vertices[] = {
-        Vertex2D(glm::vec2(0, 0),  glm::vec3(1, 0, 0)), // Sommet 0
-        Vertex2D(glm::vec2(10, 0), glm::vec3(0, 0, 1)), // Sommet 1
-        Vertex2D(glm::vec2(10, 10), glm::vec3(0, 1, 0)), // Sommet 2
-        Vertex2D(glm::vec2(0, 10),  glm::vec3(1, 1, 1)) // Sommet 3
+        Vertex2D(glm::vec2(0, 0),  glm::vec2(1, 0)), // Sommet 0
+        Vertex2D(glm::vec2(10, 0), glm::vec2(0, 0)), // Sommet 1
+        Vertex2D(glm::vec2(10, 10), glm::vec2(0, 1)), // Sommet 2
+        Vertex2D(glm::vec2(0, 10),  glm::vec2(1, 1)) // Sommet 3
     };
 
     glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex2D), vertices, GL_STATIC_DRAW);
@@ -173,8 +172,8 @@ void Scene::loadRoom(XMLDocument& doc){
 
     GLuint ibo;
     glGenBuffers(1, &ibo);
-
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+
     uint32_t indices[] = {
         0, 1, 2, 0, 2, 3
     };
@@ -192,7 +191,7 @@ void Scene::loadRoom(XMLDocument& doc){
     const GLuint VERTEX_ATTR_COLOR = 1;
     glEnableVertexAttribArray(VERTEX_ATTR_POSITION);
     glEnableVertexAttribArray(VERTEX_ATTR_COLOR);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, _vbo);
     glVertexAttribPointer(VERTEX_ATTR_POSITION, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2D), (const GLvoid*) offsetof(Vertex2D, position));
     glVertexAttribPointer(VERTEX_ATTR_COLOR, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex2D), (const GLvoid*) offsetof(Vertex2D, texture));
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -265,5 +264,7 @@ void Scene::drawRoom(Shader shader){
 }
 
 void Scene::deleteRoom(){
+    glDeleteBuffers(1, &_vbo);
+    glDeleteVertexArrays(1, &_vao);
 	glDeleteTextures(3, _texturesArray);
 }

@@ -41,5 +41,6 @@ class Scene
 		// Room datas
 		GLuint _texturesArray[3];
     	GLuint _vao;
+    	GLuint _vbo;
 
 };

@@ -1,9 +1,9 @@
 typedef struct Vertex2D {
 
     glm::vec2 position;
-    glm::vec3 texture;
+    glm::vec2 texture;
 
-    Vertex2D(glm::vec2 pos, glm::vec3 tex){
+    Vertex2D(glm::vec2 pos, glm::vec2 tex){
         position = pos;
         texture = tex;
     };
