@@ -61,6 +61,23 @@
 			<translate x="0.25f" y="0.58f" z="-10.0f"></translate>
 			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
 		</model>
+		<model>
+			<path>../assets/models/kitchen/coffee-mug/coffee-mug.obj</path>
+			<translate x="-0.5f" y="-.9f" z="-2.2f"></translate>
+			<scale x="0.25f" y="0.25f" z="0.25f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/kitchen/bar-stool/bar-stool.obj</path>
+			<translate x="-0.5f" y="-2.0f" z="-4.5f"></translate>
+			<scale x="1.2f" y="1.2f" z="1.2f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/kitchen/bar-stool/bar-stool.obj</path>
+			<translate x="-0.5f" y="-2.0f" z="-0.8f"></translate>
+			<scale x="1.2f" y="1.2f" z="1.2f"></scale>
+			<!-- Axe de rotation puis angle de rotation -->
+			<rotate x="0.0f" y="1.0f" z="0.0f">180</rotate>
+		</model>
 	</models>
 	<dialogues>
 		<dialogue>

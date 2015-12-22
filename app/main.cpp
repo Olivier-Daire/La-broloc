@@ -132,8 +132,8 @@ int main(int argc, char** argv) {
         
         //***** ROOM *****//
         wallShader.Use();
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(wallShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(glGetUniformLocation(wallShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
         scene1.drawRoom(wallShader);
 
         //***** MODEL *****//
@@ -150,9 +150,14 @@ int main(int argc, char** argv) {
             // Translate model following the parameters set in the XML
             matModel = glm::translate(matModel, scene1.getModel(i).Translate);
             // Scale model following the parameters set in the XML
+            if (scene1.getModel(i).RotateAngle != 0)
+            {
+                matModel = glm::rotate(matModel, glm::radians(scene1.getModel(i).RotateAngle), glm::vec3(-0.0f, -1.0f, 0.0f));
+            }
             matModel = glm::scale(matModel, scene1.getModel(i).Scale);
             glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
             models[i].Draw(shader);
+            
         }
 
         //***** LIGHT *****//

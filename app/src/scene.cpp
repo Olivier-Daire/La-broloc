@@ -29,14 +29,32 @@ void Scene::loadModels(XMLDocument& doc){
 	{
         string path = model->FirstChildElement("path")->GetText();
         
+        // Translate
         glm::vec3 translate =  glm::vec3(model->FirstChildElement("translate")->FindAttribute("x")->FloatValue(),
                                          model->FirstChildElement("translate")->FindAttribute("y")->FloatValue(),
                                          model->FirstChildElement("translate")->FindAttribute("z")->FloatValue());
-
+        // Scale
         glm::vec3 scale =  glm::vec3(model->FirstChildElement("scale")->FindAttribute("x")->FloatValue(),
                                      model->FirstChildElement("scale")->FindAttribute("y")->FloatValue(),
                                      model->FirstChildElement("scale")->FindAttribute("z")->FloatValue());
-	    _models.push_back(ModelInfos(path, translate, scale));
+
+        // Rotate
+        glm::vec3 rotate;
+        float rotateAngle;
+        // Only if a rotate parameter is set in the XML
+        if (model->FirstChildElement("rotate"))
+        {
+            rotate =  glm::vec3(model->FirstChildElement("rotate")->FindAttribute("x")->FloatValue(),
+                                       model->FirstChildElement("rotate")->FindAttribute("y")->FloatValue(),
+                                       model->FirstChildElement("rotate")->FindAttribute("z")->FloatValue());
+        
+            rotateAngle = atof(model->FirstChildElement("rotate")->GetText());
+        } else {
+            rotate = glm::vec3(0.0, 0.0, 0.0);
+            rotateAngle = 0;
+        }
+
+        _models.push_back(ModelInfos(path, translate, scale, rotate, rotateAngle));
 	}
 }
 
@@ -193,7 +211,7 @@ void Scene::loadRoom(XMLDocument& doc){
     glEnableVertexAttribArray(VERTEX_ATTR_COLOR);
     glBindBuffer(GL_ARRAY_BUFFER, _vbo);
     glVertexAttribPointer(VERTEX_ATTR_POSITION, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2D), (const GLvoid*) offsetof(Vertex2D, position));
-    glVertexAttribPointer(VERTEX_ATTR_COLOR, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex2D), (const GLvoid*) offsetof(Vertex2D, texture));
+    glVertexAttribPointer(VERTEX_ATTR_COLOR, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2D), (const GLvoid*) offsetof(Vertex2D, texture));
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }

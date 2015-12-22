@@ -13,7 +13,7 @@ class Model
     public:
         Model();
         Model(string path);
-        void Draw(Shader shader);   
+        void Draw(Shader shader);
     private:
         vector<Mesh> meshes;
         vector<Texture> textures_loaded;
