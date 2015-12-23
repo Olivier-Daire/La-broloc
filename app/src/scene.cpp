@@ -183,10 +183,10 @@ void Scene::loadRoom(XMLDocument& doc){
     // Quad (wall) coordonates
     // TODO hardcoded, pass it as a parameter to the function ?
     Vertex2D vertices[] = {
-        Vertex2D(glm::vec2(0, 0),  glm::vec2(1, 0)), // Sommet 0
+        Vertex2D(glm::vec2(0, 0),  glm::vec2(4, 0)), // Sommet 0
         Vertex2D(glm::vec2(_width, 0), glm::vec2(0, 0)), // Sommet 1
-        Vertex2D(glm::vec2(_width, _height), glm::vec2(0, 1)), // Sommet 2
-        Vertex2D(glm::vec2(0, _height),  glm::vec2(1, 1)) // Sommet 3
+        Vertex2D(glm::vec2(_width, _height), glm::vec2(0, 4)), // Sommet 2
+        Vertex2D(glm::vec2(0, _height),  glm::vec2(4, 4)) // Sommet 3
     };
 
     glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex2D), vertices, GL_STATIC_DRAW);
