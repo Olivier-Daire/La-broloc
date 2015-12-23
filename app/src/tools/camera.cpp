@@ -18,13 +18,13 @@ void Camera::computeDirectionVectors(){
 void Camera::moveLeft(float t){
 	position += t*m_LeftVector;
 	// Prevent the player from flying
-	position.y = defaultYPosition;
+	//position.y = defaultYPosition;
 }
 
 void Camera::moveFront(float t){
 	position += t*m_FrontVector;
 	// Prevent the player from flying
-	position.y = defaultYPosition;
+	//position.y = defaultYPosition;
 }
 
 void Camera::rotateLeft(float degrees){

@@ -44,7 +44,15 @@ int main(int argc, char** argv) {
     Model models[scene1.getModelNumber()];
     for (int i = 0; i < scene1.getModelNumber(); ++i)
     {
-        models[i] = Model(scene1.getModel(i).Path);
+        ModelInfos model = scene1.getModel(i);
+        models[i] = Model(model.Path);
+        // Update model aabbox given its translate and scale
+        models[i].box.x =  model.Translate.x;
+        models[i].box.y =  model.Translate.y;
+        models[i].box.z =  model.Translate.z;
+        models[i].box.w *= model.Scale.x;
+        models[i].box.h *= model.Scale.y;
+        models[i].box.d *= model.Scale.z;
     }
 
     // FIXME list working models, remove it afterwards
@@ -76,17 +84,36 @@ int main(int argc, char** argv) {
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
-
+    bool isCollision = false;
     // Application loop:
     float deltaTime = 0.0f;   // Time between current frame and last frame
     float lastFrame = 0.0f;  // Last frame
     bool done = false;
+
     while(!done) {
+
+        // Create a smal box for the camera (player)
+        // the last three numbers are for the distance
+        // 0.2 from object on X axis --> collide
+        // 5.0 (and maybe more ?) on Y axis because we need to collide on the whole height as if we were a person
+        // 0.2 from object on Z axis --> collide
+        AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 0.2f, 5.0f, 0.2f);
+
         // Event loop:
         SDL_Event e;
         GLfloat currentFrame = windowManager.getTime();;
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
+
+
+        for (int i = 0; i < 9; ++i)
+        {
+            if(models[i].box.collision(cameraBox))
+                cout << "collision avex " << i <<  endl;
+                //isCollision = true;
+            else cout << " pas collision" << endl;
+        }
+        
 
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {
@@ -113,7 +140,7 @@ int main(int argc, char** argv) {
             done = true;
         }
 
-        if(!isDialogue) Command::commandHandler(windowManager, camera, deltaTime);
+        if(!isDialogue && !isCollision) Command::commandHandler(windowManager, camera, deltaTime);
         Command::mouseManager(camera, windowManager.getMousePosition(), screenWidth/2.0, screenHeight/2.0);
         // Put the cursor back to the center of the scene
         SDL_WarpMouseInWindow(windowManager.Window, screenWidth/2.0, screenHeight/2.0);
