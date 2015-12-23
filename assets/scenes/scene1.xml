@@ -10,11 +10,16 @@
 		<roof>../assets/textures/kitchen_roof.png</roof>
 	</room>
 	<models>
+		<model>
+			<path>../assets/models/door/puerta.obj</path>
+			<translate x="1.0f" y="-3.0f" z="2.95f"></translate>
+			<scale x="0.03f" y="0.026f" z="0.03f"></scale>
+		</model>
  		<model>
 			<path>../assets/models/kitchen/bread/Bread.obj</path>
 			<translate x="-4.0f" y="-1.0f" z="-3.0f"></translate>
 			<scale x="0.2f" y="0.2f" z="0.2f"></scale>
-		</model>e
+		</model>
 		<model>
 			<path>../assets/models/kitchen/Toaster/Toaster.obj</path>
 			<translate x="-6.0f" y="-1.0f" z="-3.0f"></translate>
