@@ -24,7 +24,7 @@ class Camera
 
 
 	private: 
-		const float defaultYPosition = 0.5f;
+		const float defaultYPosition = 0.8f;
 
 		glm::vec3 position;
 		float cameraSpeed;
