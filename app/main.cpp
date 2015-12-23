@@ -76,43 +76,36 @@ int main(int argc, char** argv) {
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
-
+     bool isCollision = false;
     // Application loop:
     float deltaTime = 0.0f;   // Time between current frame and last frame
     float lastFrame = 0.0f;  // Last frame
     bool done = false;
 
-
-    cout << "x: " << models[0].box.x << endl;
-    cout << "y: " << models[0].box.y << endl;
-    cout << "z: " << models[0].box.z << endl;
-    cout << "w: " << models[0].box.w << endl;
-    cout << "h: " << models[0].box.h << endl;
-    cout << "d: " << models[0].box.d << endl;
-    cout << "caméra: x : " << camera.getPosition().x << " y : " << camera.getPosition().y << " z: " <<  camera.getPosition().z << endl;
-
+    models[1].box.x = -4.0f;
+    models[1].box.y = -1.0f;
+    models[1].box.z = -3.0f;
+    models[1].box.w *= 0.2f;
+    models[1].box.h *= 0.2f;
+    models[1].box.d *= 0.2f;
     while(!done) {
 
-        //AABB cameraBox((camera.getPosition().x-(screenWidth/2.0)),(camera.getPosition().y-(screenHeight/2.0)),camera.getPosition().z,screenWidth,screenHeight,0.0f);
-        AABB cameraBox((camera.getPosition().x),(camera.getPosition().y),camera.getPosition().z,screenWidth,screenHeight,0.0f);
+        // Create a smal box for the camera (player)
+        // the last three numbers are for the distance
+        // 0.2 from object on X axis --> collide
+        // 5.0 (and maybe more ?) on Y axis because we need to collide on the whole height as if we were a person
+        // 0.2 from object on Z axis --> collide
+        AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 0.2f, 5.0f, 0.2f);
         // Event loop:
         SDL_Event e;
         GLfloat currentFrame = windowManager.getTime();;
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-    //         cout << "x: " << models[0].box.x << endl;
-    // cout << "y: " << models[0].box.y << endl;
-    // cout << "z: " << models[0].box.z << endl;
-    // cout << "w: " << models[0].box.w << endl;
-    // cout << "h: " << models[0].box.h << endl;
-    // cout << "d: " << models[0].box.d << endl;
-    // cout << "caméra: " << camera.getPosition().x << "y :" << camera.getPosition().y << "z: " <<  camera.getPosition().z << endl;
 
-         cout << "caméra: " << camera.getPosition().x << "y :" << camera.getPosition().y << "z: " <<  camera.getPosition().z << endl;
-        if(models[0].box.collision(cameraBox))
-         cout << "COLLISIOOOONS " << endl;
-        else cout << "PAS COLLISION" << endl;
+        if(models[1].box.collision(cameraBox))
+            isCollision = true;
+        else isCollision = false;
 
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {
@@ -139,7 +132,7 @@ int main(int argc, char** argv) {
             done = true;
         }
 
-        if(!isDialogue) Command::commandHandler(windowManager, camera, deltaTime);
+        if(!isDialogue && !isCollision) Command::commandHandler(windowManager, camera, deltaTime);
         Command::mouseManager(camera, windowManager.getMousePosition(), screenWidth/2.0, screenHeight/2.0);
         // Put the cursor back to the center of the scene
         SDL_WarpMouseInWindow(windowManager.Window, screenWidth/2.0, screenHeight/2.0);
