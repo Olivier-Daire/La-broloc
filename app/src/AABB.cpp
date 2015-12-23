@@ -37,9 +37,9 @@ bool AABB::collision(AABB box2)
 
 		|| (box2.y + box2.h <= y ) // trop en haut
 
-		|| (box2.z - box2.d >= z + d/2.0) // trop derrière
+		|| (box2.z - box2.d >= z + d) // trop derrière
 
-		|| (box2.z + box2.d <= z - d/2.0)) // trop devant
+		|| (box2.z + box2.d <= z - d)) // trop devant
 			return false;
 		
 	else{

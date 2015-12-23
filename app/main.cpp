@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
         // 0.2 from object on X axis --> collide
         // 5.0 (and maybe more ?) on Y axis because we need to collide on the whole height as if we were a person
         // 0.2 from object on Z axis --> collide
-        AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 0.2f, 5.0f, 0.2f);
+        AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 0.2f, 5.0f, 1.2f);
 
         // Event loop:
         SDL_Event e;
