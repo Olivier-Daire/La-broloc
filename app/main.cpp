@@ -44,7 +44,15 @@ int main(int argc, char** argv) {
     Model models[scene1.getModelNumber()];
     for (int i = 0; i < scene1.getModelNumber(); ++i)
     {
-        models[i] = Model(scene1.getModel(i).Path);
+        ModelInfos model = scene1.getModel(i);
+        models[i] = Model(model.Path);
+        // Update model aabbox given its translate and scale
+        models[i].box.x =  model.Translate.x;
+        models[i].box.y =  model.Translate.y;
+        models[i].box.z =  model.Translate.z;
+        models[i].box.w *= model.Scale.x;
+        models[i].box.h *= model.Scale.y;
+        models[i].box.d *= model.Scale.z;
     }
 
     // FIXME list working models, remove it afterwards
@@ -76,18 +84,12 @@ int main(int argc, char** argv) {
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
-     bool isCollision = false;
+    bool isCollision = false;
     // Application loop:
     float deltaTime = 0.0f;   // Time between current frame and last frame
     float lastFrame = 0.0f;  // Last frame
     bool done = false;
 
-    models[1].box.x = -4.0f;
-    models[1].box.y = -1.0f;
-    models[1].box.z = -3.0f;
-    models[1].box.w *= 0.2f;
-    models[1].box.h *= 0.2f;
-    models[1].box.d *= 0.2f;
     while(!done) {
 
         // Create a smal box for the camera (player)
@@ -96,6 +98,7 @@ int main(int argc, char** argv) {
         // 5.0 (and maybe more ?) on Y axis because we need to collide on the whole height as if we were a person
         // 0.2 from object on Z axis --> collide
         AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 0.2f, 5.0f, 0.2f);
+
         // Event loop:
         SDL_Event e;
         GLfloat currentFrame = windowManager.getTime();;
@@ -103,9 +106,14 @@ int main(int argc, char** argv) {
         lastFrame = currentFrame;
 
 
-        if(models[1].box.collision(cameraBox))
-            isCollision = true;
-        else isCollision = false;
+        for (int i = 0; i < 9; ++i)
+        {
+            if(models[i].box.collision(cameraBox))
+                cout << "collision avex " << i <<  endl;
+                //isCollision = true;
+            else cout << " pas collision" << endl;
+        }
+        
 
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {

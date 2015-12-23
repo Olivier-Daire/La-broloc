@@ -27,12 +27,12 @@
 		</model>
 		<model>
 			<path>../assets/models/kitchen/frigo/frigo.obj</path>
-			<translate x="-12.5f" y="-3.0f" z="-12.0f"></translate>
+			<translate x="2.4f" y="0.2f" z="-8.5f"></translate>
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/cucina/cucina.obj</path>
-			<translate x="-4.0f" y="-3.0f" z="-8.2f"></translate>
+			<translate x="-5.3f" y="-3.0f" z="-9.15f"></translate>
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
 		</model>
 		<model>
@@ -47,7 +47,7 @@
 		</model>
 		<model>
 			<path>../assets/models/kitchen/isola_cucina/isola_cucina.obj</path>
-			<translate x="-2.5f" y="0.22f" z="2.0f"></translate>
+			<translate x="-4.8f" y="-1.75f" z="-2.6f"></translate>
 			<scale x="0.5f" y="0.5f" z="0.5f"></scale>
 		</model>
 		<model>
