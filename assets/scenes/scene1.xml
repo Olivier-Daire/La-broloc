@@ -60,11 +60,12 @@
 			<translate x="-5.8f" y="-0.68f" z="-8.8f"></translate>
 			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
 		</model>
-		<model>
+		<!-- FIXME Blender -->
+		<!-- <model>
 			<path>../assets/models/kitchen/kitchenTools/kitchenTools.obj</path>
 			<translate x="2.5f" y="-2.0f" z="-7.7f"></translate>
 			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
-		</model>
+		</model> -->
 		<model>
 			<path>../assets/models/kitchen/knifeStandSwap/knifeStandSwap.obj</path>
 			<translate x="-4.0f" y="0.58f" z="-10.0f"></translate>

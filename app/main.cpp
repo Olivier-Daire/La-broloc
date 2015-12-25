@@ -97,23 +97,13 @@ int main(int argc, char** argv) {
         // 0.2 from object on X axis --> collide
         // 5.0 (and maybe more ?) on Y axis because we need to collide on the whole height as if we were a person
         // 0.2 from object on Z axis --> collide
-        AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 1.2f, 5.0f, 1.2f);
+        AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 1.2f, 5.0f, 0.5f);
 
         // Event loop:
         SDL_Event e;
         GLfloat currentFrame = windowManager.getTime();;
         deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-
-
-        for (int i = 0; i < 9; ++i)
-        {
-            if(models[i].box.collision(cameraBox))
-                cout << "collision avex " << i <<  endl;
-                //isCollision = true;
-            else cout << " pas collision" << endl;
-        }
-        
+        lastFrame = currentFrame;  
 
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {
@@ -140,7 +130,15 @@ int main(int argc, char** argv) {
             done = true;
         }
 
-        if(!isDialogue && !isCollision) Command::commandHandler(windowManager, camera, deltaTime);
+        for (int i = 0; i < scene1.getModelNumber(); ++i)
+        {
+            if(models[i].box.collision(cameraBox)) {
+                //cout << "collision avec " << i <<  endl;
+                isCollision = true;
+            }
+        }
+
+        if(!isDialogue) Command::commandHandler(windowManager, camera, deltaTime, isCollision);
         Command::mouseManager(camera, windowManager.getMousePosition(), screenWidth/2.0, screenHeight/2.0);
         // Put the cursor back to the center of the scene
         SDL_WarpMouseInWindow(windowManager.Window, screenWidth/2.0, screenHeight/2.0);
@@ -207,7 +205,6 @@ int main(int argc, char** argv) {
         }
 
         text.Draw(shaderText,isDialogue, isAnswer, chooseAnswer, dialogue, answers);
-
         // Update the display
         windowManager.swapBuffers(windowManager.Window);
 
