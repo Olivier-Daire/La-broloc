@@ -1,0 +1,92 @@
+# Blender MTL File: 'None'
+# Material Count: 9
+
+newmtl ball
+Ns 90.196078
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.499500 0.438730
+Ks 0.237624 0.237624 0.237624
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../../../../../saveBroloc/assets/models/living_room/beige.jpg
+
+newmtl black_plastic
+Ns 90.196078
+Ka 0.000000 0.000000 0.000000
+Kd 0.005890 0.005890 0.005890
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../../../../../saveBroloc/assets/models/living_room/black.png
+
+newmtl blue_plastic
+Ns 90.196078
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.005157 0.315183
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../../../../../saveBroloc/assets/models/living_room/blue.jpg
+
+newmtl metal
+Ns 90.196078
+Ka 0.000000 0.000000 0.000000
+Kd 0.246976 0.246976 0.246976
+Ks 0.707921 0.707921 0.707921
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../../../../../saveBroloc/assets/models/living_room/metal.jpg
+
+newmtl pitch
+Ns 90.196078
+Ka 0.000000 0.000000 0.000000
+Kd 0.024451 0.284929 0.122369
+Ks 0.070005 0.070005 0.070005
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../../../../../saveBroloc/assets/models/living_room/table_football/pitch.jpg
+
+newmtl player_blue
+Ns 90.196078
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.028726 0.512000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../../../../../saveBroloc/assets/models/living_room/blue.jpg
+
+newmtl player_red
+Ns 90.196078
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.017664 0.000000
+Ks 0.314103 0.314103 0.314103
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../../../../../saveBroloc/assets/models/living_room/red.png
+
+newmtl red_plastic
+Ns 90.196078
+Ka 0.000000 0.000000 0.000000
+Kd 0.419172 0.002965 0.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../../../../../saveBroloc/assets/models/living_room/red.png
+
+newmtl wood
+Ns 90.196078
+Ka 0.000000 0.000000 0.000000
+Kd 0.496158 0.221188 0.000000
+Ks 0.153846 0.153846 0.153846
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../../../../../saveBroloc/assets/models/living_room/wood.jpg

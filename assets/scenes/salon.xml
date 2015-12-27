@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+	<room>
+		<width>10</width>
+		<height>8</height>
+		<depth>16</depth>
+		<walls>../assets/textures/papier.jpg</walls>
+		<floor>../assets/textures/parquet.jpg</floor>
+		<roof>../assets/textures/kitchen_roof.png</roof>
+	</room>
+	<models>
+		<model>
+			<path>../assets/models/door/puerta.obj</path>
+			<translate x="-5.5f" y="-3.0f" z="2.0f"></translate>
+			<scale x="0.03f" y="0.026f" z="0.03f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">-90</rotate>
+		</model>
+		<model>
+			<path>../assets/models/living_room/burlap_sofa/burlap_sofa.obj</path>
+			<translate x="-5.1f" y="-2.2f" z="-5.9f"></translate>
+			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">-90</rotate>
+		</model>
+		<model>
+			<path>../assets/models/living_room/contemp_living_room/contemp_living_room.obj</path>
+			<translate x="2.8f" y="0.25f" z="-4.5f"></translate>
+			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">90</rotate>
+		</model>
+		<model>
+			<path>../assets/models/living_room/coffeeTable/coffeeTable.obj</path>
+			<translate x="-1.3f" y="-2.4f" z="-6.0f"></translate>
+			<scale x="0.026f" y="0.026f" z="0.026f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">90</rotate>
+		</model>
+		<model>
+			<path>../assets/models/living_room/InariFrame/InariFrame.obj</path>
+			<translate x="-2.2f" y="1.0f" z="-9.96f"></translate>
+			<scale x="0.04f" y="0.04f" z="0.04f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/living_room/table_football/table_football.obj</path>
+			<translate x="-0.5f" y="-1.1f" z="3.0f"></translate>
+			<scale x="0.02f" y="0.02f" z="0.02f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/living_room/littlePlant/littlePlant.obj</path>
+			<translate x="-5.0f" y="-2.3f" z="-1.5f"></translate>
+			<scale x="0.07f" y="0.07f" z="0.07f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/living_room/full-bookcase/full-bookcase.obj</path>
+			<translate x="2.2f" y="0.3f" z="5.7f"></translate>
+			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">180</rotate>
+		</model>
+		<model>
+			<path>../assets/models/living_room/Buffet_Moderne/Buffet_Moderne.obj</path>
+			<translate x="-4.2f" y="-2.4f" z="5.45f"></translate>
+			<scale x="0.02f" y="0.02f" z="0.02f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">180</rotate>
+		</model>
+		<model>
+			<path>../assets/models/living_room/wirelessOfficePhone3/wirelessOfficePhone3.obj</path>
+			<translate x="-4.2f" y="-1.36f" z="4.75f"></translate>
+			<scale x="0.02f" y="0.02f" z="0.02f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">180</rotate>
+		</model>
+		<model>
+			<path>../assets/models/living_room/luckyBamboo/luckyBamboo.obj</path>
+			<translate x="-1.3f" y="-1.52f" z="-6.0f"></translate>
+			<scale x="0.02f" y="0.02f" z="0.02f"></scale>
+			<rotate x="0.0f" y="0.0f" z="0.0f">180</rotate>
+		</model>
+		<model>
+			<path>../assets/models/window/fancyWindow/fancyWindow.obj</path>
+			<translate x="-2.2f" y="1.8f" z="5.85f"></translate>
+			<scale x="0.4f" y="0.4f" z="0.4f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/window/fancyWindow/fancyWindow.obj</path>
+			<translate x="-6.45f" y="2.2f" z="-5.9f"></translate>
+			<scale x="0.4f" y="0.4f" z="0.4f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">90</rotate>
+		</model>
+	</models>
+	<dialogues>
+		<dialogue>
+			<message>Bonjour, Rémi que s'est il passé ?</message>
+			<answers>
+				<answer>Rien.</answer>
+				<answer>Je ne me souviens plus.</answer>
+				<answer>Euuuuh mais qui êtes vous ? </answer>
+			</answers>
+		</dialogue>
+		<dialogue>
+			<message>Blabla</message>
+			<answers>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+			</answers>
+		</dialogue>
+		<dialogue>
+			<message>Patate miam</message>
+			<answers>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+			</answers>
+		</dialogue>
+		<dialogue>
+			<message>Sushi sushi sushi</message>
+			<answers>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+				<answer>Blabla</answer>
+			</answers>
+		</dialogue>
+	</dialogues>
+	<lights>
+		<light>
+			<position x="0.5f" y="0.7f" z="-4.0f"></position>
+			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
+			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
+			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
+			<constant value="1.0f"></constant>
+			<linear value="0.009"></linear>
+			<quadratic value="0.0032"></quadratic>
+		</light>
+		<light>
+			<position x="0.5f" y="0.7f" z="-4.0f"></position>
+			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
+			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
+			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
+			<constant value="1.0f"></constant>
+			<linear value="0.009"></linear>
+			<quadratic value="0.0032"></quadratic>
+		</light>
+	</lights>
+</scene>
