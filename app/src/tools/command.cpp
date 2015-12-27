@@ -1,28 +1,44 @@
 #include "tools/command.hpp"
+#include <iostream>
 
 const float Command::mouseSensitivity = 0.002f;
+direction Command::lastDirection = _NULL;
 
 Command::Command(){}
 
-void Command::commandHandler(glimac::SDLWindowManager& windowManager, Camera& camera, float deltaTime){
-	if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_UP)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_z)))
+void Command::commandHandler(glimac::SDLWindowManager& windowManager, Camera& camera, float deltaTime, bool& collision){
+	
+    if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_UP)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_z)))
     {
-        camera.moveFront(camera.getSpeed() * deltaTime);
+        if(!(collision && lastDirection == FRONT)){
+            camera.moveFront(camera.getSpeed() * deltaTime);
+        }
+        lastDirection = FRONT;
     }
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_DOWN)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_s)))
     {
-        camera.moveFront(-camera.getSpeed() * deltaTime);
+        if(!(collision && lastDirection == BACK)){
+            camera.moveFront(-camera.getSpeed() * deltaTime);
+        }
+        lastDirection = BACK;   
     }
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_LEFT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_q)))
     {
-        camera.moveLeft(camera.getSpeed() * deltaTime);
+        if(!(collision && lastDirection == LEFT)){
+            camera.moveLeft(camera.getSpeed() * deltaTime);
+        }
+        lastDirection = LEFT; 
     }
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_RIGHT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_d)))
     {
-        camera.moveLeft(-camera.getSpeed() * deltaTime);
+        if(!(collision && lastDirection == RIGHT)){
+            camera.moveLeft(-camera.getSpeed() * deltaTime);
+        }
+        lastDirection = RIGHT;            
     }
-}
 
+    collision = false;
+}
 
 void Command::mouseManager(Camera& camera, glm::ivec2 mousePosition, float screenWidth, float screenHeight){
     float xoffset = mousePosition.x - screenWidth;
@@ -30,6 +46,20 @@ void Command::mouseManager(Camera& camera, glm::ivec2 mousePosition, float scree
 
     xoffset *= mouseSensitivity;
     yoffset *= mouseSensitivity;
+
+    // Player make a full tour --> change direction
+    if (glm::cos(camera.getPhi() + xoffset) < 0)
+    {
+        if (lastDirection == BACK)
+        {
+            lastDirection = FRONT;
+        }
+    } else {
+        if (lastDirection == FRONT)
+        {
+            lastDirection = BACK;    
+        }
+    }
 
     //m_fPhi += xoffset;
     camera.setPhi(camera.getPhi() + xoffset);

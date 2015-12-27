@@ -18,13 +18,13 @@ void Camera::computeDirectionVectors(){
 void Camera::moveLeft(float t){
 	position += t*m_LeftVector;
 	// Prevent the player from flying
-	//position.y = defaultYPosition;
+	position.y = defaultYPosition;
 }
 
 void Camera::moveFront(float t){
 	position += t*m_FrontVector;
 	// Prevent the player from flying
-	//position.y = defaultYPosition;
+	position.y = defaultYPosition;
 }
 
 void Camera::rotateLeft(float degrees){
@@ -38,7 +38,6 @@ void Camera::rotateUp(float degrees){
 glm::mat4 Camera::getViewMatrix() const{
 	return glm::lookAt(position, position + m_FrontVector, m_UpVector);
 }
-
 
 float Camera::getSpeed(){
 	return cameraSpeed;

@@ -1,6 +1,4 @@
 #include "AABB.hpp"
-#include <iostream>
-#include <math.h>
 
 AABB::AABB() : x(0),y(0),z(0),w(0),h(0),d(0) {
 
@@ -37,12 +35,10 @@ bool AABB::collision(AABB box2)
 
 		|| (box2.y + box2.h <= y ) // trop en haut
 
-		|| (box2.z - box2.d >= z + d) // trop derrière
+		|| (box2.z - box2.d >= z + d) // derrière
 
-		|| (box2.z + box2.d <= z - d)) // trop devant
+		|| (box2.z + box2.d <= z - d)) // devant
 			return false;
-		
-	else{
+	else
 		return true;
-	}
 }
