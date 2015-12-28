@@ -9,7 +9,7 @@ Ks 0.237624 0.237624 0.237624
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd ../../../../../saveBroloc/assets/models/living_room/beige.jpg
+map_Kd ../beige.jpg
 
 newmtl black_plastic
 Ns 90.196078
@@ -19,7 +19,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd ../../../../../saveBroloc/assets/models/living_room/black.png
+map_Kd ../black.png
 
 newmtl blue_plastic
 Ns 90.196078
@@ -29,7 +29,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd ../../../../../saveBroloc/assets/models/living_room/blue.jpg
+map_Kd ../blue.jpg
 
 newmtl metal
 Ns 90.196078
@@ -39,7 +39,7 @@ Ks 0.707921 0.707921 0.707921
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd ../../../../../saveBroloc/assets/models/living_room/metal.jpg
+map_Kd ../metal.jpg
 
 newmtl pitch
 Ns 90.196078
@@ -49,7 +49,7 @@ Ks 0.070005 0.070005 0.070005
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd ../../../../../saveBroloc/assets/models/living_room/table_football/pitch.jpg
+map_Kd pitch.jpg
 
 newmtl player_blue
 Ns 90.196078
@@ -59,7 +59,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd ../../../../../saveBroloc/assets/models/living_room/blue.jpg
+map_Kd ../blue.jpg
 
 newmtl player_red
 Ns 90.196078
@@ -69,7 +69,7 @@ Ks 0.314103 0.314103 0.314103
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd ../../../../../saveBroloc/assets/models/living_room/red.png
+map_Kd ../red.png
 
 newmtl red_plastic
 Ns 90.196078
@@ -79,7 +79,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd ../../../../../saveBroloc/assets/models/living_room/red.png
+map_Kd ../red.png
 
 newmtl wood
 Ns 90.196078
@@ -89,4 +89,4 @@ Ks 0.153846 0.153846 0.153846
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd ../../../../../saveBroloc/assets/models/living_room/wood.jpg
+map_Kd ../wood.jpg
