@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
     // Text variables
     Text text;
 
-    bool answer = 0, isAnswer = 0, isDialogue = 1;
+    bool answer = 0, isAnswer = 0, isDialogue = 0;
     int cptDialogue = 0, nbAnswer = 2, chooseAnswer = 0;
     std::string dialogue;
     std::string answers[nbAnswer];
@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
         // 0.2 from object on X axis --> collide
         // 5.0 (and maybe more ?) on Y axis because we need to collide on the whole height as if we were a person
         // 0.2 from object on Z axis --> collide
-        AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 1.2f, 5.0f, 0.5f);
+        AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 0.5f, 5.0f, 0.5f);
 
         // Event loop:
         SDL_Event e;
@@ -133,7 +133,16 @@ int main(int argc, char** argv) {
         for (int i = 0; i < scene1.getModelNumber(); ++i)
         {
             if(models[i].box.collision(cameraBox)) {
-                //cout << "collision avec " << i <<  endl;
+                if (scene1.getModel(i).interactionDialogue != -1)
+                {
+                    cout << "interaction" << endl;
+                    isDialogue = 1;
+                    cptDialogue = scene1.getModel(i).interactionDialogue;
+                    text.nextText(isDialogue, isAnswer, answer, cptDialogue, scene1, dialogue, answers);
+                } else {
+                    cout << "collision avec " << i <<  endl;    
+                }
+                
                 isCollision = true;
             }
         }
@@ -204,7 +213,7 @@ int main(int argc, char** argv) {
             glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".quadratic").c_str()), light.getQuadratic());
         }
 
-        text.Draw(shaderText,isDialogue, isAnswer, chooseAnswer, dialogue, answers);
+        text.Draw(shaderText, isDialogue, isAnswer, chooseAnswer, dialogue, answers);
         // Update the display
         windowManager.swapBuffers(windowManager.Window);
 

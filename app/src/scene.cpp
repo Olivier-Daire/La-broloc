@@ -54,7 +54,12 @@ void Scene::loadModels(XMLDocument& doc){
             rotateAngle = 0;
         }
 
-        _models.push_back(ModelInfos(path, translate, scale, rotate, rotateAngle));
+        int interactionDialogue = -1; //Default state no interaction possible
+        if(model->FirstChildElement("interaction")){
+            interactionDialogue = atoi(model->FirstChildElement("interaction")->GetText());
+        }
+
+        _models.push_back(ModelInfos(path, translate, scale, rotate, rotateAngle, interactionDialogue));
 	}
 }
 
