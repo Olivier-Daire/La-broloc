@@ -22,6 +22,7 @@ void Scene::loadSceneFromFile(const char* filename){
 }
 
 void Scene::loadModels(XMLDocument& doc){
+
 	// Load all models paths
 	XMLElement *models = doc.FirstChildElement("scene")->FirstChildElement("models");
     
@@ -66,20 +67,29 @@ void Scene::loadModels(XMLDocument& doc){
 void Scene::loadDialogues(XMLDocument& doc){
 	// Load all dialogues
 	XMLElement *dialogues = doc.FirstChildElement("scene")->FirstChildElement("dialogues");
-	for (XMLElement* dialogue = dialogues->FirstChildElement(); dialogue != NULL; dialogue = dialogue->NextSiblingElement())
-	{
-		Dialogue dialogueContent;
-		// Get message of the dialogue
-		dialogueContent.setMessage(dialogue->FirstChildElement("message")->GetText());
 
-		// Get all the possible answers
-		XMLElement *answers = dialogue->FirstChildElement("answers");
-		for (XMLElement* answer = answers->FirstChildElement(); answer != NULL; answer = answer->NextSiblingElement()){
-			dialogueContent.addAnswer(answer->GetText());
-		}
+    for (const XMLElement* group = dialogues->FirstChildElement(); group != NULL; group = group->NextSiblingElement()){
+        vector<Dialogue> groupContent;
 
-	    _dialogues.push_back(dialogueContent);
-	}
+        for (const XMLElement* dialogue = group->FirstChildElement(); dialogue != NULL; dialogue = dialogue->NextSiblingElement())
+        {
+            Dialogue dialogueContent;
+
+            // Get message of the dialogue
+            dialogueContent.setMessage(dialogue->FirstChildElement("message")->GetText());
+
+            // Get all the possible answers
+            if(dialogue->FirstChildElement("answers")) {
+              const XMLElement *answers = dialogue->FirstChildElement("answers");
+                for (const XMLElement* answer = answers->FirstChildElement(); answer != NULL; answer = answer->NextSiblingElement()){
+                dialogueContent.addAnswer(answer->GetText());
+              }
+            }
+
+            groupContent.push_back(dialogueContent);
+        }
+        _dialogues.push_back(groupContent);
+    }
 }
 
 void Scene::loadLights(XMLDocument& doc){
@@ -120,16 +130,16 @@ int Scene::getModelNumber(){
     return _models.size();
 }
 
-Dialogue Scene::getDialogue(int number){
-	return _dialogues.at(number);
+Dialogue Scene::getDialogue(int group, int number){
+	return _dialogues.at(group).at(number);
 }
 
-int Scene::getDialogueNumber() {
-	return _dialogues.size();
+int Scene::getDialogueNumber(int group) {
+	return _dialogues.at(group).size();
 }
 
-int Scene::getAnswerNumber(int i) {
-	return _dialogues[i].getAnswers().size();
+int Scene::getAnswerNumber(int group, int i) {
+	return _dialogues.at(group).at(i).getAnswers().size();
 }
 
 Light Scene::getLight(int number){

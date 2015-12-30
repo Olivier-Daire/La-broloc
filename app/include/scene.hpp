@@ -18,9 +18,9 @@ class Scene
 		void loadSceneFromFile(const char* filename);
 		ModelInfos getModel(int number);
 		int getModelNumber();
-		Dialogue getDialogue(int number);
-		int getDialogueNumber();
-		int getAnswerNumber(int i);
+		Dialogue getDialogue(int group, int number);
+		int getDialogueNumber(int group);
+		int getAnswerNumber(int group, int i);
 		Light getLight(int number);
 		int getLightNumber();
 
@@ -36,7 +36,7 @@ class Scene
 		// List of all the models of the scene
 		vector<ModelInfos> _models;
 		// List of all the dialogues of the scene
-		vector<Dialogue> _dialogues;
+		vector<vector <Dialogue>> _dialogues;
 		vector<Light> _lights;
 		// Room datas
 		GLuint _texturesArray[3];

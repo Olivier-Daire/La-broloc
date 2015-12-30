@@ -86,35 +86,22 @@
 	</models>
 	<dialogues>
 		<dialogue>
-			<message>Bonjour, Rémi que s'est il passé ?</message>
-			<answers>
-				<answer>Rien.</answer>
-				<answer>Je ne me souviens plus.</answer>
-				<answer>Euuuuh mais qui êtes vous ? </answer>
-			</answers>
+			<message>Hello you are in the living room</message>
 		</dialogue>
 		<dialogue>
-			<message>Blabla</message>
-			<answers>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
-			</answers>
+			<message>It is a test.</message>
 		</dialogue>
 		<dialogue>
-			<message>Patate miam</message>
-			<answers>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
-			</answers>
+			<message> Lol</message>
 		</dialogue>
 		<dialogue>
-			<message>Sushi sushi sushi</message>
+			<message>Again a test</message>
+		</dialogue>
+		<dialogue>
+			<message>Where do you want to go ? </message>
 			<answers>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
+				<answer>Kitchen</answer>
+				<answer>Living room</answer>
 			</answers>
 		</dialogue>
 	</dialogues>

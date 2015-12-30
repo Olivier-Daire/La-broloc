@@ -49,7 +49,7 @@
 			<path>../assets/models/kitchen/isola_cucina/isola_cucina.obj</path>
 			<translate x="-4.8f" y="-1.75f" z="-2.6f"></translate>
 			<scale x="0.5f" y="0.5f" z="0.5f"></scale>
-			<interaction>1</interaction>
+			<interaction>0</interaction>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/beer/beer.obj</path>
@@ -91,38 +91,23 @@
 		</model>
 	</models>
 	<dialogues>
-		<dialogue>
-			<message>Bonjour, Rémi que s'est il passé ?</message>
-			<answers>
-				<answer>Rien.</answer>
-				<answer>Je ne me souviens plus.</answer>
-				<answer>Euuuuh mais qui êtes vous ? </answer>
-			</answers>
-		</dialogue>
-		<dialogue>
-			<message>Blabla</message>
-			<answers>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
-			</answers>
-		</dialogue>
-		<dialogue>
-			<message>Patate miam</message>
-			<answers>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
-			</answers>
-		</dialogue>
-		<dialogue>
-			<message>Sushi sushi sushi</message>
-			<answers>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
-				<answer>Blabla</answer>
-			</answers>
-		</dialogue>
+		<group>
+			<dialogue>
+				<message>Hello ! :D You are in the kitchen ! </message>
+			</dialogue>
+			<dialogue>
+				<message>You can eat and drink (good beer).</message>
+			</dialogue>
+		</group>
+		<group>
+			<dialogue>
+				<message>But now, you have to go to another place ! Where do you want to go mister ?</message>
+				<answers>
+					<answer>Living room</answer>
+					<answer>Kitchen</answer>
+				</answers>
+			</dialogue>
+		</group>
 	</dialogues>
 	<lights>
 		<light>

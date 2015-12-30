@@ -18,7 +18,7 @@ class Text {
 		Text();
 		void LoadText(Shader &shader,GLuint width,GLuint height);
 		void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
-		void nextText(bool &isDialogue, bool &isAnswer, bool &answer,int &cptDialogue, Scene scene1, std::string &dialogue, std::string answers[]);
+		void nextText(bool &isDialogue, bool &isAnswer, bool &answer, int &cptDialogue, Scene scene, std::string &dialogue, std::string answers[], int group);
  		void Draw(Shader shaderText,bool isDialogue, bool isAnswer,int chooseAnswer,std::string dialogue,std::string answers[]);
    
 	private:

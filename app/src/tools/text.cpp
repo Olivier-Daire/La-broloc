@@ -1,4 +1,5 @@
 #include "tools/text.hpp"
+#include <iostream>
 
 using namespace std;
 
@@ -124,26 +125,34 @@ void Text::RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GL
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Text::nextText(bool &isDialogue, bool &isAnswer, bool &answer, int &cptDialogue, Scene scene, std::string &dialogue, std::string answers[]) 
+void Text::nextText(bool &isDialogue, bool &isAnswer, bool &answer, int &cptDialogue, Scene scene, std::string &dialogue, std::string answers[], int group) 
 {
     isAnswer = 0;
-    if(cptDialogue < scene.getDialogueNumber()) {
-        if(cptDialogue == 0) answer = 1;
-        if(answer == 0) {
-            if(scene.getAnswerNumber(cptDialogue) > 0) {
+
+    if(cptDialogue < scene.getDialogueNumber(group)) {
+        if(cptDialogue == 0) cptDialogue++;
+        // If it is a message and not an answer
+        if(!answer) {
+            if(scene.getAnswerNumber(group, cptDialogue) > 0) {
                 answer = 1;
-                dialogue = scene.getDialogue(cptDialogue).getMessage();
+                dialogue = scene.getDialogue(group, cptDialogue).getMessage();
             }
-            else cptDialogue++;
+            else {
+                dialogue = scene.getDialogue(group, cptDialogue).getMessage();
+                cptDialogue++;
+            }
         }
         else {
-            answers[0] = scene.getDialogue(cptDialogue).getAnswer(0);
-            answers[1] = scene.getDialogue(cptDialogue).getAnswer(1);
+            answers[0] = scene.getDialogue(group, cptDialogue).getAnswer(0);
+            answers[1] = scene.getDialogue(group, cptDialogue).getAnswer(1);
             answer = 0;
             cptDialogue++;
             isAnswer = 1;
         }
-    } else isDialogue = 0;
+    } else {
+        isDialogue = 0;
+        cptDialogue = 0; 
+    }
 }
 
 void Text::Draw(Shader shaderText,bool isDialogue, bool isAnswer,int chooseAnswer,std::string dialogue,std::string answers[]) {

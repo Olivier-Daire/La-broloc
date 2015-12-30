@@ -36,8 +36,6 @@ void Command::commandHandler(glimac::SDLWindowManager& windowManager, Camera& ca
         }
         lastDirection = RIGHT;            
     }
-
-    collision = false;
 }
 
 void Command::mouseManager(Camera& camera, glm::ivec2 mousePosition, float screenWidth, float screenHeight){
