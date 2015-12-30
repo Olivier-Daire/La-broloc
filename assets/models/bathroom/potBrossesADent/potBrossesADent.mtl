@@ -10,32 +10,32 @@ Kd 0.55 0.132 0.2574
 Ks 0 0 0
 Ka 0 0 0
 illum 1
-map_Kd default_1.png
+map_Kd ../grey.png
 
 newmtl rouge
 Kd 1 0 0
 Ks 0 0 0
 Ka 1 0 0
 illum 1
-map_Kd default_3.png
+map_Kd ../red.png
 
 newmtl bleu
 Kd 0.67 0.78 0.92
 Ks 0 0 0
 Ka 0 0 0
 illum 1
-map_Kd default_2.png
+map_Kd ../blue.png
 
 newmtl Blanc
 Kd 0.86 0.86 0.86
 Ks 0 0 0
 Ka 1 1 1
 illum 1
-map_Kd default_1.png
+map_Kd ../grey.png
 
 newmtl dentifrice
 Kd 1 1 1
 Ks 0 0 0
 Ka 0 0 0
 illum 1
-map_Kd default_1.png
+map_Kd ../grey.png

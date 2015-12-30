@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+	<room>
+		<!-- Take care of proportion to keep the camera in the room -->
+		<width>8</width>
+		<height>8</height>
+		<depth>10</depth>
+		<walls>../assets/textures/bathroom_wall.jpg</walls>
+		<floor>../assets/textures/kitchen_roof.png</floor>
+		<roof>../assets/textures/kitchen_roof.png</roof>
+	</room>
+	<models>
+		<model>
+			<path>../assets/models/door/puerta.obj</path>
+			<translate x="0.0f" y="-3.0f" z="2.95f"></translate>
+			<scale x="0.03f" y="0.026f" z="0.03f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/bathroom/heater/radiateur.obj</path>
+			<translate x="1.45f" y="-2.0f" z="-4.5f"></translate>
+			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/bathroom/bathroom_vanity/bathroom_vanity.obj</path>
+			<translate x="-1.45f" y="-0.5f" z="-7.35f"></translate>
+			<scale x="0.035f" y="0.03f" z="0.035f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/bathroom/potBrossesADent/potBrossesADent.obj</path>
+			<translate x="-0.2f" y="-0.4f" z="-7.5f"></translate>
+			<scale x="0.035f" y="0.03f" z="0.035f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/bathroom/doccia/doccia.obj</path>
+			<translate x="-5.1f" y="-3.0f" z="0.5f"></translate>
+			<scale x="0.035f" y="0.03f" z="0.035f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">-90</rotate>
+		</model>
+		<model>
+			<path>../assets/models/bathroom/toiletsUnit/toiletsUnit.obj</path>
+			<translate x="-5.1f" y="-3.0f" z="-6.5f"></translate>
+			<scale x="0.035f" y="0.03f" z="0.035f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/bathroom/toiletBrush/toiletBrush.obj</path>
+			<translate x="-3.9f" y="-2.5f" z="-8.0f"></translate>
+			<scale x="0.035f" y="0.03f" z="0.035f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/bathroom/toiletPaperDispenser/toiletPaperDispenser.obj</path>
+			<translate x="-3.9f" y="-0.5f" z="-8.0f"></translate>
+			<scale x="0.035f" y="0.03f" z="0.035f"></scale>
+		</model>
+	</models>
+	<dialogues>
+		<group>
+			<dialogue>
+				<message>Hello ! :D You are in the kitchen ! </message>
+			</dialogue>
+			<dialogue>
+				<message>You can eat and drink (good beer).</message>
+			</dialogue>
+		</group>
+		<group>
+			<dialogue>
+				<message>But now, you have to go to another place ! Where do you want to go mister ?</message>
+				<answers>
+					<answer>Living room</answer>
+					<answer>Kitchen</answer>
+				</answers>
+			</dialogue>
+		</group>
+	</dialogues>
+	<lights>
+		<light>
+			<position x="0.5f" y="0.7f" z="-4.0f"></position>
+			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
+			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
+			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
+			<constant value="1.0f"></constant>
+			<linear value="0.009"></linear>
+			<quadratic value="0.0032"></quadratic>
+		</light>
+		<light>
+			<position x="-0.7f" y="0.9f" z="-4.0f"></position>
+			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
+			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
+			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
+			<constant value="1.0f"></constant>
+			<linear value="0.009"></linear>
+			<quadratic value="0.0032"></quadratic>
+		</light>
+	</lights>
+</scene>

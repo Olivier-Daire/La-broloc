@@ -9,4 +9,4 @@ Ka 1.0 1.0 1.0
 Kd 1.0 1.0 1.0
 Ks 0.5 0.5 0.5
 Ns 64.0
-map_Kd default_1.png
+map_Kd ../grey.png
