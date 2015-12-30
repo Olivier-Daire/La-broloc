@@ -57,6 +57,11 @@
 			<translate x="-3.9f" y="-0.5f" z="-8.0f"></translate>
 			<scale x="0.035f" y="0.03f" z="0.035f"></scale>
 		</model>
+		<model>
+			<path>../assets/models/bathroom/wardrobeWithSlidingDoors/wardrobeWithSlidingDoors.obj</path>
+			<translate x="-5.0f" y="-3.0f" z="-3.0f"></translate>
+			<scale x="0.02f" y="0.02f" z="0.02f"></scale>
+		</model>
 	</models>
 	<dialogues>
 		<group>
