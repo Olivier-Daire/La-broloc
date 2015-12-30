@@ -89,6 +89,16 @@
 			<!-- Axe de rotation puis angle de rotation -->
 			<rotate x="0.0f" y="1.0f" z="0.0f">180</rotate>
 		</model>
+		<model>
+			<path>../assets/models/window/fancyWindow/fancyWindow.obj</path>
+			<translate x="-1.0f" y="2.2f" z="-9.8f"></translate>
+			<scale x="0.4f" y="0.4f" z="0.4f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/window/fancyWindow/fancyWindow.obj</path>
+			<translate x="0.4f" y="2.2f" z="-9.8f"></translate>
+			<scale x="0.4f" y="0.4f" z="0.4f"></scale>
+		</model>
 	</models>
 	<dialogues>
 		<group>
