@@ -7,7 +7,11 @@
 		<depth>10</depth>
 		<walls>../assets/textures/bathroom_wall.jpg</walls>
 		<floor>../assets/textures/kitchen_roof.png</floor>
-		<roof>../assets/textures/kitchen_roof.png</roof>
+		<roof>../assets/textures/kitchen_roof.png</roof>		
+		<xmin>-5.5.0</xmin>
+		<xmax>0.7</xmax>
+		<zmin>-6.7</zmin>
+		<zmax>1.0</zmax>
 	</room>
 	<models>
 		<model>

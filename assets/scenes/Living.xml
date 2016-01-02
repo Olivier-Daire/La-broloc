@@ -7,6 +7,10 @@
 		<walls>../assets/textures/papier.jpg</walls>
 		<floor>../assets/textures/parquet.jpg</floor>
 		<roof>../assets/textures/kitchen_roof.png</roof>
+		<xmin>-5.7</xmin>
+		<xmax>1.9</xmax>
+		<zmin>-9.0</zmin>
+		<zmax>5.1</zmax>
 	</room>
 	<models>
 		<model>
