@@ -9,6 +9,15 @@ Camera::Camera(){
 	computeDirectionVectors();
 }
 
+Camera::Camera(const Camera &source){
+	position = source.position;
+	m_fPhi = source.m_fPhi;
+	m_fTheta = source.m_fTheta;
+	cameraSpeed = source.cameraSpeed;
+
+	computeDirectionVectors();
+}
+
 void Camera::computeDirectionVectors(){
 	m_FrontVector = glm::vec3(cos(m_fTheta)*sin(m_fPhi), sin(m_fTheta), cos(m_fTheta)*cos(m_fPhi));
 	m_LeftVector = glm::vec3(sin(m_fPhi + M_PI_2), 0, cos(m_fPhi + M_PI_2));

@@ -7,6 +7,7 @@ class Camera
 {
 	public:
 		Camera();
+		Camera(const Camera &source);
 		void moveLeft(float t);
 		void moveFront(float t);
 		void rotateLeft(float degrees);

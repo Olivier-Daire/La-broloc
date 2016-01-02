@@ -150,6 +150,10 @@ int Scene::getLightNumber(){
 	return _lights.size();
 }
 
+glm::vec4 Scene::getWallLimits() {
+    return _wallLimits;
+}
+
 void Scene::loadRoom(XMLDocument& doc){
 
 	XMLElement *room = doc.FirstChildElement("scene")->FirstChildElement("room");
@@ -167,6 +171,12 @@ void Scene::loadRoom(XMLDocument& doc){
     _width = atof(room->FirstChildElement("width")->GetText());
     _height = atof(room->FirstChildElement("height")->GetText());
     _depth = atof(room->FirstChildElement("depth")->GetText());
+
+    _wallLimits.x = atof(room->FirstChildElement("xmax")->GetText());
+    _wallLimits.y = atof(room->FirstChildElement("xmin")->GetText());
+    _wallLimits.z = atof(room->FirstChildElement("zmax")->GetText());
+    _wallLimits.w = atof(room->FirstChildElement("zmin")->GetText());
+    
 
     // Create an array of texture and bind each texture
     
@@ -267,7 +277,7 @@ void Scene::drawRoom(Shader shader){
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-     // Back Wall
+    // Back Wall
     matModelWall = glm::translate(initialMatModelWall, glm::vec3(-6.5f, -3.0f, -_width+_depth));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
 

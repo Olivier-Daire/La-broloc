@@ -8,6 +8,10 @@
 		<walls>../assets/textures/papierbed.jpg</walls>
 		<floor>../assets/textures/moquette.jpg</floor>
 		<roof>../assets/textures/kitchen_roof.png</roof>
+		<xmin>-6.0</xmin>
+		<xmax>3.0</xmax>
+		<zmin>-9.7</zmin>
+		<zmax>1.7</zmax>
 	</room>
 	<models>
 		<model>

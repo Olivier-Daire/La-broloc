@@ -6,35 +6,37 @@ direction Command::lastDirection = _NULL;
 
 Command::Command(){}
 
-void Command::commandHandler(glimac::SDLWindowManager& windowManager, Camera& camera, float deltaTime, bool& collision){
-	
+void Command::commandHandler(glimac::SDLWindowManager& windowManager, Camera& camera, float deltaTime, bool& collision, glm::vec4 wallLimits){
+	Camera cameraMove(camera);
+
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_UP)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_z)))
     {
-        if(!(collision && lastDirection == FRONT)){
+        cameraMove.moveFront(camera.getSpeed() * deltaTime);
+        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w) && !(collision && lastDirection == FRONT)){
             camera.moveFront(camera.getSpeed() * deltaTime);
             lastDirection = FRONT;
-        }
-        
+        }      
     }
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_DOWN)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_s)))
     {
-        if(!(collision && lastDirection == BACK)){
+        cameraMove.moveFront(-camera.getSpeed() * deltaTime);
+        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w) && !(collision && lastDirection == BACK)){
             camera.moveFront(-camera.getSpeed() * deltaTime);
             lastDirection = BACK;
-        }
-        
+        }      
     }
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_LEFT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_q)))
-    {
-        if(!(collision && (lastDirection == LEFT || lastDirection == FRONT || lastDirection == BACK))){
+    {        
+        cameraMove.moveLeft(camera.getSpeed() * deltaTime);
+        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w) && !(collision && (lastDirection == LEFT || lastDirection == FRONT || lastDirection == BACK))){
             camera.moveLeft(camera.getSpeed() * deltaTime);
             lastDirection = LEFT;
-        }
-         
+        }       
     }
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_RIGHT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_d)))
     {
-        if(!(collision && (lastDirection == RIGHT || lastDirection == FRONT || lastDirection == BACK))){
+        cameraMove.moveLeft(-camera.getSpeed() * deltaTime);
+        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w) && !(collision && (lastDirection == RIGHT || lastDirection == FRONT || lastDirection == BACK))){
             camera.moveLeft(-camera.getSpeed() * deltaTime);
             lastDirection = RIGHT;
         }

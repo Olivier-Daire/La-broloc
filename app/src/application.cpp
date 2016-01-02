@@ -83,7 +83,7 @@ std::string Application::launch(std::string currentScene) {
          * 5.0 (and maybe more ?) on Y axis because we need to collide on the whole height as if we were a person
          * 0.2 from object on Z axis --> collide */
         AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 0.5f, 500.0f, 0.5f);
-
+        
         // Event loop:
         SDL_Event e;
         GLfloat currentFrame = windowManager.getTime();;
@@ -147,18 +147,18 @@ std::string Application::launch(std::string currentScene) {
 
         // Loop through each model and check for a collision
         int i;
-        for (i = 0; i < scene.getModelNumber(); ++i)
-        {
-            if(models[i].box.collision(cameraBox)) {
-                modelCollision = i;
-                isCollision = true;
-                break;
-            }
-        }
-        if(i == scene.getModelNumber()) isCollision = false;
+        // for (i = 0; i < scene.getModelNumber(); ++i)
+        // {
+        //     if(models[i].box.collision(cameraBox)) {
+        //         modelCollision = i;
+        //         isCollision = true;
+        //         break;
+        //     }
+        // }
+        // if(i == scene.getModelNumber()) isCollision = false;
         
         // Handle all mouse related inputs
-        if(!isDialogue) Command::commandHandler(windowManager, camera, deltaTime, isCollision);
+        if(!isDialogue) Command::commandHandler(windowManager, camera, deltaTime, isCollision, scene.getWallLimits());
         Command::mouseManager(camera, windowManager.getMousePosition(), screenWidth/2.0, screenHeight/2.0);
         // Put the cursor back to the center of the scene
         SDL_WarpMouseInWindow(windowManager.Window, screenWidth/2.0, screenHeight/2.0);

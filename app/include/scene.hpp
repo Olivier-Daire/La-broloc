@@ -3,6 +3,7 @@
 #include <string>
 #include <tinyxml2/tinyxml2.h>
 #include <glimac/Image.hpp>
+#include <glm/glm.hpp>
 #include "model/model.hpp"
 #include "dialogue.hpp"
 #include "tools/light.hpp"
@@ -31,6 +32,8 @@ class Scene
 		void loadRoom(XMLDocument& doc);
 		void drawRoom(Shader shader);
 		void deleteRoom();
+
+		glm::vec4 getWallLimits();
 	
 	private:
 		// List of all the models of the scene
@@ -46,5 +49,7 @@ class Scene
     	float _width;
     	float _height;
     	float _depth;
+
+    	glm::vec4 _wallLimits;
 
 };
