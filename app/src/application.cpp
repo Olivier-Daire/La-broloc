@@ -25,12 +25,27 @@ std::string Application::launch(std::string currentScene) {
     std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
 
+    /*********** END INIT ************/
+    Camera camera;
+    // Text related data
+    Text text;
+    bool answer = 0, isAnswer = 0, isDialogue = 0;
+    int cptDialogue = 0, nbAnswer = 2, chooseAnswer = 0;
+    std::string dialogue;
+    std::string answers[nbAnswer];
+    int group = 0;
+    // Collision related data 
+    bool isCollision = false;
+    int modelCollision = 0;
+
+    std::string nextScene;
+    Scene scene;
+
     Shader shader("../assets/shaders/pointlight.vs.glsl", "../assets/shaders/pointlight.fs.glsl");
     Shader shaderText("../assets/shaders/text.vs.glsl", "../assets/shaders/text.fs.glsl");
     Shader wallShader("../assets/shaders/tex2D.vs.glsl", "../assets/shaders/tex2D.fs.glsl");
     
-    std::string nextScene;
-    Scene scene;
+    // Load models infos, room, dialogues, lights
     scene.loadSceneFromFile(("../assets/scenes/" + currentScene  + ".xml").c_str());
 
     // Load all the XML models using their path
@@ -39,7 +54,9 @@ std::string Application::launch(std::string currentScene) {
     {
         ModelInfos model = scene.getModel(i);
         models[i] = Model(model.Path);
+
         // Update model aabbox given its translate and scale
+        // FIXME doesn't work well and need to be moved to a function
         models[i].box.x =  model.Translate.x;
         models[i].box.y =  model.Translate.y;
         models[i].box.z =  model.Translate.z;
@@ -48,51 +65,23 @@ std::string Application::launch(std::string currentScene) {
         models[i].box.d *= model.Scale.z;
     }
 
-    // FIXME list working models, remove it afterwards
-    //Model kitchen("../assets/models/bedroom/bedside_table/Skin A/Table de nuit_Final.obj");
-    //Model kitchen("../assets/models/bathroom/washbasin/[.obj]/Lavabo.obj");
-    //Model kitchen("../assets/models/living_room/Table/Table.obj");
-    //Model kitchen("../assets/models/bedroom/heater/[.obj]/Radiateur.obj");
-    //Model kitchen("../assets/models/living_room/modern-closet/[.obj]/Modern Closet.obj");
-    //Model kitchen("../assets/models/living_room/modern-sideboard/[.obj]/Buffet Moderne.obj");
-    //Model kitchen("../assets/models/bedroom/lit/lit.obj");
-    //Model kitchen("../assets/models/bathroom/heater/radiateur.obj");
-    //Model kitchen("../assets/models/bathroom/soap/com_bath2_soap.obj");
-    //Model kitchen("../assets/models/bathroom/potBrossesADent/potBrossesADent.obj");
-
-    Camera camera;
-
-    // Text variables
-    Text text;
-
-    bool answer = 0, isAnswer = 0, isDialogue = 0;
-    int cptDialogue = 0, nbAnswer = 2, chooseAnswer = 0;
-    std::string dialogue;
-    std::string answers[nbAnswer];
-    int group = 0;
-
-    // TODO Load text inside scene
     text.LoadText(shaderText, screenWidth, screenHeight);
     
 
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
      *********************************/
-    bool isCollision = false;
-    int modelCollision = 0;
     // Application loop:
     float deltaTime = 0.0f;   // Time between current frame and last frame
     float lastFrame = 0.0f;  // Last frame
     bool done = false;
-
     while(!done) {
 
-        // Create a smal box for the camera (player)
-        // the last three numbers are for the distance
-        // 0.2 from object on X axis --> collide
-        // 5.0 (and maybe more ?) on Y axis because we need to collide on the whole height as if we were a person
-        // 0.2 from object on Z axis --> collide
-       // std::cout << camera.getPosition().x << std::endl;
+        /* Create a smal box for the camera (player)
+         * the last three numbers are for the distance
+         * 0.2 from object on X axis --> collide
+         * 5.0 (and maybe more ?) on Y axis because we need to collide on the whole height as if we were a person
+         * 0.2 from object on Z axis --> collide */
         AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 0.5f, 500.0f, 0.5f);
 
         // Event loop:
@@ -150,12 +139,14 @@ std::string Application::launch(std::string currentScene) {
                 }
             }
         }
+        // ESCAPE
         if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_ESCAPE))){
             nextScene = "fin";
             done = true;
         }
-        int i;
-        for (i = 0; i < scene.getModelNumber(); ++i)
+
+        // Loop through each model and check for a collision
+        for (int i = 0; i < scene.getModelNumber(); ++i)
         {
             if(models[i].box.collision(cameraBox)) {
                 modelCollision = i;
@@ -165,7 +156,7 @@ std::string Application::launch(std::string currentScene) {
         }
         if(i == scene.getModelNumber()) isCollision = false;
         
-
+        // Handle all mouse related inputs
         if(!isDialogue) Command::commandHandler(windowManager, camera, deltaTime, isCollision);
         Command::mouseManager(camera, windowManager.getMousePosition(), screenWidth/2.0, screenHeight/2.0);
         // Put the cursor back to the center of the scene
@@ -173,7 +164,7 @@ std::string Application::launch(std::string currentScene) {
 
 
         /*********************************
-         * HERE SHOULD COME THE RENDERING CODE
+         *         RENDERING CODE        *
          *********************************/
 
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
@@ -195,22 +186,19 @@ std::string Application::launch(std::string currentScene) {
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
-        
-
         for (int i = 0; i < scene.getModelNumber(); ++i)
         {
             glm::mat4 matModel;
             // Translate model following the parameters set in the XML
             matModel = glm::translate(matModel, scene.getModel(i).Translate);
+            // Rotate model following the parameters set in the XML, if any
+            if (scene.getModel(i).RotateAngle != 0) matModel = glm::rotate(matModel, glm::radians(scene.getModel(i).RotateAngle), glm::vec3(-0.0f, -1.0f, 0.0f));
             // Scale model following the parameters set in the XML
-            if (scene.getModel(i).RotateAngle != 0)
-            {
-                matModel = glm::rotate(matModel, glm::radians(scene.getModel(i).RotateAngle), glm::vec3(-0.0f, -1.0f, 0.0f));
-            }
             matModel = glm::scale(matModel, scene.getModel(i).Scale);
+
             glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
+
             models[i].Draw(shader);
-            
         }
 
         //***** LIGHT *****//
@@ -233,12 +221,10 @@ std::string Application::launch(std::string currentScene) {
         }
 
         text.Draw(shaderText,isDialogue, isAnswer, chooseAnswer, dialogue, answers);
+
         // Update the display
         windowManager.swapBuffers(windowManager.Window);
-
-
     }
-
     scene.deleteRoom();
 
     return nextScene;

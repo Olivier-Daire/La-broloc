@@ -5,7 +5,6 @@
 
 using namespace glimac;
 
-
 int main(int argc, char** argv) {
 
     std::string scene = "Kitchen";
