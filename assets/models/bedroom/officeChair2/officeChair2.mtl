@@ -1,0 +1,22 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl caster11_1_1
+Ns 125.490196
+Ka 0.000000 0.000000 0.000000
+Kd 0.012549 0.012549 0.012549
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../metal.jpg
+
+newmtl chair_cus3_42_42
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.171200 0.105023 0.078581
+Ks 0.898039 0.898039 0.898039
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../black.png

@@ -1,0 +1,22 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl black
+Ns 21.568627
+Ka 0.000000 0.000000 0.000000
+Kd 0.091968 0.091959 0.091959
+Ks 0.323081 0.323081 0.323081
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../black.png
+
+newmtl metalillo
+Ns 86.274510
+Ka 0.000000 0.000000 0.000000
+Kd 0.526809 0.019909 0.019909
+Ks 1.380601 1.380601 1.380601
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ../red.png

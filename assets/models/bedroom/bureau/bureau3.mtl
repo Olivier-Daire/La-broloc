@@ -6,7 +6,7 @@ Ka 0.2 0.2 0.2
 Kd 1.0 1.0 1.0
 Ks 0.0 0.0 0.0
 Ns 1.0
-map_Kd bureau3_BoisClair.png
+map_Kd ../wood.jpg
 
 newmtl Default_Texture
 illum 1
