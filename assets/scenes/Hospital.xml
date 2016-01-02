@@ -24,7 +24,7 @@
 	<dialogues>
 		<group>
 			<dialogue>
-				<message>... What is going on ?!</message>
+				<message>... What is going on ?! </message>
 			</dialogue>
 			<dialogue>
 				<message>You&apos;re in the hospital. Calm down.</message>
@@ -56,7 +56,7 @@
 			<dialogue>
 				<message>Where were you ?</message>
 				<answers>
-					<answer>Living room</answer>
+					<answer>Remy's bedroom</answer>
 					<answer>Kitchen</answer>
 				</answers>
 			</dialogue>

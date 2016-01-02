@@ -80,21 +80,19 @@
 		</model>
 	</models>
 	<dialogues>
+		<!-- Tooth brush interaction -->
 		<group>
 			<dialogue>
-				<message>Hello ! :D You are in the kitchen ! </message>
+				<message> Damn ! Guilhem was using mine !</message>
 			</dialogue>
 			<dialogue>
-				<message>You can eat and drink (good beer).</message>
+				<message>I yelled at him, trying to get back my tootbrush.</message>
 			</dialogue>
-		</group>
-		<group>
 			<dialogue>
-				<message>But now, you have to go to another place ! Where do you want to go mister ?</message>
-				<answers>
-					<answer>Living room</answer>
-					<answer>Kitchen</answer>
-				</answers>
+				<message>He ran away in his bedroom.</message>
+			</dialogue>
+			<dialogue>
+				<message>I followed him... We fought and... Oh shit !</message>
 			</dialogue>
 		</group>
 	</dialogues>

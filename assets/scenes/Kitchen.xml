@@ -107,18 +107,46 @@
 	<dialogues>
 		<group>
 			<dialogue>
-				<message>Hello ! :D You are in the kitchen ! </message>
+				<message>What were you doing in the kitchen ? </message>
 			</dialogue>
 			<dialogue>
-				<message>You can eat and drink (good beer).</message>
+				<message>Analyse each objects. It can help you to remember something.</message>
 			</dialogue>
 		</group>
+		<!-- Fridge interaction -->
 		<group>
 			<dialogue>
-				<message>But now, you have to go to another place ! Where do you want to go mister ?</message>
+				<message>Ohh crap, the fridge is empty as always... </message>
+			</dialogue>
+		</group>
+		<!-- Poele interaction -->
+		<group>
+			<dialogue>
+				<message>Aah Guilhem never clean anything ! </message>
+			</dialogue>
+		</group>
+		<!-- Beer interaction -->
+		<group>
+			<dialogue>
+				<message>Mmmmm beer !</message>
+			</dialogue>
+		</group>
+		<!-- Bread interaction -->
+		<group>
+			<dialogue>
+				<message>Mmmm de la baguette !</message>
+			</dialogue>
+		</group>
+		<!-- Toaster interaction -->
+		<group>
+			<dialogue>
+				<message>Aaah I remember !! I heard a song.</message>
+			</dialogue>
+			<dialogue>
+				<message>Where did it come from ?</message>
 				<answers>
-					<answer>Living room</answer>
-					<answer>Kitchen</answer>
+					<answer>Entrance</answer>
+					<answer>Guilhem&apos;s bedroom</answer>
 				</answers>
 			</dialogue>
 		</group>

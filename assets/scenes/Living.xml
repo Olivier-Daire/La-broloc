@@ -91,25 +91,34 @@
 	<dialogues>
 		<group>
 			<dialogue>
-				<message>Hello you are in the living room</message>
+				<message>What were you doing in the living room ? </message>
 			</dialogue>
 			<dialogue>
-				<message>It is a test.</message>
+				<message>Analyse each objects. It can help you to remember something.</message>
 			</dialogue>
 		</group>
+		<!-- Sofa interaction -->
 		<group>
 			<dialogue>
-				<message> Lol</message>
+				<message>Hmm I’d love to take a nap on this couch, it looks so confortable !</message>
 			</dialogue>
+		</group>
+		<!-- Baby foot interaction -->
+		<group>
 			<dialogue>
-				<message>Again a test</message>
+				<message>Oh little buddy, so many hours of fun with you... </message>
 			</dialogue>
+		</group>
+		<!-- Plant interaction -->
+		<group>
 			<dialogue>
-				<message>Where do you want to go ? </message>
-				<answers>
-					<answer>Kitchen</answer>
-					<answer>Living room</answer>
-				</answers>
+				<message>I’m sure Guilhem forgot to water it again !</message>
+			</dialogue>
+		</group>
+		<!-- TV interaction -->
+		<group>
+			<dialogue>
+				<message>Oh yeah I got it ! I was watching Mr Robot when suddenly...</message>
 			</dialogue>
 		</group>
 	</dialogues>
