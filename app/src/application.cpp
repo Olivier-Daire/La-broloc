@@ -146,7 +146,8 @@ std::string Application::launch(std::string currentScene) {
         }
 
         // Loop through each model and check for a collision
-        for (int i = 0; i < scene.getModelNumber(); ++i)
+        int i;
+        for (i = 0; i < scene.getModelNumber(); ++i)
         {
             if(models[i].box.collision(cameraBox)) {
                 modelCollision = i;
