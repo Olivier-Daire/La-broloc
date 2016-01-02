@@ -12,29 +12,32 @@ void Command::commandHandler(glimac::SDLWindowManager& windowManager, Camera& ca
     {
         if(!(collision && lastDirection == FRONT)){
             camera.moveFront(camera.getSpeed() * deltaTime);
+            lastDirection = FRONT;
         }
-        lastDirection = FRONT;
+        
     }
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_DOWN)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_s)))
     {
         if(!(collision && lastDirection == BACK)){
             camera.moveFront(-camera.getSpeed() * deltaTime);
+            lastDirection = BACK;
         }
-        lastDirection = BACK;   
+        
     }
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_LEFT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_q)))
     {
-        if(!(collision && lastDirection == LEFT)){
+        if(!(collision && (lastDirection == LEFT || lastDirection == FRONT || lastDirection == BACK))){
             camera.moveLeft(camera.getSpeed() * deltaTime);
+            lastDirection = LEFT;
         }
-        lastDirection = LEFT; 
+         
     }
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_RIGHT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_d)))
     {
-        if(!(collision && lastDirection == RIGHT)){
+        if(!(collision && (lastDirection == RIGHT || lastDirection == FRONT || lastDirection == BACK))){
             camera.moveLeft(-camera.getSpeed() * deltaTime);
+            lastDirection = RIGHT;
         }
-        lastDirection = RIGHT;            
     }
 }
 
