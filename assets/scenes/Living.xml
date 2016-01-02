@@ -85,26 +85,29 @@
 		</model>
 	</models>
 	<dialogues>
-		<!-- FIXME add groups -->
-		<dialogue>
-			<message>Hello you are in the living room</message>
-		</dialogue>
-		<dialogue>
-			<message>It is a test.</message>
-		</dialogue>
-		<dialogue>
-			<message> Lol</message>
-		</dialogue>
-		<dialogue>
-			<message>Again a test</message>
-		</dialogue>
-		<dialogue>
-			<message>Where do you want to go ? </message>
-			<answers>
-				<answer>Kitchen</answer>
-				<answer>Living room</answer>
-			</answers>
-		</dialogue>
+		<group>
+			<dialogue>
+				<message>Hello you are in the living room</message>
+			</dialogue>
+			<dialogue>
+				<message>It is a test.</message>
+			</dialogue>
+		</group>
+		<group>
+			<dialogue>
+				<message> Lol</message>
+			</dialogue>
+			<dialogue>
+				<message>Again a test</message>
+			</dialogue>
+			<dialogue>
+				<message>Where do you want to go ? </message>
+				<answers>
+					<answer>Kitchen</answer>
+					<answer>Living room</answer>
+				</answers>
+			</dialogue>
+		</group>
 	</dialogues>
 	<lights>
 		<light>
