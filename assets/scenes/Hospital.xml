@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+	<room>
+		<!-- Take care of proportion to keep the camera in the room -->
+		<width>8</width>
+		<height>8</height>
+		<depth>9</depth>
+		<walls>../assets/textures/white_wall.jpg</walls>
+		<floor>../assets/textures/lino.jpg</floor>
+		<roof>../assets/textures/white_wall.jpg</roof>		
+		<xmin>-5.5.0</xmin>
+		<xmax>0.7</xmax>
+		<zmin>-6.7</zmin>
+		<zmax>1.0</zmax>
+	</room>
+	<models>
+		<model>
+			<path>../assets/models/hospital/bed/bed.obj</path>
+			<translate x="0.0f" y="-2.0f" z="-1.5f"></translate>
+			<scale x="2.5f" y="2.5f" z="2.5f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">-180</rotate>
+		</model>
+	</models>
+	<dialogues>
+		<group>
+			<dialogue>
+				<message>... What is going on ?!</message>
+			</dialogue>
+			<dialogue>
+				<message>You&apos;re in the hospital. Calm down.</message>
+			</dialogue>
+			<dialogue>
+				<message>Who are you ?!</message>
+			</dialogue>
+			<dialogue>
+				<message>I&apos;m John McCornick from the New York police department.</message>
+			</dialogue>
+			<dialogue>
+				<message>What ? Why ?</message>
+			</dialogue>
+			<dialogue>
+				<message>We found you unconscious in your apartment.</message>
+			</dialogue>
+			<dialogue>
+				<message>And your roommate is dead.</message>
+			</dialogue>
+			<dialogue>
+				<message>We are gonna ask you some questions. Do you remember anything ?</message>
+			</dialogue>
+			<dialogue>
+				<message>Guilhem ? No ! Oh my god ! I... I don&apos;t remember !</message>
+			</dialogue>
+			<dialogue>
+				<message>Try to picture yourself in your apartment before the incident.</message>
+			</dialogue>
+			<dialogue>
+				<message>Where were you ?</message>
+				<answers>
+					<answer>Living room</answer>
+					<answer>Kitchen</answer>
+				</answers>
+			</dialogue>
+		</group>
+	</dialogues>
+	<lights>
+		<light>
+			<position x="0.0f" y="7.7f" z="0.0f"></position>
+			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
+			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
+			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
+			<constant value="1.0f"></constant>
+			<linear value="0.009"></linear>
+			<quadratic value="0.0032"></quadratic>
+		</light>
+		<light>
+			<position x="-0.2f" y="7.9f" z="0.0f"></position>
+			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
+			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
+			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
+			<constant value="1.0f"></constant>
+			<linear value="0.009"></linear>
+			<quadratic value="0.0032"></quadratic>
+		</light>
+	</lights>
+</scene>

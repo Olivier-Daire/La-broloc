@@ -29,7 +29,7 @@ std::string Application::launch(std::string currentScene) {
     Camera camera;
     // Text related data
     Text text;
-    bool answer = 0, isAnswer = 0, isDialogue = 0;
+    bool answer = 0, isAnswer = 0, isDialogue = 1;
     int cptDialogue = 0, nbAnswer = 2, chooseAnswer = 0;
     std::string dialogue;
     std::string answers[nbAnswer];
