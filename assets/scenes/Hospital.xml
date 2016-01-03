@@ -56,7 +56,7 @@
 			<dialogue>
 				<message>Where were you ?</message>
 				<answers>
-					<answer>Remy's bedroom</answer>
+					<answer>Remy&apos;s bedroom</answer>
 					<answer>Kitchen</answer>
 				</answers>
 			</dialogue>
