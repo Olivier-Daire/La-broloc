@@ -4,7 +4,7 @@ Camera::Camera(){
 	position = glm::vec3(0, defaultYPosition, 0);
 	m_fPhi = M_PI;
 	m_fTheta = 0;
-	cameraSpeed = 1.2f;
+	cameraSpeed = 2.2f;
 
 	computeDirectionVectors();
 }

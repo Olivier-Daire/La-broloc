@@ -71,11 +71,17 @@
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
 		</model>
 		<model>
-			<!-- FIXME  -->
-			<path>../assets/models/bedroom/BaymaxWhiteOBJ/Bigmax_White_OBJ.obj</path>
-			<translate x="-5.5f" y="-3.0f" z="-9.0f"></translate>
-			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
+			<path>../assets/models/bedroom/yuccaPlant/yuccaPlant.obj</path>
+			<translate x="-5.5f" y="-3.0f" z="-8.5f"></translate>
+			<scale x="0.02f" y="0.02f" z="0.02f"></scale>
 		</model>
+		<!-- FIXME Texture -->
+		<!-- <model>
+			<path>../assets/models/bedroom/Wall-E/Wall-E.obj</path>
+			<translate x="-5.5f" y="-3.0f" z="-8.5f"></translate>
+			<scale x="0.09f" y="0.09f" z="0.09f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">130</rotate>
+		</model> -->
 	</models>
 	<dialogues>
 		<group>
