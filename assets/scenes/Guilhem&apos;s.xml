@@ -84,6 +84,11 @@
 		</model> -->
 	</models>
 	<dialogues>
+		<group>
+			<dialogue>
+				<message>Ok, what about your rommate bedroom ?</message>
+			</dialogue>
+		</group>
 		<!-- Guitar interaction -->
 		<group>
 			<dialogue>

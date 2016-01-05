@@ -80,6 +80,11 @@
 		</model>
 	</models>
 	<dialogues>
+		<group>
+			<dialogue>
+				<message>Ok, what did you do in the bathroom ?</message>
+			</dialogue>
+		</group>
 		<!-- Tooth brush interaction -->
 		<group>
 			<dialogue>

@@ -85,18 +85,36 @@
 	<dialogues>
 		<group>
 			<dialogue>
-				<message>Hello ! :D You are in the kitchen ! </message>
+				<message>What were you doing in your bedroom ?</message>
 			</dialogue>
 			<dialogue>
-				<message>You can eat and drink (good beer).</message>
+				<message>Analyse each objects. It can help you to remember something.</message>
+			</dialogue>
+		</group>
+		<!-- Alarm clock interaction -->
+		<group>
+			<dialogue>
+				<message>I was sleeping when a sound woke me up</message>
+			</dialogue>
+		</group>
+		<!-- Bed interaction -->
+		<group>
+			<dialogue>
+				<message>Na na na na na na... Batman !</message>
+			</dialogue>
+		</group>
+		<!-- Dart game interaction -->
+		<group>
+			<dialogue>
+				<message>So much skill !</message>
 			</dialogue>
 		</group>
 		<group>
 			<dialogue>
-				<message>But now, you have to go to another place ! Where do you want to go mister ?</message>
+				<message>Where did the sound come from ?</message>
 				<answers>
 					<answer>Living room</answer>
-					<answer>Kitchen</answer>
+					<answer>Bathroom</answer>
 				</answers>
 			</dialogue>
 		</group>
