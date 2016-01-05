@@ -8,7 +8,7 @@
 #include "dialogue.hpp"
 #include "tools/light.hpp"
 #include "geometry/vertex2D.hpp"
-#include "modelInfos.hpp"
+#include "model/model.hpp"
 
 using namespace tinyxml2;
 
@@ -17,7 +17,6 @@ class Scene
 	public:
 		Scene();
 		void loadSceneFromFile(const char* filename);
-		ModelInfos getModel(int number);
 		int getModelNumber();
 		Dialogue getDialogue(int group, int number);
 		int getDialogueNumber(int group);
@@ -34,10 +33,11 @@ class Scene
 		void deleteRoom();
 
 		glm::vec4 getWallLimits();
+
+		// All the models of the scene
+		vector<Model> _models;
 	
 	private:
-		// List of all the models of the scene
-		vector<ModelInfos> _models;
 		// List of all the dialogues of the scene
 		vector<vector <Dialogue>> _dialogues;
 		vector<Light> _lights;
@@ -51,5 +51,4 @@ class Scene
     	float _depth;
 
     	glm::vec4 _wallLimits;
-
 };
