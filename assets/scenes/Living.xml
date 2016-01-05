@@ -115,10 +115,10 @@
 				<message>I’m sure Guilhem forgot to water it again !</message>
 			</dialogue>
 		</group>
-		<!-- TV interaction -->
+		<!-- Plant (near door) interaction -->
 		<group>
 			<dialogue>
-				<message>Oh yeah I got it ! I was watching Mr Robot when suddenly...</message>
+				<message>Oh yeah, I got It ! I was looking at this plant when something hit me in the back !</message>
 			</dialogue>
 		</group>
 	</dialogues>

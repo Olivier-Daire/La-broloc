@@ -84,21 +84,25 @@
 		</model> -->
 	</models>
 	<dialogues>
+		<!-- Guitar interaction -->
 		<group>
 			<dialogue>
-				<message>Hello ! :D You are in the kitchen ! </message>
+				<message>Oh crap, I know...</message>
 			</dialogue>
 			<dialogue>
-				<message>You can eat and drink (good beer).</message>
+				<message>Guilhem was playing the guitar, AGAIN !</message>
+			</dialogue>
+			<dialogue>
+				<message>We kinda had an argument and… </message>
+			</dialogue>
+			<dialogue>
+				<message>Oh shit, I remember now.</message>
 			</dialogue>
 		</group>
+		<!-- Java book interaction -->
 		<group>
 			<dialogue>
-				<message>But now, you have to go to another place ! Where do you want to go mister ?</message>
-				<answers>
-					<answer>Living room</answer>
-					<answer>Kitchen</answer>
-				</answers>
+				<message>Damn, I need to study !</message>
 			</dialogue>
 		</group>
 	</dialogues>
