@@ -23,16 +23,19 @@
 			<path>../assets/models/kitchen/bread/Bread.obj</path>
 			<translate x="-4.0f" y="-1.0f" z="-3.0f"></translate>
 			<scale x="0.2f" y="0.2f" z="0.2f"></scale>
+			<interaction>4</interaction>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/Toaster/Toaster.obj</path>
 			<translate x="-6.0f" y="-1.0f" z="-3.0f"></translate>
 			<scale x="0.01f" y="0.01f" z="0.01f"></scale>
+			<interaction>5</interaction>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/frigo/frigo.obj</path>
 			<translate x="2.4f" y="0.2f" z="-8.5f"></translate>
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
+			<interaction>1</interaction>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/cucina/cucina.obj</path>
@@ -59,11 +62,13 @@
 			<path>../assets/models/kitchen/beer/beer.obj</path>
 			<translate x="-3.5f" y="-0.65f" z="-8.7f"></translate>
 			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
+			<interaction>3</interaction>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/poele/poele.obj</path>
 			<translate x="-5.8f" y="-0.68f" z="-8.8f"></translate>
 			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
+			<interaction>2</interaction>
 		</model>
 		<!-- FIXME Blender -->
 		<!-- <model>
