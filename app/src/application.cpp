@@ -67,7 +67,7 @@ std::string Application::launch(std::string currentScene) {
 
     text.LoadText(shaderText, screenWidth, screenHeight);
 
-    dialogue = scene.getDialogue(group,0).getMessage();
+    dialogue = scene.getDialogue(group, 0).getMessage();
     
 
     /*********************************
@@ -106,11 +106,12 @@ std::string Application::launch(std::string currentScene) {
                             // If we can interact with the model in collision 
                             if (scene.getModel(modelCollision).interactionDialogue != -1)
                             {
+                                cptDialogue = 1; // FIXME Why do I need to do that ?!
                                 isDialogue = 1;
                                 group = scene.getModel(modelCollision).interactionDialogue;
                             }
-
-                            dialogue = scene.getDialogue(group,0).getMessage();
+                           
+                            dialogue = scene.getDialogue(group, 0).getMessage();
                         }
                     break;
 
@@ -147,19 +148,19 @@ std::string Application::launch(std::string currentScene) {
         }
 
         // Loop through each model and check for a collision
-        //int i;
-        // for (i = 0; i < scene.getModelNumber(); ++i)
-        // {
-        //     if(models[i].box.collision(cameraBox)) {
-        //         modelCollision = i;
-        //         isCollision = true;
-        //         break;
-        //     }
-        // }
-        // if(i == scene.getModelNumber()) isCollision = false;
+        int i;
+        for (i = 0; i < scene.getModelNumber(); ++i)
+        {
+            if(models[i].box.collision(cameraBox)) {
+                modelCollision = i;
+                isCollision = true;
+                break;
+            }
+        }
+        if(i == scene.getModelNumber()) isCollision = false;
         
         // Handle all mouse related inputs
-        if(!isDialogue) Command::commandHandler(windowManager, camera, deltaTime, isCollision, scene.getWallLimits());
+        if(!isDialogue) Command::commandHandler(windowManager, camera, deltaTime, scene.getWallLimits());
         Command::mouseManager(camera, windowManager.getMousePosition(), screenWidth/2.0, screenHeight/2.0);
         // Put the cursor back to the center of the scene
         SDL_WarpMouseInWindow(windowManager.Window, screenWidth/2.0, screenHeight/2.0);

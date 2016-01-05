@@ -6,13 +6,13 @@ direction Command::lastDirection = _NULL;
 
 Command::Command(){}
 
-void Command::commandHandler(glimac::SDLWindowManager& windowManager, Camera& camera, float deltaTime, bool& collision, glm::vec4 wallLimits){
+void Command::commandHandler(glimac::SDLWindowManager& windowManager, Camera& camera, float deltaTime, glm::vec4 wallLimits){
 	Camera cameraMove(camera);
 
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_UP)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_z)))
     {
         cameraMove.moveFront(camera.getSpeed() * deltaTime);
-        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w) && !(collision && lastDirection == FRONT)){
+        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w)){
             camera.moveFront(camera.getSpeed() * deltaTime);
             lastDirection = FRONT;
         }      
@@ -20,7 +20,7 @@ void Command::commandHandler(glimac::SDLWindowManager& windowManager, Camera& ca
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_DOWN)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_s)))
     {
         cameraMove.moveFront(-camera.getSpeed() * deltaTime);
-        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w) && !(collision && lastDirection == BACK)){
+        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w)){
             camera.moveFront(-camera.getSpeed() * deltaTime);
             lastDirection = BACK;
         }      
@@ -28,7 +28,7 @@ void Command::commandHandler(glimac::SDLWindowManager& windowManager, Camera& ca
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_LEFT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_q)))
     {        
         cameraMove.moveLeft(camera.getSpeed() * deltaTime);
-        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w) && !(collision && (lastDirection == LEFT || lastDirection == FRONT || lastDirection == BACK))){
+        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w)){
             camera.moveLeft(camera.getSpeed() * deltaTime);
             lastDirection = LEFT;
         }       
@@ -36,7 +36,7 @@ void Command::commandHandler(glimac::SDLWindowManager& windowManager, Camera& ca
     if (windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_RIGHT)) || windowManager.isKeyPressed(SDL_GetScancodeFromKey(SDLK_d)))
     {
         cameraMove.moveLeft(-camera.getSpeed() * deltaTime);
-        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w) && !(collision && (lastDirection == RIGHT || lastDirection == FRONT || lastDirection == BACK))){
+        if(!(cameraMove.getPosition().x > wallLimits.x || cameraMove.getPosition().x < wallLimits.y || cameraMove.getPosition().z > wallLimits.z || cameraMove.getPosition().z < wallLimits.w)){
             camera.moveLeft(-camera.getSpeed() * deltaTime);
             lastDirection = RIGHT;
         }

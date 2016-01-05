@@ -16,7 +16,7 @@ class Command
 {
 	public:
 		Command();
-		static void commandHandler(glimac::SDLWindowManager& windowManager, Camera& camera, float deltaTime, bool& collision, glm::vec4 wallLimits);
+		static void commandHandler(glimac::SDLWindowManager& windowManager, Camera& camera, float deltaTime, glm::vec4 wallLimits);
 		static void mouseManager(Camera& camera, glm::ivec2 mousePosition, float screenWidth, float screenHeight);
 
 	private:
