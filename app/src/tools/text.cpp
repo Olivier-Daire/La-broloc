@@ -162,7 +162,7 @@ void Text::Draw(Shader shaderText,bool isDialogue, bool isAnswer,int chooseAnswe
     // Draw texts
     if(isDialogue == 1) {
         if(!isAnswer)
-            RenderText(shaderText, dialogue, 25.0f, 100.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.4f));
+            RenderText(shaderText, dialogue, 25.0f, 100.0f, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f));
         else {
             if(chooseAnswer == 0)  {
                 answerColor1 = glm::vec3(0.0f, 0.4f, 0.0f);

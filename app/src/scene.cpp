@@ -208,10 +208,10 @@ void Scene::loadRoom(XMLDocument& doc){
     // Quad (wall) coordonates
     // TODO hardcoded, pass it as a parameter to the function ?
     Vertex2D vertices[] = {
-        Vertex2D(glm::vec2(0, 0),  glm::vec2(4, 0)), // Sommet 0
-        Vertex2D(glm::vec2(_width, 0), glm::vec2(0, 0)), // Sommet 1
-        Vertex2D(glm::vec2(_width, _height), glm::vec2(0, 4)), // Sommet 2
-        Vertex2D(glm::vec2(0, _height),  glm::vec2(4, 4)) // Sommet 3
+        Vertex2D(glm::vec3(0, 0,0),  glm::vec2(4, 0)), // Sommet 0
+        Vertex2D(glm::vec3(_width, 0,0), glm::vec2(0, 0)), // Sommet 1
+        Vertex2D(glm::vec3(_width, _height,0), glm::vec2(0, 4)), // Sommet 2
+        Vertex2D(glm::vec3(0, _height,0),  glm::vec2(4, 4)) // Sommet 3
     };
 
     glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex2D), vertices, GL_STATIC_DRAW);
@@ -249,7 +249,7 @@ void Scene::loadRoom(XMLDocument& doc){
 void Scene::drawRoom(Shader shader){
     glDisable(GL_BLEND); // Disable blend to avoid conflicts with text being rendered on screen
 
-	glBindTexture(GL_TEXTURE_2D, _texturesArray[0]);
+    glBindTexture(GL_TEXTURE_2D, _texturesArray[0]);
 
     glm::mat4 matModelWall;
     glm::mat4 initialMatModelWall = matModelWall; // Initial state subsitute of push and pop
@@ -261,6 +261,7 @@ void Scene::drawRoom(Shader shader){
     matModelWall = glm::translate(matModelWall, glm::vec3(-6.5f, -3.0f, -_width));
     glm::mat4 frontMatModelWall = matModelWall;
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+    glUniform1i(glGetUniformLocation(shader.Program, "wall"), 0);
    
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -268,18 +269,22 @@ void Scene::drawRoom(Shader shader){
     matModelWall = glm::rotate(frontMatModelWall, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
     matModelWall = glm::scale(matModelWall, glm::vec3(_depth/_width, 1.0f, 1.0f));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+    glUniform1i(glGetUniformLocation(shader.Program, "wall"), 1);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     // Right Wall
     matModelWall = glm::translate(matModelWall, glm::vec3(0.0f, 0.0f, -_width));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+    glUniform1i(glGetUniformLocation(shader.Program, "wall"),2);
 
+   
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-    // Back Wall
+     // Back Wall
     matModelWall = glm::translate(initialMatModelWall, glm::vec3(-6.5f, -3.0f, -_width+_depth));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+    glUniform1i(glGetUniformLocation(shader.Program, "wall"), 3);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -290,6 +295,7 @@ void Scene::drawRoom(Shader shader){
     matModelWall = glm::rotate(frontMatModelWall, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     matModelWall = glm::scale(matModelWall, glm::vec3(1.0f, _depth/_height, 1.0f));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+    glUniform1i(glGetUniformLocation(shader.Program, "wall"), 4);
    
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -299,6 +305,7 @@ void Scene::drawRoom(Shader shader){
 
     matModelWall = glm::translate(matModelWall, glm::vec3(0.0f, 0.0f, -_height));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModelWall));
+    glUniform1i(glGetUniformLocation(shader.Program, "wall"), 5);
    
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     

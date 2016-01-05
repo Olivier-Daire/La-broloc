@@ -66,6 +66,8 @@ std::string Application::launch(std::string currentScene) {
     }
 
     text.LoadText(shaderText, screenWidth, screenHeight);
+
+    dialogue = scene.getDialogue(group,0).getMessage();
     
 
     /*********************************
@@ -113,7 +115,6 @@ std::string Application::launch(std::string currentScene) {
                     break;
 
                     case SDLK_SPACE:
-                    cout << cptDialogue << endl;
                         if(isAnswer) {
                             istringstream iss(answers[chooseAnswer]);
                             std::string word;
@@ -146,7 +147,7 @@ std::string Application::launch(std::string currentScene) {
         }
 
         // Loop through each model and check for a collision
-        int i;
+        //int i;
         // for (i = 0; i < scene.getModelNumber(); ++i)
         // {
         //     if(models[i].box.collision(cameraBox)) {
@@ -177,6 +178,9 @@ std::string Application::launch(std::string currentScene) {
         
         //***** ROOM *****//
         wallShader.Use();
+        glUniform1i(glGetUniformLocation(wallShader.Program, "material.diffuse"),  0);
+        glUniform1i(glGetUniformLocation(wallShader.Program, "material.specular"), 1);
+        glUniform1f(glGetUniformLocation(wallShader.Program, "material.shininess"), 32.0f);
         glUniformMatrix4fv(glGetUniformLocation(wallShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(wallShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
         scene.drawRoom(wallShader);
@@ -219,6 +223,23 @@ std::string Application::launch(std::string currentScene) {
             glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".constant").c_str()), light.getConstant());
             glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".linear").c_str()), light.getLinear());
             glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".quadratic").c_str()), light.getQuadratic());
+        }
+
+        wallShader.Use();
+        glUniform3f(glGetUniformLocation(wallShader.Program, "viewPos"), camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
+
+        for (int i = 0; i < scene.getLightNumber(); ++i)
+        {
+            string pointLight = "pointLights[" + to_string(i) + "]";
+            Light light = scene.getLight(i);
+
+            glUniform3f(glGetUniformLocation(wallShader.Program, (pointLight + ".position").c_str()), light.getPosition().x, light.getPosition().y, light.getPosition().z);
+            glUniform3f(glGetUniformLocation(wallShader.Program, (pointLight + ".ambient").c_str()), 0.5f, 0.5f, 0.5f);
+            glUniform3f(glGetUniformLocation(wallShader.Program, (pointLight + ".diffuse").c_str()), 0.5f, 0.5f, 0.5f);
+            glUniform3f(glGetUniformLocation(wallShader.Program, (pointLight + ".specular").c_str()), 1.0f, 1.0f, 1.0f);
+            glUniform1f(glGetUniformLocation(wallShader.Program, (pointLight + ".constant").c_str()), 1.0f);
+            glUniform1f(glGetUniformLocation(wallShader.Program, (pointLight + ".linear").c_str()), 0.09);
+            glUniform1f(glGetUniformLocation(wallShader.Program, (pointLight + ".quadratic").c_str()), 0.032);
         }
 
         text.Draw(shaderText,isDialogue, isAnswer, chooseAnswer, dialogue, answers);

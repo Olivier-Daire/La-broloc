@@ -64,7 +64,7 @@
 	</dialogues>
 	<lights>
 		<light>
-			<position x="0.0f" y="7.7f" z="0.0f"></position>
+			<position x="0.0f" y="3.7f" z="0.0f"></position>
 			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
 			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
 			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
@@ -73,7 +73,7 @@
 			<quadratic value="0.0032"></quadratic>
 		</light>
 		<light>
-			<position x="-0.2f" y="7.9f" z="0.0f"></position>
+			<position x="-0.2f" y="3.9f" z="0.0f"></position>
 			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
 			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
 			<specular x="1.0f" y="1.0f" z="1.0f"></specular>

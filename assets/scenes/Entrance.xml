@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+	<room>
+		<!-- Take care of proportion to keep the camera in the room -->
+		<width>8</width>
+		<height>8</height>
+		<depth>10</depth>
+		<walls>../assets/textures/wallentre.jpg</walls>
+		<floor>../assets/textures/parquetentre.jpg</floor>
+		<roof>../assets/textures/kitchen_roof.png</roof>		
+		<xmin>-5.5</xmin>
+		<xmax>0.7</xmax>
+		<zmin>-6.7</zmin>
+		<zmax>1.0</zmax>
+	</room>
+	<models>
+		<model>
+			<path>../assets/models/door/puerta.obj</path>
+			<translate x="-2.0f" y="-3.0f" z="-7.0f"></translate>
+			<scale x="0.03f" y="0.026f" z="0.03f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/entrance/door1/door1.obj</path>
+			<translate x="-1.0f" y="0.0f" z="1.95f"></translate>
+			<scale x="0.03f" y="0.026f" z="0.03f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/entrance/maceta/maceta.obj</path>
+			<translate x="-4.8f" y="-2.2f" z="-6.0f"></translate>
+			<scale x="3.4f" y="3.4f" z="3.4f"></scale>
+		</model>
+		<model>
+			<path>../assets/models/door/puerta.obj</path>
+			<translate x="-7.45f" y="-3.0f" z="-3.95f"></translate>
+			<scale x="0.03f" y="0.026f" z="0.03f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">90</rotate>
+		</model>
+		<model>
+			<path>../assets/models/window/fancyWindow/fancyWindow.obj</path>
+			<translate x="1.4f" y="2.2f" z="-0.9f"></translate>
+			<scale x="0.4f" y="0.4f" z="0.4f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">90</rotate>
+		</model>
+		<model>
+			<path>../assets/models/entrance/meubleChaussures/meubleChaussures.obj</path>
+			<translate x="-5.8f" y="-2.0f" z="0.0f"></translate>
+			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">-90</rotate>
+		</model>
+		<model>
+			<path>../assets/models/entrance/sneakers/sneakers.obj</path>
+			<translate x="-4.0f" y="-2.9f" z="1.0f"></translate>
+			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">180</rotate>
+		</model>
+		<model>
+			<path>../assets/models/entrance/slippers/slippers.obj</path>
+			<translate x="-3.0f" y="-2.8f" z="1.0f"></translate>
+			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
+			<rotate x="0.0f" y="1.0f" z="0.0f">180</rotate>
+		</model>
+	</models>
+	<dialogues>
+		<group>
+			<dialogue>
+				<message>Hello ! :D You are in the kitchen ! </message>
+			</dialogue>
+			<dialogue>
+				<message>You can eat and drink (good beer).</message>
+			</dialogue>
+		</group>
+		<group>
+			<dialogue>
+				<message>But now, you have to go to another place ! Where do you want to go mister ?</message>
+				<answers>
+					<answer>Living room</answer>
+					<answer>Kitchen</answer>
+				</answers>
+			</dialogue>
+		</group>
+	</dialogues>
+	<lights>
+		<light>
+			<position x="-1.5f" y="1.7f" z="-4.0f"></position>
+			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
+			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
+			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
+			<constant value="1.0f"></constant>
+			<linear value="0.009"></linear>
+			<quadratic value="0.0032"></quadratic>
+		</light>
+		<light>
+			<position x="-3.7f" y="1.9f" z="-4.0f"></position>
+			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
+			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
+			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
+			<constant value="1.0f"></constant>
+			<linear value="0.009"></linear>
+			<quadratic value="0.0032"></quadratic>
+		</light>
+	</lights>
+</scene>
