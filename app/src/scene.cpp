@@ -48,7 +48,7 @@ void Scene::loadModels(XMLDocument& doc){
             rotate =  glm::vec3(model->FirstChildElement("rotate")->FindAttribute("x")->FloatValue(),
                                        model->FirstChildElement("rotate")->FindAttribute("y")->FloatValue(),
                                        model->FirstChildElement("rotate")->FindAttribute("z")->FloatValue());
-        
+            
             rotateAngle = atof(model->FirstChildElement("rotate")->GetText());
         } else {
             rotate = glm::vec3(0.0, 0.0, 0.0);

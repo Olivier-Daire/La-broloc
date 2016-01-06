@@ -64,7 +64,7 @@ std::string Application::launch(std::string currentScene) {
         SDL_Event e;
         GLfloat currentFrame = windowManager.getTime();;
         deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;  
+        lastFrame = currentFrame;
 
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {
@@ -79,7 +79,7 @@ std::string Application::launch(std::string currentScene) {
                         {
                             isDialogue = true;  
                             interaction = false;
-                            cptDialogue = 1; // FIXME
+                            cptDialogue = 1; // FIXME, see text.cpp
                             dialogue = scene.getDialogue(group, 0).getMessage();
                         }
                         

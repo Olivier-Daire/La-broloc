@@ -133,6 +133,7 @@ void Text::nextText(bool &isDialogue, bool &isAnswer, bool &answer, int &cptDial
         if(cptDialogue == 0) cptDialogue++;
         // If it is a message and not an answer
         if(!answer) {
+            // FIXME calling out of range somewhere around here, due to cptDialogue value
             if(scene.getAnswerNumber(group, cptDialogue) > 0) {
                 answer = 1;
                 dialogue = scene.getDialogue(group, cptDialogue).getMessage();
