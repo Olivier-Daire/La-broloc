@@ -150,7 +150,7 @@ std::string Application::launch(std::string currentScene) {
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
-        int isInteraction = false;
+        bool isInteraction = false;
         for (int i = 0; i < scene.getModelNumber(); ++i)
         {
             // Update model's position givent its translate
