@@ -18,7 +18,7 @@
 			<path>../assets/models/hospital/bed/bed.obj</path>
 			<translate x="0.0f" y="-2.0f" z="-1.5f"></translate>
 			<scale x="2.5f" y="2.5f" z="2.5f"></scale>
-			<rotate x="0.0f" y="1.0f" z="0.0f">-180</rotate>
+			<rotate x="0.0f" y="1.0f" z="0.0f">180</rotate>
 		</model>
 	</models>
 	<dialogues>

@@ -10,8 +10,8 @@
 		<roof>../assets/textures/kitchen_roof.png</roof>
 		<xmin>-6.0</xmin>
 		<xmax>3.1</xmax>
-		<zmin>-7.0</zmin>
-		<zmax>0.0</zmax>
+		<zmin>-7.7</zmin>
+		<zmax>1.5</zmax>
 	</room>
 	<models>
 		<model>
@@ -56,17 +56,16 @@
 			<path>../assets/models/kitchen/isola_cucina/isola_cucina.obj</path>
 			<translate x="-4.8f" y="-1.75f" z="-2.6f"></translate>
 			<scale x="0.5f" y="0.5f" z="0.5f"></scale>
-			<interaction>0</interaction>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/beer/beer.obj</path>
-			<translate x="-3.5f" y="-0.65f" z="-8.7f"></translate>
+			<translate x="-3.5f" y="-0.65f" z="-8.4f"></translate>
 			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
 			<interaction>3</interaction>
 		</model>
 		<model>
 			<path>../assets/models/kitchen/poele/poele.obj</path>
-			<translate x="-5.8f" y="-0.68f" z="-8.8f"></translate>
+			<translate x="-5.8f" y="-0.68f" z="-8.5f"></translate>
 			<scale x="0.025f" y="0.025f" z="0.025f"></scale>
 			<interaction>2</interaction>
 		</model>

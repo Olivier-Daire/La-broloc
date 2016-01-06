@@ -29,14 +29,12 @@ std::string Application::launch(std::string currentScene) {
     Camera camera;
     // Text related data
     Text text;
-    bool answer = 0, isAnswer = 0, isDialogue = 1;
+    bool answer = false, isAnswer = false, isDialogue = true;
     int cptDialogue = 0, nbAnswer = 2, chooseAnswer = 0;
     std::string dialogue;
     std::string answers[nbAnswer];
     int group = 0;
-    // Collision related data 
-    bool isCollision = false;
-    int modelCollision = 0;
+    bool interaction = false;
 
     std::string nextScene;
     Scene scene;
@@ -47,24 +45,7 @@ std::string Application::launch(std::string currentScene) {
     
     // Load models infos, room, dialogues, lights
     scene.loadSceneFromFile(("../assets/scenes/" + currentScene  + ".xml").c_str());
-
-    // Load all the XML models using their path
-    Model models[scene.getModelNumber()];
-    for (int i = 0; i < scene.getModelNumber(); ++i)
-    {
-        ModelInfos model = scene.getModel(i);
-        models[i] = Model(model.Path);
-
-        // Update model aabbox given its translate and scale
-        // FIXME doesn't work well and need to be moved to a function
-        models[i].box.x =  model.Translate.x;
-        models[i].box.y =  model.Translate.y;
-        models[i].box.z =  model.Translate.z;
-        models[i].box.w *= model.Scale.x;
-        models[i].box.h *= model.Scale.y;
-        models[i].box.d *= model.Scale.z;
-    }
-
+   
     text.LoadText(shaderText, screenWidth, screenHeight);
 
     dialogue = scene.getDialogue(group, 0).getMessage();
@@ -78,19 +59,12 @@ std::string Application::launch(std::string currentScene) {
     float lastFrame = 0.0f;  // Last frame
     bool done = false;
     while(!done) {
-
-        /* Create a smal box for the camera (player)
-         * the last three numbers are for the distance
-         * 0.2 from object on X axis --> collide
-         * 5.0 (and maybe more ?) on Y axis because we need to collide on the whole height as if we were a person
-         * 0.2 from object on Z axis --> collide */
-        AABB cameraBox(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z, 0.5f, 500.0f, 0.5f);
         
         // Event loop:
         SDL_Event e;
         GLfloat currentFrame = windowManager.getTime();;
         deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;  
+        lastFrame = currentFrame;
 
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {
@@ -101,18 +75,14 @@ std::string Application::launch(std::string currentScene) {
                 switch( e.key.keysym.sym )
                 {
                     case SDLK_e:
-
-                        if(!isDialogue && isCollision) {
-                            // If we can interact with the model in collision 
-                            if (scene.getModel(modelCollision).interactionDialogue != -1)
-                            {
-                                cptDialogue = 1; // FIXME Why do I need to do that ?!
-                                isDialogue = 1;
-                                group = scene.getModel(modelCollision).interactionDialogue;
-                            }
-                           
+                        if (interaction)
+                        {
+                            isDialogue = true;  
+                            interaction = false;
+                            cptDialogue = 1; // FIXME, see text.cpp
                             dialogue = scene.getDialogue(group, 0).getMessage();
                         }
+                        
                     break;
 
                     case SDLK_SPACE:
@@ -146,18 +116,6 @@ std::string Application::launch(std::string currentScene) {
             nextScene = "fin";
             done = true;
         }
-
-        // Loop through each model and check for a collision
-        int i;
-        for (i = 0; i < scene.getModelNumber(); ++i)
-        {
-            if(models[i].box.collision(cameraBox)) {
-                modelCollision = i;
-                isCollision = true;
-                break;
-            }
-        }
-        if(i == scene.getModelNumber()) isCollision = false;
         
         // Handle all mouse related inputs
         if(!isDialogue) Command::commandHandler(windowManager, camera, deltaTime, scene.getWallLimits());
@@ -192,20 +150,34 @@ std::string Application::launch(std::string currentScene) {
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
+        bool isInteraction = false;
         for (int i = 0; i < scene.getModelNumber(); ++i)
         {
+            // Update model's position givent its translate
+            Model currentModel = scene._models[i];
+            currentModel.updatePosition();
+            // If we can interact with the model
+            if (currentModel.getInteractionDialogue() != -1)
+            {
+                if(abs(currentModel.getPosition().x - camera.getPosition().x) < 1 && abs(currentModel.getPosition().z - camera.getPosition().z) < 1){
+                    if(!isDialogue) interaction = true;
+                    group = currentModel.getInteractionDialogue();
+                    isInteraction = true;
+                }
+            } 
             glm::mat4 matModel;
             // Translate model following the parameters set in the XML
-            matModel = glm::translate(matModel, scene.getModel(i).Translate);
+            matModel = glm::translate(matModel, currentModel.getTranslate());
             // Rotate model following the parameters set in the XML, if any
-            if (scene.getModel(i).RotateAngle != 0) matModel = glm::rotate(matModel, glm::radians(scene.getModel(i).RotateAngle), glm::vec3(-0.0f, -1.0f, 0.0f));
+            if (currentModel.getRotateAngle() != 0) matModel = glm::rotate(matModel, glm::radians(currentModel.getRotateAngle()), currentModel.getRotate());
             // Scale model following the parameters set in the XML
-            matModel = glm::scale(matModel, scene.getModel(i).Scale);
+            matModel = glm::scale(matModel, currentModel.getScale());
 
             glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
 
-            models[i].Draw(shader);
+            currentModel.Draw(shader);
         }
+        if(!isInteraction) interaction = false;
 
         //***** LIGHT *****//
         // Set the lighting uniforms
@@ -243,7 +215,8 @@ std::string Application::launch(std::string currentScene) {
             glUniform1f(glGetUniformLocation(wallShader.Program, (pointLight + ".quadratic").c_str()), 0.032);
         }
 
-        text.Draw(shaderText,isDialogue, isAnswer, chooseAnswer, dialogue, answers);
+        if(interaction) text.DrawHint(shaderText);
+        text.Draw(shaderText, isDialogue, isAnswer, chooseAnswer, dialogue, answers);
 
         // Update the display
         windowManager.swapBuffers(windowManager.Window);

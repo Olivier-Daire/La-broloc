@@ -48,7 +48,7 @@ void Scene::loadModels(XMLDocument& doc){
             rotate =  glm::vec3(model->FirstChildElement("rotate")->FindAttribute("x")->FloatValue(),
                                        model->FirstChildElement("rotate")->FindAttribute("y")->FloatValue(),
                                        model->FirstChildElement("rotate")->FindAttribute("z")->FloatValue());
-        
+            
             rotateAngle = atof(model->FirstChildElement("rotate")->GetText());
         } else {
             rotate = glm::vec3(0.0, 0.0, 0.0);
@@ -60,7 +60,7 @@ void Scene::loadModels(XMLDocument& doc){
             interactionDialogue = atoi(model->FirstChildElement("interaction")->GetText());
         }
 
-        _models.push_back(ModelInfos(path, translate, scale, rotate, rotateAngle, interactionDialogue));
+        _models.push_back(Model(path, translate, scale, rotate, rotateAngle, interactionDialogue));
 	}
 }
 
@@ -120,10 +120,6 @@ void Scene::loadLights(XMLDocument& doc){
 
 		_lights.push_back(lightContent);
 	}
-}
-
-ModelInfos Scene::getModel(int number){
-    return _models.at(number);
 }
 
 int Scene::getModelNumber(){
@@ -200,7 +196,6 @@ void Scene::loadRoom(XMLDocument& doc){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D,0);
 
-    //GLuint vbo;
     glGenBuffers (1, &_vbo);
 
     glBindBuffer(GL_ARRAY_BUFFER, _vbo);

@@ -13,6 +13,7 @@
 #include "tools/text.hpp"
 #include <string>
 #include <sstream>
+#include <cmath>
 
 using namespace glimac;
 
