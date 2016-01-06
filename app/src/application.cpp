@@ -150,6 +150,7 @@ std::string Application::launch(std::string currentScene) {
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
+        int isInteraction = false;
         for (int i = 0; i < scene.getModelNumber(); ++i)
         {
             // Update model's position givent its translate
@@ -161,9 +162,9 @@ std::string Application::launch(std::string currentScene) {
                 if(abs(currentModel.getPosition().x - camera.getPosition().x) < 1 && abs(currentModel.getPosition().z - camera.getPosition().z) < 1){
                     if(!isDialogue) interaction = true;
                     group = currentModel.getInteractionDialogue();
+                    isInteraction = true;
                 }
-            }
-
+            } 
             glm::mat4 matModel;
             // Translate model following the parameters set in the XML
             matModel = glm::translate(matModel, currentModel.getTranslate());
@@ -176,6 +177,7 @@ std::string Application::launch(std::string currentScene) {
 
             currentModel.Draw(shader);
         }
+        if(!isInteraction) interaction = false;
 
         //***** LIGHT *****//
         // Set the lighting uniforms
