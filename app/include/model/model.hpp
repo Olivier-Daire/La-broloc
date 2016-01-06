@@ -19,6 +19,7 @@ class Model
         void Draw(Shader shader);
 
         void updatePosition();
+        glm::vec3 getPosition();
         glm::vec3 getTranslate();
         glm::vec3 getScale();
         glm::vec3 getRotate();

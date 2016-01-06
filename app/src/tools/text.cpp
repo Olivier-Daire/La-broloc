@@ -155,7 +155,7 @@ void Text::nextText(bool &isDialogue, bool &isAnswer, bool &answer, int &cptDial
     }
 }
 
-void Text::Draw(Shader shaderText,bool isDialogue, bool isAnswer,int chooseAnswer,std::string dialogue,std::string answers[]) {
+void Text::Draw(Shader shaderText, bool isDialogue, bool isAnswer, int chooseAnswer, std::string dialogue, std::string answers[]) {
     glm::vec3 answerColor1;
     glm::vec3 answerColor2;
 
@@ -176,4 +176,8 @@ void Text::Draw(Shader shaderText,bool isDialogue, bool isAnswer,int chooseAnswe
             RenderText(shaderText, answers[1], 300.0f, 100.0f, 0.5f, answerColor2);
         }
     }
+}
+
+void Text::DrawHint(Shader shaderText){
+    RenderText(shaderText, "Press E to interact with this object", 100.0f, 100.0f, 0.5f,  glm::vec3(0.8f, 0.7f, 0.0f));
 }

@@ -29,14 +29,12 @@ std::string Application::launch(std::string currentScene) {
     Camera camera;
     // Text related data
     Text text;
-    bool answer = 0, isAnswer = 0, isDialogue = 1;
+    bool answer = false, isAnswer = false, isDialogue = true;
     int cptDialogue = 0, nbAnswer = 2, chooseAnswer = 0;
     std::string dialogue;
     std::string answers[nbAnswer];
     int group = 0;
-    // Collision related data 
-    bool isCollision = false;
-    int modelCollision = 0;
+    bool interaction = false;
 
     std::string nextScene;
     Scene scene;
@@ -77,19 +75,14 @@ std::string Application::launch(std::string currentScene) {
                 switch( e.key.keysym.sym )
                 {
                     case SDLK_e:
-
-                        if(!isDialogue && isCollision) {
-                            // FIXME  no more collisions, we need to check for the distance between camera and object
-                            // If we can interact with the model in collision 
-                            // if (scene.getModel(modelCollision).interactionDialogue != -1)
-                            // {
-                            //     cptDialogue = 1; // FIXME Why do I need to do that ?!
-                            //     isDialogue = 1;
-                            //     group = scene.getModel(modelCollision).interactionDialogue;
-                            // }
-                           
+                        if (interaction)
+                        {
+                            isDialogue = true;  
+                            interaction = false;
+                            cptDialogue = 1; // FIXME
                             dialogue = scene.getDialogue(group, 0).getMessage();
                         }
+                        
                     break;
 
                     case SDLK_SPACE:
@@ -162,6 +155,14 @@ std::string Application::launch(std::string currentScene) {
             // Update model's position givent its translate
             Model currentModel = scene._models[i];
             currentModel.updatePosition();
+            // If we can interact with the model
+            if (currentModel.getInteractionDialogue() != -1)
+            {
+                if(abs(currentModel.getPosition().x - camera.getPosition().x) < 1 && abs(currentModel.getPosition().z - camera.getPosition().z) < 1){
+                    if(!isDialogue) interaction = true;
+                    group = currentModel.getInteractionDialogue();
+                }
+            }
 
             glm::mat4 matModel;
             // Translate model following the parameters set in the XML
@@ -212,7 +213,8 @@ std::string Application::launch(std::string currentScene) {
             glUniform1f(glGetUniformLocation(wallShader.Program, (pointLight + ".quadratic").c_str()), 0.032);
         }
 
-        text.Draw(shaderText,isDialogue, isAnswer, chooseAnswer, dialogue, answers);
+        if(interaction) text.DrawHint(shaderText);
+        text.Draw(shaderText, isDialogue, isAnswer, chooseAnswer, dialogue, answers);
 
         // Update the display
         windowManager.swapBuffers(windowManager.Window);

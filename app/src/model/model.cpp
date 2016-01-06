@@ -182,6 +182,10 @@ void Model::updatePosition(){
     position = translate;
 }
 
+glm::vec3 Model::getPosition(){
+    return position;
+}
+
 glm::vec3 Model::getTranslate(){
     return translate;
 }
