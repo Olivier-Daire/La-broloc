@@ -10,8 +10,8 @@
 		<roof>../assets/textures/kitchen_roof.png</roof>
 		<xmin>-6.0</xmin>
 		<xmax>3.1</xmax>
-		<zmin>-7.0</zmin>
-		<zmax>0.0</zmax>
+		<zmin>-7.7</zmin>
+		<zmax>1.5</zmax>
 	</room>
 	<models>
 		<model>

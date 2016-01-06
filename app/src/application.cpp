@@ -173,7 +173,7 @@ std::string Application::launch(std::string currentScene) {
 
             glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(matModel));
 
-            scene._models[i].Draw(shader);
+            currentModel.Draw(shader);
         }
 
         //***** LIGHT *****//
