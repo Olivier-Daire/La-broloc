@@ -11,6 +11,7 @@
 #include "tools/command.hpp"
 #include "scene.hpp"
 #include "tools/text.hpp"
+#include "tools/sound.hpp"
 #include <string>
 #include <sstream>
 #include <cmath>

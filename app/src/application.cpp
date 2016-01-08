@@ -50,6 +50,8 @@ std::string Application::launch(std::string currentScene) {
 
     dialogue = scene.getDialogue(group, 0).getMessage();
     
+    Sound::loadSound("/home/bettina/Documents/La-broloc/assets/musics/mojo.wav");
+
 
     /*********************************
      * HERE SHOULD COME THE INITIALIZATION CODE
