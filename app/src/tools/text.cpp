@@ -1,5 +1,4 @@
 #include "tools/text.hpp"
-#include <iostream>
 
 using namespace std;
 
@@ -23,11 +22,11 @@ void Text::LoadText(Shader &shader,GLuint width,GLuint height) {
 
     // Load font as face
     FT_Face face;
-    if (FT_New_Face(ft, "../assets/fonts/Open_Sans/OpenSans-Regular.ttf", 0, &face))
+    if (FT_New_Face(ft, "../assets/fonts/Fjalla.ttf", 0, &face))
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
     // Set size to load glyphs as
-    FT_Set_Pixel_Sizes(face, 0, 48);
+    FT_Set_Pixel_Sizes(face, 0, 80);
 
     // Disable byte-alignment restriction
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1); 
@@ -163,22 +162,40 @@ void Text::Draw(Shader shaderText, bool isDialogue, bool isAnswer, int chooseAns
     // Draw texts
     if(isDialogue == 1) {
         if(!isAnswer)
-            RenderText(shaderText, dialogue, 25.0f, 100.0f, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f));
+            RenderText(shaderText, dialogue, 150.0f, 100.0f, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f));
         else {
             if(chooseAnswer == 0)  {
-                answerColor1 = glm::vec3(0.0f, 0.4f, 0.0f);
-                answerColor2 = glm::vec3(0.5f, 0.8f, 0.4f);
+                answerColor1 = glm::vec3(0.8f, 0.0f, 0.0f);
+                answerColor2 = glm::vec3(0.0f, 0.0f, 0.0f);
             }
             else {
-                answerColor1 = glm::vec3(0.5f, 0.8f, 0.6f);
-                answerColor2 = glm::vec3(0.0f, 0.4f, 0.0f);
+                answerColor1 = glm::vec3(0.0f, 0.0f, 0.0f);
+                answerColor2 = glm::vec3(0.8f, 0.0f, 0.0f);
             }
-            RenderText(shaderText, answers[0], 100.0f, 100.0f, 0.5f, answerColor1);
-            RenderText(shaderText, answers[1], 300.0f, 100.0f, 0.5f, answerColor2);
+            RenderText(shaderText, answers[0], 150.0f, 100.0f, 0.5f, answerColor1);
+            RenderText(shaderText, answers[1], 600.0f, 100.0f, 0.5f, answerColor2);
         }
     }
 }
 
 void Text::DrawHint(Shader shaderText){
-    RenderText(shaderText, "Press E to interact with this object", 100.0f, 100.0f, 0.5f,  glm::vec3(0.8f, 0.7f, 0.0f));
+    RenderText(shaderText, "Press E to interact with this object", 150.0f, 100.0f, 0.5f,  glm::vec3(0.8f, 0.7f, 0.0f));
+}
+
+void Text::drawHome(Shader shaderText,float screenwith, float screenheight) {
+    RenderText(shaderText, "The  Broloc", (screenwith/2.0f)-180, screenheight/2.0f, 1.0f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "Press space to start", (screenwith/2.0f)-100, (screenheight/2.0f)-70, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
+
+}
+
+void Text::drawCommand(Shader shaderText) {
+    RenderText(shaderText, "Commands :", 300.0f, 600.0f, 0.5f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "zqsd or arrow keys :", 400.0f, 500.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "Move", 700.0f, 500.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "space :", 400.0f, 450.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "Pass the text", 700.0f, 450.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "e :", 400.0f, 400.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "Interact with object", 700.0f, 400.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "q or esc :", 400.0f, 350.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "Quit", 700.0f, 350.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
 }

@@ -7,7 +7,9 @@ using namespace glimac;
 
 int main(int argc, char** argv) {
 
-    std::string scene = "Bathroom";
+
+
+    std::string scene = "Home";
 
     while(scene != "fin") {
         scene = Application::launch(scene);

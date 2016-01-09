@@ -21,6 +21,8 @@ class Text {
 		void nextText(bool &isDialogue, bool &isAnswer, bool &answer, int &cptDialogue, Scene scene, std::string &dialogue, std::string answers[], int group);
  		void Draw(Shader shaderText,bool isDialogue, bool isAnswer,int chooseAnswer,std::string dialogue,std::string answers[]);
  		void DrawHint(Shader shaderText);
+ 		void drawHome(Shader shaderText,float screenwith, float screenheight);
+ 		void drawCommand(Shader shaderText);
    
 	private:
 
