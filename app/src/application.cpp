@@ -30,7 +30,7 @@ std::string Application::launch(std::string currentScene) {
     // Text related data
     Text text;
     bool answer = false, isAnswer = false, isDialogue = true;
-    int cptDialogue = 0, nbAnswer = 2, chooseAnswer = 0;
+    int cptDialogue = 1, nbAnswer = 2, chooseAnswer = 0;
     std::string dialogue;
     std::string answers[nbAnswer];
     int group = 0;
