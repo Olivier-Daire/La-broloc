@@ -31,7 +31,7 @@
 			<path>../assets/models/living_room/contemp_living_room/contemp_living_room.obj</path>
 			<translate x="2.8f" y="0.25f" z="-4.5f"></translate>
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
-			<rotate x="0.0f" y="1.0f" z="0.0f">90</rotate>
+			<rotate x="0.0f" y="1.0f" z="0.0f">-90</rotate>
 		</model>
 		<model>
 			<path>../assets/models/living_room/coffeeTable/coffeeTable.obj</path>
@@ -137,7 +137,7 @@
 			<quadratic value="0.0032"></quadratic>
 		</light>
 		<light>
-			<position x="0.5f" y="2.7f" z="-4.0f"></position>
+			<position x="-4.5f" y="2.7f" z="-2.0f"></position>
 			<ambient x="0.05f" y="0.05f" z="0.05f"></ambient>
 			<diffuse x="1.0f" y="1.0f" z="1.0f"></diffuse>
 			<specular x="1.0f" y="1.0f" z="1.0f"></specular>
