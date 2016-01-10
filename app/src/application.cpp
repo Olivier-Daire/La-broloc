@@ -22,7 +22,7 @@ std::string Application::launch(std::string currentScene) {
     std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
     glEnable(GL_DEPTH_TEST);
-    
+
     /*********** END INIT ************/
     Camera camera;
     // Text related data
@@ -45,8 +45,8 @@ std::string Application::launch(std::string currentScene) {
     if(currentScene != "Home" && currentScene != "Command") {
         scene.loadSceneFromFile(("../assets/scenes/" + currentScene  + ".xml").c_str());
         dialogue = scene.getDialogue(group, 0).getMessage();
+        //Sound::loadSound(scene.getPathMusic());
     }
-    //Sound::loadSound("/home/bettina/Documents/La-broloc/assets/musics/mojo.wav");
     text.LoadText(shaderText, screenWidth, screenHeight);
 
 

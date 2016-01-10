@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scene>
+	<music>../assets/musics/mojo.wav</music>
 	<room>
 		<!-- Take care of proportion to keep the camera in the room -->
 		<width>8</width>
@@ -8,10 +9,10 @@
 		<walls>../assets/textures/wallentre.jpg</walls>
 		<floor>../assets/textures/parquetentre.jpg</floor>
 		<roof>../assets/textures/kitchen_roof.png</roof>		
-		<xmin>-5.5</xmin>
-		<xmax>0.7</xmax>
-		<zmin>-6.7</zmin>
-		<zmax>1.0</zmax>
+		<xmin>-6.0</xmin>
+		<xmax>1.0</xmax>
+		<zmin>-7.0</zmin>
+		<zmax>1.2</zmax>
 	</room>
 	<models>
 		<model>
@@ -20,18 +21,19 @@
 			<scale x="0.03f" y="0.026f" z="0.03f"></scale>
 		</model>
 		<model>
-			<path>../assets/models/entrance/door1/door1.obj</path>
-			<translate x="-1.0f" y="0.0f" z="1.95f"></translate>
-			<scale x="0.03f" y="0.026f" z="0.03f"></scale>
+			<path>../assets/models/entrance/exterior-door-01/exterior-door-01.obj</path>
+			<translate x="-1.0f" y="0.0f" z="2.0f"></translate>
+			<scale x="0.4f" y="0.4f" z="0.4f"></scale>
+			<interaction>3</interaction>
 		</model>
 		<model>
-			<path>../assets/models/entrance/maceta/maceta.obj</path>
-			<translate x="-4.8f" y="-2.2f" z="-6.0f"></translate>
-			<scale x="3.4f" y="3.4f" z="3.4f"></scale>
+			<path>../assets/models/entrance/ficus/ficus.obj</path>
+			<translate x="-4.8f" y="-1.3f" z="-6.0f"></translate>
+			<scale x="0.05f" y="0.05f" z="0.05f"></scale>
 		</model>
 		<model>
 			<path>../assets/models/door/puerta.obj</path>
-			<translate x="-7.45f" y="-3.0f" z="-3.95f"></translate>
+			<translate x="-5.5f" y="-3.0f" z="-3.95f"></translate>
 			<scale x="0.03f" y="0.026f" z="0.03f"></scale>
 			<rotate x="0.0f" y="1.0f" z="0.0f">90</rotate>
 		</model>
@@ -45,13 +47,14 @@
 			<path>../assets/models/entrance/meubleChaussures/meubleChaussures.obj</path>
 			<translate x="-5.8f" y="-2.0f" z="0.0f"></translate>
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
-			<rotate x="0.0f" y="1.0f" z="0.0f">-90</rotate>
+			<rotate x="0.0f" y="1.0f" z="0.0f">90</rotate>
 		</model>
 		<model>
 			<path>../assets/models/entrance/sneakers/sneakers.obj</path>
 			<translate x="-4.0f" y="-2.9f" z="1.0f"></translate>
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
 			<rotate x="0.0f" y="1.0f" z="0.0f">180</rotate>
+			<interaction>2</interaction>
 		</model>
 		<model>
 			<path>../assets/models/entrance/slippers/slippers.obj</path>
@@ -59,23 +62,48 @@
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
 			<rotate x="0.0f" y="1.0f" z="0.0f">180</rotate>
 		</model>
+		<model>
+			<path>../assets/models/entrance/umbrellaFolded/umbrellaFolded.obj</path>
+			<translate x="0.5f" y="-1.5f" z="-7.70f"></translate>
+			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
+			<rotate x="1.0f" y="0.0f" z="0.0f">-20</rotate>
+			<interaction>1</interaction>
+		</model>
 	</models>
 	<dialogues>
 		<group>
 			<dialogue>
-				<message>Hello ! :D You are in the kitchen ! </message>
-			</dialogue>
-			<dialogue>
-				<message>You can eat and drink (good beer).</message>
+				<message>Ok, what about the entrance ?</message>
 			</dialogue>
 		</group>
+		<!-- Umbrella interaction -->
 		<group>
 			<dialogue>
-				<message>But now, you have to go to another place ! Where do you want to go mister ?</message>
-				<answers>
-					<answer>Living room</answer>
-					<answer>Kitchen</answer>
-				</answers>
+				<message>Is it raining ? </message>
+			</dialogue>
+		</group>
+		<!-- Shoes interaction -->
+		<group>
+			<dialogue>
+				<message>I should really tell to Guilhem to buy new shoes... </message>
+			</dialogue>
+		</group>
+		<!-- Door interaction -->
+		<group>
+			<dialogue>
+				<message>Ah yes !</message>
+			</dialogue>
+			<dialogue>
+				<message>I thought someone has knocked but there was no one.</message>
+			</dialogue>
+			<dialogue>
+				<message>Hence I went back to living room... and..</message>
+			</dialogue>
+			<dialogue>
+				<message>Oh yeah it's all clear now ! </message>
+			</dialogue>
+			<dialogue>
+				<message>Something hit me on the back of my head.</message>
 			</dialogue>
 		</group>
 	</dialogues>

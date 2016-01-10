@@ -23,6 +23,7 @@ class Scene
 		int getAnswerNumber(int group, int i);
 		Light getLight(int number);
 		int getLightNumber();
+		const char* getPathMusic();
 
 		void loadModels(XMLDocument& doc);
 		void loadDialogues(XMLDocument& doc);
@@ -38,6 +39,7 @@ class Scene
 		vector<Model> _models;
 	
 	private:
+		const char* pathMusic;
 		// List of all the dialogues of the scene
 		vector<vector <Dialogue>> _dialogues;
 		vector<Light> _lights;

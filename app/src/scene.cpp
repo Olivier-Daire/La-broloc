@@ -15,6 +15,9 @@ void Scene::loadSceneFromFile(const char* filename){
         doc.PrintError();
     }
 
+    XMLElement *music = doc.FirstChildElement("scene");
+    pathMusic = music->FirstChildElement("music")->GetText();
+
 	loadModels(doc);
 	loadDialogues(doc);
 	loadLights(doc);
@@ -28,8 +31,8 @@ void Scene::loadModels(XMLDocument& doc){
     
 	for (const XMLElement* model = models->FirstChildElement(); model != NULL; model = model->NextSiblingElement())
 	{
-        string path = model->FirstChildElement("path")->GetText();
         
+        string path = model->FirstChildElement("path")->GetText();
         // Translate
         glm::vec3 translate =  glm::vec3(model->FirstChildElement("translate")->FindAttribute("x")->FloatValue(),
                                          model->FirstChildElement("translate")->FindAttribute("y")->FloatValue(),
@@ -148,6 +151,10 @@ int Scene::getLightNumber(){
 
 glm::vec4 Scene::getWallLimits() {
     return _wallLimits;
+}
+
+const char* Scene::getPathMusic(){
+    return pathMusic;
 }
 
 void Scene::loadRoom(XMLDocument& doc){

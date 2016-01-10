@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scene>
+	<music>../assets/musics/mojo.wav</music>
 	<room>
 		<!-- Take care of proportion to keep the camera in the room -->
 		<width>10</width>
