@@ -19,11 +19,13 @@ class Scene
 		void loadSceneFromFile(const char* filename);
 		int getModelNumber();
 		Dialogue getDialogue(int group, int number);
+		int getGroupNumber();
 		int getDialogueNumber(int group);
 		int getAnswerNumber(int group, int i);
 		Light getLight(int number);
 		int getLightNumber();
 		const char* getPathMusic();
+		int getEnd();
 
 		void loadModels(XMLDocument& doc);
 		void loadDialogues(XMLDocument& doc);
@@ -31,6 +33,8 @@ class Scene
 
 		void loadRoom(XMLDocument& doc);
 		void drawRoom(Shader shader);
+		void drawLightModel(Shader shader);
+		void drawLightWall(Shader shader);
 		void deleteRoom();
 
 		glm::vec4 getWallLimits();
@@ -45,6 +49,7 @@ class Scene
 		vector<Light> _lights;
 		// Room datas
 		GLuint _texturesArray[3];
+		int end;
     	GLuint _vao;
     	GLuint _vbo;
 

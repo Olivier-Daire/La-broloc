@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scene>
-	<music>../assets/musics/mojo.wav</music>
+	<end>1</end>
+	<music>../assets/musics/Light.wav</music>
 	<room>
 		<width>10</width>
 		<height>8</height>
@@ -122,7 +123,10 @@
 		<!-- Plant (near door) interaction -->
 		<group>
 			<dialogue>
-				<message>Oh yeah, I got it ! I was looking at this plant when something hit me in the back !</message>
+				<message>Oh yeah, I got it !</message>
+			</dialogue>
+			<dialogue>
+				<message>I was looking at this plant when something hit me in the back !</message>
 			</dialogue>
 		</group>
 	</dialogues>

@@ -6,7 +6,6 @@ Application::Application() {}
 
 std::string Application::launch(std::string currentScene) {
 
-
     GLuint screenWidth = 1366, screenHeight = 768;
     // Initialize SDL and open a window
     SDLWindowManager windowManager(screenWidth, screenHeight, "The Broloc");
@@ -42,10 +41,13 @@ std::string Application::launch(std::string currentScene) {
     Shader wallShader("../assets/shaders/tex2D.vs.glsl", "../assets/shaders/tex2D.fs.glsl");
     
     // Load models infos, room, dialogues, lights
-    if(currentScene != "Home" && currentScene != "Command") {
+    if(currentScene != "Home" && currentScene != "Command" && currentScene != "End1" && currentScene != "End2") {
         scene.loadSceneFromFile(("../assets/scenes/" + currentScene  + ".xml").c_str());
         dialogue = scene.getDialogue(group, 0).getMessage();
-        //Sound::loadSound(scene.getPathMusic());
+        if(scene.getPathMusic() != NULL) Sound::loadSound(scene.getPathMusic());
+    }
+    if(currentScene == "Home") {
+        Sound::loadSound("../assets/musics/Blind.wav");
     }
     text.LoadText(shaderText, screenWidth, screenHeight);
 
@@ -57,10 +59,8 @@ std::string Application::launch(std::string currentScene) {
     float deltaTime = 0.0f;   // Time between current frame and last frame
     float lastFrame = 0.0f;  // Last frame
     bool done = false;
-    cout << currentScene << endl;
 
     while(!done) {
-        
         // Event loop:
         SDL_Event e;
         GLfloat currentFrame = windowManager.getTime();;
@@ -95,12 +95,21 @@ std::string Application::launch(std::string currentScene) {
                             nextScene = "Hospital";
                             done = true;
                         }
+                        else if((currentScene == "End1") || (currentScene == "End2")){
+                            nextScene = "Hospital";
+                            done = true;
+                        }
                         else if(isAnswer) {
                             istringstream iss(answers[chooseAnswer]);
                             std::string word;
                             iss >> word;
                             nextScene = word;
                             done = true;
+                        }
+                        else if(scene.getEnd() != 0 && group == scene.getGroupNumber()-1 && cptDialogue == scene.getDialogueNumber(group)) {
+                            if(scene.getEnd() == 1) nextScene = "End1";
+                            if(scene.getEnd() == 2) nextScene = "End2";
+                            if(scene.getEnd() != 0) done = true;
                         }
                         else if(isDialogue) text.nextText(isDialogue, isAnswer, answer, cptDialogue, scene, dialogue, answers, group);
             
@@ -129,9 +138,9 @@ std::string Application::launch(std::string currentScene) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         if(currentScene == "Home") text.drawHome(shaderText, screenWidth, screenHeight);
-        else if(currentScene == "Command") { 
-            text.drawCommand(shaderText);
-        }
+        else if(currentScene == "Command") text.drawCommand(shaderText);
+        else if(currentScene == "End1") text.drawEnd1(shaderText, screenWidth, screenHeight);  
+        else if(currentScene == "End2") text.drawEnd2(shaderText, screenWidth, screenHeight);  
 
         else {
             // Handle all mouse related inputs
@@ -194,41 +203,15 @@ std::string Application::launch(std::string currentScene) {
             if(!isInteraction) interaction = false;
 
             //***** LIGHT *****//
-            // Set the lighting uniforms
+            shader.Use();
             glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
-
-            // Lights
-            for (int i = 0; i < scene.getLightNumber(); ++i)
-            {
-                string pointLight = "pointLights[" + to_string(i) + "]";
-                Light light = scene.getLight(i);
-
-                glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".position").c_str()), light.getPosition().x, light.getPosition().y, light.getPosition().z);
-                glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".ambient").c_str()), light.getAmbient().x, light.getAmbient().y, light.getAmbient().z);
-                glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".diffuse").c_str()), light.getDiffuse().x, light.getDiffuse().y, light.getDiffuse().z);
-                glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".specular").c_str()), light.getSpecular().x, light.getSpecular().y, light.getSpecular().z);
-                glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".constant").c_str()), light.getConstant());
-                glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".linear").c_str()), light.getLinear());
-                glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".quadratic").c_str()), light.getQuadratic());
-            }
+            scene.drawLightModel(shader);
 
             wallShader.Use();
             glUniform3f(glGetUniformLocation(wallShader.Program, "viewPos"), camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
+            scene.drawLightWall(wallShader);
 
-            for (int i = 0; i < scene.getLightNumber(); ++i)
-            {
-                string pointLight = "pointLights[" + to_string(i) + "]";
-                Light light = scene.getLight(i);
-
-                glUniform3f(glGetUniformLocation(wallShader.Program, (pointLight + ".position").c_str()), light.getPosition().x, light.getPosition().y, light.getPosition().z);
-                glUniform3f(glGetUniformLocation(wallShader.Program, (pointLight + ".ambient").c_str()), 0.5f, 0.5f, 0.5f);
-                glUniform3f(glGetUniformLocation(wallShader.Program, (pointLight + ".diffuse").c_str()), 0.5f, 0.5f, 0.5f);
-                glUniform3f(glGetUniformLocation(wallShader.Program, (pointLight + ".specular").c_str()), 1.0f, 1.0f, 1.0f);
-                glUniform1f(glGetUniformLocation(wallShader.Program, (pointLight + ".constant").c_str()), 1.0f);
-                glUniform1f(glGetUniformLocation(wallShader.Program, (pointLight + ".linear").c_str()), 0.09);
-                glUniform1f(glGetUniformLocation(wallShader.Program, (pointLight + ".quadratic").c_str()), 0.032);
-            }
-
+            //***** TEXT *****//
             if(interaction) text.DrawHint(shaderText);
             text.Draw(shaderText, isDialogue, isAnswer, chooseAnswer, dialogue, answers);
         }

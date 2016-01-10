@@ -162,7 +162,7 @@ void Text::Draw(Shader shaderText, bool isDialogue, bool isAnswer, int chooseAns
     // Draw texts
     if(isDialogue == 1) {
         if(!isAnswer)
-            RenderText(shaderText, dialogue, 150.0f, 100.0f, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f));
+            RenderText(shaderText, dialogue, 110.0f, 100.0f, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f));
         else {
             if(chooseAnswer == 0)  {
                 answerColor1 = glm::vec3(0.8f, 0.0f, 0.0f);
@@ -172,14 +172,14 @@ void Text::Draw(Shader shaderText, bool isDialogue, bool isAnswer, int chooseAns
                 answerColor1 = glm::vec3(0.0f, 0.0f, 0.0f);
                 answerColor2 = glm::vec3(0.8f, 0.0f, 0.0f);
             }
-            RenderText(shaderText, answers[0], 150.0f, 100.0f, 0.5f, answerColor1);
+            RenderText(shaderText, answers[0], 110.0f, 100.0f, 0.5f, answerColor1);
             RenderText(shaderText, answers[1], 600.0f, 100.0f, 0.5f, answerColor2);
         }
     }
 }
 
 void Text::DrawHint(Shader shaderText){
-    RenderText(shaderText, "Press E to interact with this object", 150.0f, 100.0f, 0.5f,  glm::vec3(0.8f, 0.7f, 0.0f));
+    RenderText(shaderText, "Press E to interact with this object", 130.0f, 100.0f, 0.5f,  glm::vec3(0.8f, 0.7f, 0.0f));
 }
 
 void Text::drawHome(Shader shaderText,float screenwith, float screenheight) {
@@ -199,3 +199,15 @@ void Text::drawCommand(Shader shaderText) {
     RenderText(shaderText, "q or esc :", 400.0f, 350.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
     RenderText(shaderText, "Quit", 700.0f, 350.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
 }
+
+void Text::drawEnd1(Shader shaderText, float screenwith, float screenheight) {
+    RenderText(shaderText, "Who killed Guilhem ?!", (screenwith/2.0f)-300, screenheight/2.0f, 1.0f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "Press space to try again", (screenwith/2.0f)-100, (screenheight/2.0f)-70, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
+}
+
+void Text::drawEnd2(Shader shaderText, float screenwith, float screenheight) {
+    RenderText(shaderText, "I killed him...", (screenwith/2.0f)-180, screenheight/2.0f, 1.0f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "Press space to try again", (screenwith/2.0f)-100, (screenheight/2.0f)-70, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
+}
+
+

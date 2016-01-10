@@ -19,10 +19,12 @@ class Text {
 		void LoadText(Shader &shader,GLuint width,GLuint height);
 		void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
 		void nextText(bool &isDialogue, bool &isAnswer, bool &answer, int &cptDialogue, Scene scene, std::string &dialogue, std::string answers[], int group);
- 		void Draw(Shader shaderText,bool isDialogue, bool isAnswer,int chooseAnswer,std::string dialogue,std::string answers[]);
+ 		void Draw(Shader shaderText, bool isDialogue, bool isAnswer,int chooseAnswer,std::string dialogue,std::string answers[]);
  		void DrawHint(Shader shaderText);
- 		void drawHome(Shader shaderText,float screenwith, float screenheight);
+ 		void drawHome(Shader shaderText, float screenwith, float screenheight);
  		void drawCommand(Shader shaderText);
+ 		void drawEnd1(Shader shaderText, float screenwith, float screenheight);
+ 		void drawEnd2(Shader shaderText, float screenwith, float screenheight);
    
 	private:
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scene>
-	<music>../assets/musics/mojo.wav</music>
+	<music>../assets/musics/ScreamElectro.wav</music>
 	<room>
 		<!-- Take care of proportion to keep the camera in the room -->
 		<width>10</width>
@@ -24,7 +24,7 @@
 			<path>../assets/models/bedroom/bedWithTexture/bedWithTexture.obj</path>
 			<translate x="1.3f" y="-2.2f" z="-8.3f"></translate>
 			<scale x="0.02f" y="0.02f" z="0.02f"></scale>
-			<interaction>2</interaction>
+			<interaction>1</interaction>
 		</model>
 		<model>
 			<path>../assets/models/bedroom/bureau/bureau3.obj</path>
@@ -53,7 +53,7 @@
 			<path>../assets/models/bedroom/petitReveil/petitReveil.obj</path>
 			<translate x="-1.5f" y="-1.9f" z="-9.3f"></translate>
 			<scale x="0.06f" y="0.06f" z="0.06f"></scale>
-			<interaction>1</interaction>
+			<interaction>3</interaction>
 		</model>
 		<model>
 			<path>../assets/models/bedroom/InariFrame/InariFrame.obj</path>
@@ -71,7 +71,7 @@
 			<translate x="3.3f" y="0.3f" z="-1.8f"></translate>
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
 			<rotate x="0.0f" y="1.0f" z="0.0f">-90</rotate>
-			<interaction>3</interaction>
+			<interaction>2</interaction>
 		</model>
 		<model>
 			<path>../assets/models/window/fancyWindow/fancyWindow.obj</path>
@@ -95,6 +95,18 @@
 				<message>Analyse each objects. It can help you to remember something.</message>
 			</dialogue>
 		</group>
+		<!-- Bed interaction -->
+		<group>
+			<dialogue>
+				<message>Na na na na na na... Batman !</message>
+			</dialogue>
+		</group>
+		<!-- Dart game interaction -->
+		<group>
+			<dialogue>
+				<message>So much skill !</message>
+			</dialogue>
+		</group>
 		<!-- Alarm clock interaction -->
 		<group>
 			<dialogue>
@@ -106,18 +118,6 @@
 					<answer>Living room</answer>
 					<answer>Bathroom</answer>
 				</answers>
-			</dialogue>
-		</group>
-		<!-- Bed interaction -->
-		<group>
-			<dialogue>
-				<message>Na na na na na na... Batman !</message>
-			</dialogue>
-		</group>
-		<!-- Dart game interaction -->
-		<group>
-			<dialogue>
-				<message>So much skill !</message>
 			</dialogue>
 		</group>
 	</dialogues>

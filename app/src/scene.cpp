@@ -18,6 +18,10 @@ void Scene::loadSceneFromFile(const char* filename){
     XMLElement *music = doc.FirstChildElement("scene");
     pathMusic = music->FirstChildElement("music")->GetText();
 
+    XMLElement *end = doc.FirstChildElement("scene");
+    if(end->FirstChildElement("end")) this->end = atoi(end->FirstChildElement("end")->GetText());
+    else this->end = 0;
+
 	loadModels(doc);
 	loadDialogues(doc);
 	loadLights(doc);
@@ -133,6 +137,10 @@ Dialogue Scene::getDialogue(int group, int number){
 	return _dialogues.at(group).at(number);
 }
 
+int Scene::getGroupNumber() {
+    return _dialogues.size();
+}
+
 int Scene::getDialogueNumber(int group) {
 	return _dialogues.at(group).size();
 }
@@ -155,6 +163,10 @@ glm::vec4 Scene::getWallLimits() {
 
 const char* Scene::getPathMusic(){
     return pathMusic;
+}
+
+int Scene::getEnd(){
+    return end;
 }
 
 void Scene::loadRoom(XMLDocument& doc){
@@ -318,8 +330,42 @@ void Scene::drawRoom(Shader shader){
     glEnable(GL_BLEND);
 }
 
+void Scene::drawLightModel(Shader shader) {
+    for (int i = 0; i < getLightNumber(); ++i)
+    {
+        string pointLight = "pointLights[" + to_string(i) + "]";
+        Light light = getLight(i);
+
+        glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".position").c_str()), light.getPosition().x, light.getPosition().y, light.getPosition().z);
+        glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".ambient").c_str()), light.getAmbient().x, light.getAmbient().y, light.getAmbient().z);
+        glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".diffuse").c_str()), light.getDiffuse().x, light.getDiffuse().y, light.getDiffuse().z);
+        glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".specular").c_str()), light.getSpecular().x, light.getSpecular().y, light.getSpecular().z);
+        glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".constant").c_str()), light.getConstant());
+        glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".linear").c_str()), light.getLinear());
+        glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".quadratic").c_str()), light.getQuadratic());
+    }
+}
+
+void Scene::drawLightWall(Shader shader){
+    for (int i = 0; i < getLightNumber(); ++i)
+    {
+        string pointLight = "pointLights[" + to_string(i) + "]";
+        Light light = getLight(i);
+
+        glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".position").c_str()), light.getPosition().x, light.getPosition().y, light.getPosition().z);
+        glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".ambient").c_str()), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".diffuse").c_str()), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(shader.Program, (pointLight + ".specular").c_str()), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".constant").c_str()), 1.0f);
+        glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".linear").c_str()), 0.09);
+        glUniform1f(glGetUniformLocation(shader.Program, (pointLight + ".quadratic").c_str()), 0.032);
+    }
+}
+
 void Scene::deleteRoom(){
     glDeleteBuffers(1, &_vbo);
     glDeleteVertexArrays(1, &_vao);
 	glDeleteTextures(3, _texturesArray);
 }
+
+
