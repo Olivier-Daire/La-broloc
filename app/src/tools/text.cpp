@@ -2,8 +2,6 @@
 
 using namespace std;
 
-Text::Text() {}
-
 void Text::LoadText(Shader &shader,GLuint width,GLuint height) {
 	// Set OpenGL options
     glEnable(GL_CULL_FACE);
@@ -124,60 +122,6 @@ void Text::RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GL
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Text::nextText(bool &isDialogue, bool &isAnswer, bool &answer, int &cptDialogue, Scene scene, std::string &dialogue, std::string answers[], int group) 
-{
-    isAnswer = 0;
-
-    if(cptDialogue < scene.getDialogueNumber(group)) {
-        if(cptDialogue == 0) cptDialogue++;
-        // If it is a message and not an answer
-        if(!answer) {
-            // FIXME calling out of range somewhere around here, due to cptDialogue value
-            if(scene.getAnswerNumber(group, cptDialogue) > 0) {
-                answer = 1;
-                dialogue = scene.getDialogue(group, cptDialogue).getMessage();
-            }
-            else {
-                dialogue = scene.getDialogue(group, cptDialogue).getMessage();
-                cptDialogue++;
-            }
-        }
-        else {
-            answers[0] = scene.getDialogue(group, cptDialogue).getAnswer(0);
-            answers[1] = scene.getDialogue(group, cptDialogue).getAnswer(1);
-            answer = 0;
-            cptDialogue++;
-            isAnswer = 1;
-        }
-    } else {
-        isDialogue = 0;
-        cptDialogue = 0; 
-    }
-}
-
-void Text::Draw(Shader shaderText, bool isDialogue, bool isAnswer, int chooseAnswer, std::string dialogue, std::string answers[]) {
-    glm::vec3 answerColor1;
-    glm::vec3 answerColor2;
-
-    // Draw texts
-    if(isDialogue == 1) {
-        if(!isAnswer)
-            RenderText(shaderText, dialogue, 110.0f, 100.0f, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f));
-        else {
-            if(chooseAnswer == 0)  {
-                answerColor1 = glm::vec3(0.8f, 0.0f, 0.0f);
-                answerColor2 = glm::vec3(0.0f, 0.0f, 0.0f);
-            }
-            else {
-                answerColor1 = glm::vec3(0.0f, 0.0f, 0.0f);
-                answerColor2 = glm::vec3(0.8f, 0.0f, 0.0f);
-            }
-            RenderText(shaderText, answers[0], 110.0f, 100.0f, 0.5f, answerColor1);
-            RenderText(shaderText, answers[1], 600.0f, 100.0f, 0.5f, answerColor2);
-        }
-    }
-}
-
 void Text::DrawHint(Shader shaderText){
     RenderText(shaderText, "Press E to interact with this object", 130.0f, 100.0f, 0.5f,  glm::vec3(0.8f, 0.7f, 0.0f));
 }
@@ -185,7 +129,6 @@ void Text::DrawHint(Shader shaderText){
 void Text::drawHome(Shader shaderText,float screenwith, float screenheight) {
     RenderText(shaderText, "The  Broloc", (screenwith/2.0f)-180, screenheight/2.0f, 1.0f,  glm::vec3(1.0f, 1.0f, 1.0f));
     RenderText(shaderText, "Press space to start", (screenwith/2.0f)-100, (screenheight/2.0f)-70, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
-
 }
 
 void Text::drawCommand(Shader shaderText) {
@@ -209,5 +152,4 @@ void Text::drawEnd2(Shader shaderText, float screenwith, float screenheight) {
     RenderText(shaderText, "I killed him...", (screenwith/2.0f)-180, screenheight/2.0f, 1.0f,  glm::vec3(1.0f, 1.0f, 1.0f));
     RenderText(shaderText, "Press space to try again", (screenwith/2.0f)-100, (screenheight/2.0f)-70, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
 }
-
 

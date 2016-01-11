@@ -4,22 +4,18 @@ Dialogue::Dialogue(){
 
 }
 
-string Dialogue::getMessage(){
-	return _message;
+void Dialogue::draw(Shader shaderText, int chooseAnswer,Text text){
+
 }
 
-void Dialogue::setMessage(string message){
-	_message = message;
+string Dialogue::getText(int i) {
+	return "";
 }
 
-vector<string> Dialogue::getAnswers(){
-	return _answers;
+bool Dialogue::getAnswer() {
+	return false;
 }
 
-string Dialogue::getAnswer(int number){
-	return _answers.at(number);
-}
+Dialogue::~Dialogue(){
 
-void Dialogue::addAnswer(string answer){
-	_answers.push_back(answer);
 }

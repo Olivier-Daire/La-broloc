@@ -66,13 +66,13 @@
 			<translate x="-5.5f" y="-0.85f" z="0.3f"></translate>
 			<scale x="0.02f" y="0.02f" z="0.02f"></scale>
 			<rotate x="0.0f" y="1.0f" z="0.0f">90</rotate>
-			<interaction>2</interaction>
+			<interaction>1</interaction>
 		</model>
 		<model>
 			<path>../assets/models/bedroom/Gibson LesPaul/gibson.obj</path>
 			<translate x="2.5f" y="-3.0f" z="-9.0f"></translate>
 			<scale x="0.03f" y="0.03f" z="0.03f"></scale>
-			<interaction>1</interaction>
+			<interaction>2</interaction>
 		</model>
 		<model>
 			<path>../assets/models/bedroom/yuccaPlant/yuccaPlant.obj</path>
@@ -93,6 +93,12 @@
 				<message>Ok, what about your rommate bedroom ?</message>
 			</dialogue>
 		</group>
+		<!-- Java book interaction -->
+		<group>
+			<dialogue>
+				<message>Damn, I need to study !</message>
+			</dialogue>
+		</group>
 		<!-- Guitar interaction -->
 		<group>
 			<dialogue>
@@ -106,12 +112,6 @@
 			</dialogue>
 			<dialogue>
 				<message>Oh shit, I remember now.</message>
-			</dialogue>
-		</group>
-		<!-- Java book interaction -->
-		<group>
-			<dialogue>
-				<message>Damn, I need to study !</message>
 			</dialogue>
 		</group>
 	</dialogues>

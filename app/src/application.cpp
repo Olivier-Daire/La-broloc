@@ -25,16 +25,15 @@ std::string Application::launch(std::string currentScene) {
     /*********** END INIT ************/
     Camera camera;
     // Text related data
-    Text text;
-    bool answer = false, isAnswer = false, isDialogue = true;
-    int cptDialogue = 1, nbAnswer = 2, chooseAnswer = 0;
-    std::string dialogue;
-    std::string answers[nbAnswer];
+    bool isDialogue = true;
+    int cptDialogue = 0, nbAnswer = 2, chooseAnswer = 0;
     int group = 0;
     bool interaction = false;
 
     std::string nextScene;
     Scene scene;
+    Text text;
+
 
     Shader shaderText("../assets/shaders/text.vs.glsl", "../assets/shaders/text.fs.glsl");
     Shader shader("../assets/shaders/pointlight.vs.glsl", "../assets/shaders/pointlight.fs.glsl");
@@ -43,7 +42,6 @@ std::string Application::launch(std::string currentScene) {
     // Load models infos, room, dialogues, lights
     if(currentScene != "Home" && currentScene != "Command" && currentScene != "End1" && currentScene != "End2") {
         scene.loadSceneFromFile(("../assets/scenes/" + currentScene  + ".xml").c_str());
-        dialogue = scene.getDialogue(group, 0).getMessage();
         if(scene.getPathMusic() != NULL) Sound::loadSound(scene.getPathMusic());
     }
     if(currentScene == "Home") {
@@ -80,8 +78,7 @@ std::string Application::launch(std::string currentScene) {
                         {
                             isDialogue = true;  
                             interaction = false;
-                            cptDialogue = 1; // FIXME, see text.cpp
-                            dialogue = scene.getDialogue(group, 0).getMessage();
+                            cptDialogue = 0;
                         }
                         
                     break;
@@ -99,29 +96,36 @@ std::string Application::launch(std::string currentScene) {
                             nextScene = "Hospital";
                             done = true;
                         }
-                        else if(isAnswer) {
-                            istringstream iss(answers[chooseAnswer]);
+                        else if(scene.getDialogue(group, cptDialogue)->getAnswer()) {
+                            istringstream iss(scene.getDialogue(group, cptDialogue)->getText(chooseAnswer));
                             std::string word;
                             iss >> word;
                             nextScene = word;
                             done = true;
                         }
-                        else if(scene.getEnd() != 0 && group == scene.getGroupNumber()-1 && cptDialogue == scene.getDialogueNumber(group)) {
+                        else if(scene.getEnd() != 0 && group == scene.getGroupNumber()-1 && cptDialogue == scene.getDialogueNumber(group)-1) {
                             if(scene.getEnd() == 1) nextScene = "End1";
                             if(scene.getEnd() == 2) nextScene = "End2";
                             if(scene.getEnd() != 0) done = true;
                         }
-                        else if(isDialogue) text.nextText(isDialogue, isAnswer, answer, cptDialogue, scene, dialogue, answers, group);
-            
+                        else if(isDialogue) {
+                            if(cptDialogue < scene.getDialogueNumber(group)-1) {
+                                cptDialogue++;
+                            }
+                            else {
+                                isDialogue = false;
+                                cptDialogue = 0; 
+                            }
+                        }
                     break;
                     case SDLK_RIGHT:
-                       if(isAnswer) {
+                       if(isDialogue && scene.getDialogue(group, cptDialogue)->getAnswer()) {
                             chooseAnswer++;
                             if(chooseAnswer == nbAnswer) chooseAnswer = 0;
                         }
                     break;
                     case SDLK_LEFT:
-                        if(isAnswer) {
+                        if(isDialogue && scene.getDialogue(group, cptDialogue)->getAnswer()) {
                             if(chooseAnswer == 0) chooseAnswer = nbAnswer;
                             chooseAnswer--;
                         }
@@ -213,7 +217,7 @@ std::string Application::launch(std::string currentScene) {
 
             //***** TEXT *****//
             if(interaction) text.DrawHint(shaderText);
-            text.Draw(shaderText, isDialogue, isAnswer, chooseAnswer, dialogue, answers);
+            if(isDialogue) scene.getDialogue(group, cptDialogue)->draw(shaderText, chooseAnswer,text);
         }
 
         // Update the display

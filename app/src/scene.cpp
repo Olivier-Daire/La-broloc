@@ -76,24 +76,24 @@ void Scene::loadDialogues(XMLDocument& doc){
 	XMLElement *dialogues = doc.FirstChildElement("scene")->FirstChildElement("dialogues");
 
     for (const XMLElement* group = dialogues->FirstChildElement(); group != NULL; group = group->NextSiblingElement()){
-        vector<Dialogue> groupContent;
+        vector<Dialogue*> groupContent;
 
         for (const XMLElement* dialogue = group->FirstChildElement(); dialogue != NULL; dialogue = dialogue->NextSiblingElement())
         {
-            Dialogue dialogueContent;
 
             // Get message of the dialogue
-            dialogueContent.setMessage(dialogue->FirstChildElement("message")->GetText());
-
+            groupContent.push_back(new Message (dialogue->FirstChildElement("message")->GetText()));
             // Get all the possible answers
             if(dialogue->FirstChildElement("answers")) {
-              const XMLElement *answers = dialogue->FirstChildElement("answers");
+                string answ[2];
+                int i = 0;
+                const XMLElement *answers = dialogue->FirstChildElement("answers");
                 for (const XMLElement* answer = answers->FirstChildElement(); answer != NULL; answer = answer->NextSiblingElement()){
-                dialogueContent.addAnswer(answer->GetText());
-              }
+                    answ[i] = answer->GetText();
+                    i++;
+                }
+                groupContent.push_back(new Answer(answ));
             }
-
-            groupContent.push_back(dialogueContent);
         }
         _dialogues.push_back(groupContent);
     }
@@ -133,7 +133,7 @@ int Scene::getModelNumber(){
     return _models.size();
 }
 
-Dialogue Scene::getDialogue(int group, int number){
+Dialogue* Scene::getDialogue(int group, int number){
 	return _dialogues.at(group).at(number);
 }
 
@@ -143,10 +143,6 @@ int Scene::getGroupNumber() {
 
 int Scene::getDialogueNumber(int group) {
 	return _dialogues.at(group).size();
-}
-
-int Scene::getAnswerNumber(int group, int i) {
-	return _dialogues.at(group).at(i).getAnswers().size();
 }
 
 Light Scene::getLight(int number){
@@ -363,6 +359,7 @@ void Scene::drawLightWall(Shader shader){
 }
 
 void Scene::deleteRoom(){
+    cleanDialogue();
     glDeleteBuffers(1, &_vbo);
     glDeleteVertexArrays(1, &_vao);
 	glDeleteTextures(3, _texturesArray);

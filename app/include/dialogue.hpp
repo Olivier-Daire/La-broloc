@@ -1,6 +1,11 @@
 #pragma once
 #include <vector>
 #include <string>
+#include "tools/text.hpp"
+#include "shader.hpp"
+#include <glm/glm.hpp>
+#include <iostream>
+
 
 using namespace std;
 
@@ -8,13 +13,10 @@ class Dialogue
 {
 	public:
 		Dialogue();
-		string getMessage();
-		void setMessage(string message);
-		vector<string> getAnswers();
-		string getAnswer(int number);
-		void addAnswer(string answer);
+		virtual void draw(Shader shaderText, int chooseAnswer,Text text);
+		virtual string getText(int i);
+		virtual bool getAnswer();
+		virtual ~Dialogue();
 
-	private:
-		string _message;
-		vector<string> _answers;
+
 };
