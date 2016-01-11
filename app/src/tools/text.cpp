@@ -139,7 +139,7 @@ void Text::drawCommand(Shader shaderText) {
     RenderText(shaderText, "Pass the text", 700.0f, 450.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
     RenderText(shaderText, "e :", 400.0f, 400.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
     RenderText(shaderText, "Interact with object", 700.0f, 400.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
-    RenderText(shaderText, "q or esc :", 400.0f, 350.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
+    RenderText(shaderText, "esc :", 400.0f, 350.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
     RenderText(shaderText, "Quit", 700.0f, 350.0f, 0.3f,  glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
